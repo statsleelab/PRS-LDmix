@@ -1,8 +1,8 @@
 {
   "study": "figures",
   "program": "inst/scripts/null_sim/19_sweep_paper_figures.R",
-  "command": "Rscript inst/scripts/null_sim/19_sweep_paper_figures.R 'inst/scripts/results/sim250_sweep_100rep' 'paper/sim250_sweep_250kb/figures' 'all' 'auto' 'no'",
-  "asset_commit": "b1a4f7e6abecfbb03acf8d1e696e056dca84d1bb",
+  "command": "Rscript inst/scripts/null_sim/19_sweep_paper_figures.R 'inst/scripts/results/sim250_sweep_100rep' 'paper/sim250_sweep_250kb/figures' 'all' 'auto' 'no' 'no'",
+  "asset_commit": "121f38cb0d8b44b0e816100bf76e2dfda2d3e9a2",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "provisional": false,
@@ -68,11 +68,11 @@
   "outputs": {
     "fig_png": {
       "path": "paper/sim250_sweep_250kb/figures/fig_top10_overlap_eur.png",
-      "sha256": "b11b69c6cd148bc769bdc65b9a9e69aa0764c39ecb3f9c5815a262c41c46b97f"
+      "sha256": "9f891c374de38ba61416076c9f5758cb9141ac36becdb9760ce96eea0d57ebfb"
     },
     "fig_pdf": {
       "path": "paper/sim250_sweep_250kb/figures/fig_top10_overlap_eur.pdf",
-      "sha256": "c11b3e0e566313a9cccad3604181c237d367a5dca24da8081db7522617b97d4e"
+      "sha256": "1f0e1bac14829d842e15873be1df6b2f79c7ffcfe151d1f377af3ff921297168"
     },
     "figure_data": {
       "path": "paper/sim250_sweep_250kb/figures/figure_data.tsv",
@@ -110,6 +110,7 @@
     },
     "replicate_filter": "all",
     "phi_mode": "auto",
+    "footnote": false,
     "overlap": "top10_EUR_<target> of 07_metrics_nonnull.R: share of a run's top 10% of target scores also in the EUR panel run's top 10%",
     "rerun": "single_EUR_seed2: the EUR panel with sampler seed 2000 + rep (all other arms use 1000 + rep)",
     "prs_mix": "mix_w<w> at the generating composition w"
