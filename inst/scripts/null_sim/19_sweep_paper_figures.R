@@ -19,11 +19,13 @@
 # panel); its top-10% results are in 18_sweep_paper_tables.R's Table 2.
 #
 # Usage (from the PRS-MIX root):
-#   Rscript inst/scripts/null_sim/19_sweep_paper_figures.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no]
+#   Rscript inst/scripts/null_sim/19_sweep_paper_figures.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no] [footnote=yes]
 #
 #   <sweep_dir>  e.g. inst/scripts/results/sim250_sweep_100rep, holding
 #                <pair>/w<w>/metrics/nonnull_metrics.tsv for every setting.
 #   reps         all, or N to use replicates 1..N of every setting.
+#   footnote     no leaves out the explanatory text under the plot (the paper's
+#                caption explains the figure); a provisional note is always kept.
 #
 # As in 18_sweep_paper_tables.R, writing under paper/ requires committed inputs
 # and program and at least 100 replicates per setting, except for a placeholder:
@@ -34,12 +36,13 @@ script_dir <- dirname(sub("^--file=", "", grep("^--file=", commandArgs(FALSE), v
 source(file.path(script_dir, "common.R"))
 suppressPackageStartupMessages(library(ggplot2))
 grDevices::pdf(NULL)  # keep ggplot from opening a default device (Rplots.pdf) in the working directory
-args <- ns_args("Rscript 19_sweep_paper_figures.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no]", 2)
+args <- ns_args("Rscript 19_sweep_paper_figures.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no] [footnote=yes]", 2)
 sweep_dir <- args[[1]]
 out_dir <- args[[2]]
 reps_arg <- ns_arg(args, 3, "all")
 phi_mode <- ns_arg(args, 4, "auto")
 provisional <- ns_arg(args, 5, "no") == "yes"
+footnote <- ns_arg(args, 6, "yes") == "yes"
 program <- "inst/scripts/null_sim/19_sweep_paper_figures.R"
 dir.create(file.path(out_dir, "inputs"), recursive = TRUE, showWarnings = FALSE)
 to_paper <- grepl("(^|/)paper/", normalizePath(out_dir))
@@ -121,10 +124,10 @@ fig <- ggplot(fd, aes(mix, overlap_pct, fill = method)) +
   scale_y_continuous(limits = c(50, 100), breaks = seq(50, 100, 10)) +
   labs(x = "GWAS ancestry mix (as named in the panel title, e.g. 70:30 = 70% EUR, 30% ASN)",
        y = "Overlap with the EUR panel's top 10% (%)",
-       caption = paste(c(
+       caption = paste(c(if (footnote) c(
          sprintf("Overlap: share of a run's top 10%% that is also in the EUR panel's original top 10%%. Each point is one replicate (%s per box).", rep_text),
          "Grey: the EUR panel rerun with a new seed, the agreement expected from sampler randomness alone.",
-         "Blue below grey: PRS-MIX changes the top 10% more than randomness does.", prov_note), collapse = "\n")) +
+         "Blue below grey: PRS-MIX changes the top 10% more than randomness does."), prov_note), collapse = "\n")) +
   theme_classic(base_size = 9, base_family = "Helvetica") +
   theme(axis.line = element_line(linewidth = 0.3, colour = ink), axis.ticks = element_line(linewidth = 0.3, colour = ink),
         axis.text = element_text(colour = ink), axis.title = element_text(colour = ink),
@@ -133,8 +136,9 @@ fig <- ggplot(fd, aes(mix, overlap_pct, fill = method)) +
         legend.position = "top", legend.justification = "left", legend.key.width = unit(14, "pt"),
         plot.caption = element_text(hjust = 0, colour = muted, size = 7))
 stem <- file.path(out_dir, "fig_top10_overlap_eur")
-ggsave(paste0(stem, ".png"), fig, width = 7.0, height = 5.0, dpi = 300, device = ragg::agg_png)
-ggsave(paste0(stem, ".pdf"), fig, width = 7.0, height = 5.0, device = grDevices::pdf, useDingbats = FALSE)
+height <- if (footnote) 5.0 else 4.6
+ggsave(paste0(stem, ".png"), fig, width = 7.0, height = height, dpi = 300, device = ragg::agg_png)
+ggsave(paste0(stem, ".pdf"), fig, width = 7.0, height = height, device = grDevices::pdf, useDingbats = FALSE)
 
 # ---- Manifest ------------------------------------------------------------
 head_commit <- git("rev-parse", "HEAD")
@@ -151,7 +155,7 @@ manifest <- list(
   outputs = outputs,
   settings = list(
     chromosome = 22, block_layout = "fixed 250 kb", pairs = unname(lapply(pairs, as.list)), compositions_A = ws,
-    replicates_used = as.list(n_reps), replicate_filter = reps_arg, phi_mode = phi_mode,
+    replicates_used = as.list(n_reps), replicate_filter = reps_arg, phi_mode = phi_mode, footnote = footnote,
     overlap = "top10_EUR_<target> of 07_metrics_nonnull.R: share of a run's top 10% of target scores also in the EUR panel run's top 10%",
     rerun = "single_EUR_seed2: the EUR panel with sampler seed 2000 + rep (all other arms use 1000 + rep)",
     prs_mix = "mix_w<w> at the generating composition w"),
