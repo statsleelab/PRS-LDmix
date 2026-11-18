@@ -6,7 +6,8 @@
 #   table_panel_checks.tex     S1a. Per layout and superpopulation: chromosomes
 #                              passing the structural and matrix checks, blocks
 #                              and SNPs, and agreement of within-block r with
-#                              PRS-CS's published 1000 Genomes panels (median
+#                              PRS-CS's published 1000 Genomes panels for all
+#                              five superpopulations (median
 #                              and range over chromosomes, shared SNP pairs).
 #   table_panel_samples.tex    S1b. Per superpopulation: reference sample size,
 #                              mean r^2 between neighbouring SNPs, median MAF and
@@ -41,7 +42,7 @@ git <- function(...) system2("git", c(...), stdout = TRUE)
 
 layouts <- c(fixed250kb = "Fixed 250 kb blocks", eurcuts = "PRS-CS EUR cut points")
 pops <- c("EUR", "ASN", "AFR", "AMR", "SAS")
-prscs_ref <- c(EUR = "EUR", ASN = "EAS", AFR = "AFR")
+prscs_ref <- c(EUR = "EUR", ASN = "EAS", AFR = "AFR", AMR = "AMR", SAS = "SAS")
 chrs <- 1:22
 
 # ---- Freeze inputs -------------------------------------------------------
@@ -91,8 +92,10 @@ rep_df <- do.call(rbind, reports)
 for (l in names(layouts)) {
   sm <- ns_read_tsv(inputs[[file.path(paste0("panel_validation_", l), "summary.tsv")]]$path)
   for (p in names(prscs_ref)) {
+    cn <- sprintf("%s_vs_PRScs_%s_cor", p, prscs_ref[[p]])
+    if (!cn %in% names(sm)) next  # summary.tsv records the original EUR/ASN/AFR comparison only
     a <- rep_df$cor[rep_df$layout == l & rep_df$pop == p][match(sm$chr, chrs)]
-    stopifnot(isTRUE(all.equal(a, sm[[sprintf("%s_vs_PRScs_%s_cor", p, prscs_ref[[p]])]], tolerance = 1e-9)))
+    stopifnot(isTRUE(all.equal(a, sm[[cn]], tolerance = 1e-9)))
   }
   stopifnot(all(sm$checks == "PASS"))
 }
@@ -107,7 +110,8 @@ for (l in names(layouts)) for (p in pops) {
   put("checks", l, p, "chromosomes_pass", sum(x$checks_pass))
   put("checks", l, p, "blocks", sum(x$blocks))
   put("checks", l, p, "snps", sum(x$snps))
-  if (p %in% names(prscs_ref)) {
+  if (p %in% names(prscs_ref) && any(is.finite(x$cor))) {
+    stopifnot(all(is.finite(x$cor)))
     put("checks", l, p, "cor_median", stats::median(x$cor)); put("checks", l, p, "cor_min", min(x$cor)); put("checks", l, p, "cor_max", max(x$cor))
     put("checks", l, p, "rmse_median", stats::median(x$rmse)); put("checks", l, p, "rmse_min", min(x$rmse)); put("checks", l, p, "rmse_max", max(x$rmse))
     put("checks", l, p, "pairs", sum(x$pairs))
@@ -171,13 +175,13 @@ build <- function(tex) {
   if (!tex) heads[6:7] <- c("Correlation of <i>r</i>", "RMSE of <i>r</i>")
   groups <- lapply(names(layouts), function(l) lapply(pops, function(p) c(
     p, sprintf("%d of 22", v("checks", l, p, "chromosomes_pass")), big(v("checks", l, p, "blocks")), big(v("checks", l, p, "snps")),
-    if (p %in% names(prscs_ref)) prscs_ref[[p]] else tx(tex, "none", "none"),
+    if (!is.na(v("checks", l, p, "cor_median"))) prscs_ref[[p]] else "not evaluated",
     rng(l, p, "cor"), rng(l, p, "rmse"),
-    if (p %in% names(prscs_ref)) big(v("checks", l, p, "pairs")) else dash(tex))))
+    if (!is.na(v("checks", l, p, "pairs"))) big(v("checks", l, p, "pairs")) else dash(tex))))
   names(groups) <- unname(layouts)
   out$panel_checks <- render(heads, groups, tex)
   heads <- c("Superpopulation", "Reference individuals",
-             tx(tex, "Mean $r^2$, neighbouring SNPs", "Mean <i>r</i><sup>2</sup>, neighbouring SNPs"), "Median MAF",
+             tx(tex, "Mean $r^2$, adjacent SNPs", "Mean <i>r</i><sup>2</sup>, adjacent SNPs"), "MAF, per-chromosome median",
              paste0("SNPs with MAF < 0.05 (", pct, ")"))
   if (tex) heads[5] <- paste0("SNPs with MAF $<$ 0.05 (", pct, ")")
   out$panel_samples <- render(heads, list(" " = lapply(pops, function(p) c(
@@ -209,10 +213,14 @@ captions <- c(
                        "|<i>r</i>| &le; 1, and is positive definite. Agreement: correlation and root-mean-square difference between",
                        "our within-block <i>r</i> and that of PRS-CS's published 1000 Genomes panel for the matching population, over",
                        "SNP pairs in the same block in both panels, after aligning alleles; median and range over the 22 chromosomes.",
-                       "PRS-CS publishes no AMR or SAS panel."),
-  panel_samples = paste("Fixed 250 kb panels. Mean <i>r</i><sup>2</sup> between neighbouring SNPs, median minor allele frequency and the",
-                        "share of SNPs with MAF &lt; 0.05, averaged over chromosomes weighted by SNP count. AFR shows the weaker",
-                        "short-range LD expected of African-ancestry populations."),
+                       "The 33KG reference panel includes the 1000 Genomes samples, and its AMR and SAS populations are the 1000",
+                       "Genomes populations of those superpopulations, so the samples behind the two panels largely overlap: the",
+                       "comparison checks that the panels are built correctly, not that they replicate in independent samples."),
+  panel_samples = paste("Fixed 250 kb panels. Each statistic is computed per chromosome and then averaged over chromosomes, weighted",
+                        "by SNP count. Mean <i>r</i><sup>2</sup>, adjacent SNPs: the mean squared correlation between consecutive SNPs",
+                        "in the same block (pairs that span a block boundary are excluded). MAF, per-chromosome median: the median",
+                        "minor allele frequency of each chromosome, so not the genome-wide median. MAF &lt; 0.05: the share of SNPs below",
+                        "0.05. AFR shows the weaker short-range LD expected of African-ancestry populations."),
   upstream = paste("Chromosome 22, 250 kb panels, EUR+ASN 70:30 GWAS, replicates 1&ndash;10. PRS-MIX's modified PRS-CS script",
                    "(<code>PRScs_mix.py</code>) given a single panel, against unmodified PRS-CS (<code>PRScs.py</code>, commit 5330390)",
                    "with the same panel, GWAS and seed, for both single panels. Files compared: posterior SNP-effect files."))
