@@ -35,8 +35,8 @@
   [INFO] EUR vs PRS-CS 1KG EUR: r correlation 0.957, RMSE 0.044 over 4,683,224 shared within-block pairs (14,040 SNPs in both)
   [INFO] ASN vs PRS-CS 1KG EAS: r correlation 0.956, RMSE 0.048 over 3,857,333 shared within-block pairs (14,014 SNPs in both)
   [INFO] AFR vs PRS-CS 1KG AFR: r correlation 0.973, RMSE 0.035 over 2,284,892 shared within-block pairs (13,824 SNPs in both)
-  [SKIP] AMR: no published PRS-CS panel to compare with
-  [SKIP] SAS: no published PRS-CS panel to compare with
+  [INFO] AMR vs PRS-CS 1KG AMR: r correlation 0.987, RMSE 0.034 over 2,353,259 shared within-block pairs (14,039 SNPs in both)
+  [INFO] SAS vs PRS-CS 1KG SAS: r correlation 0.997, RMSE 0.013 over 3,873,817 shared within-block pairs (14,040 SNPs in both)
 
 == 4. Population contrasts
   pop         n   mean r^2, neighbours         median MAF       MAF < 0.05

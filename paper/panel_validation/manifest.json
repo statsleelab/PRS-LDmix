@@ -2,143 +2,143 @@
   "study": "panel_validation",
   "program": "inst/scripts/null_sim/23_panel_validation_tables.R",
   "command": "Rscript inst/scripts/null_sim/23_panel_validation_tables.R 'inst/scripts/results' 'inst/scripts/results/null_sim_250kb_100rep/upstream_check.tsv' 'paper/panel_validation'",
-  "asset_commit": "ef9cfc8a157b75ba80968a9471f298559ae6c714",
+  "asset_commit": "f8adc26c095a3129edab10fd7efe9e12216d2785",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
-  "experiment_commit": ["7fb1d2a15fd80d851dc9717fabc7573491890793", "4197fa97dc171dd0b183000cf585b4e657c91140"],
+  "experiment_commit": ["5293e89b26b32b12e93056e0fbaf0f77815a3f0f", "7fb1d2a15fd80d851dc9717fabc7573491890793", "4197fa97dc171dd0b183000cf585b4e657c91140"],
   "r_version": "R version 4.6.1 (2026-06-24)",
   "inputs": [
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr1.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr1.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "5b4a909c0a51ba027ec7f4d298265795ea361a2463eee9a7d21b199cf466b7e2"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "3dcde358ae4f6cfd6e72000bdf69b4fe4854badc78c1b760582e86ce7568eb5e"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr2.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr2.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "f02248dca98b8db9c3c4ac364235678507bfae8d45da10367aa17e72be332fd7"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "26e8f957f6e9c5df0d7e9cbdf9883427bc91d7a7a48f32bc724e24b2519e9260"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr3.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr3.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "6bc7acc72d7b1b5fec0640acc3cf94612c0bfa9536da4e65aa5e77aae640bf53"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "f3d592bdf013e4f7800683957586bc7e464422a1e2b0368af605ad5443dd3f7a"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr4.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr4.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "dc919059aaf34161f3e23efb3b4b8c3d7a1b0d2dc866e66ce764698ed08a629b"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "8bb4cdb7e85a87cefbf5258756660b5868e0e0abd7439ff6fe639f5c4cf9c74b"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr5.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr5.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "e10d075c46189bd9d618f3d406014ebed84c7136be3bf6776f4ebf1c048b3d2d"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "5ae306a69de205f4814042cfa018619a901eaa592b475576e761ba82b0518438"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr6.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr6.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "fdb5ca26067559a234c75877feb5b491edcf56a50408631dbe7b5465da0332a9"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "96403ceca01212224fbea00fffa623b2b4b2211d454ca028e5ecbd6c8dfc3eae"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr7.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr7.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "071916527a7f0b9c9ddff71e72c8c8ced99c74a2d2d1dd4141b758efd966645f"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "c63e12f356584b587ed3deb4464fc35bcf7364ea22fbe88ef8ab88c0d47c7b0c"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr8.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr8.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "7ff9925843db0759ccc69b553f9a5b967728445834f3527ff095044120b5b3a3"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "648fd8247ccbc9912b0f9a9321bbb03f61a7d92d4ba62b78ece0d5e35d440ccb"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr9.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr9.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "b3fd770a360eb85b6246d285840f73c58c937e0ace171239cbbd57d139e01a58"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "d4c9b3992be85cd6b4c1eeb19e5b632a4923c273050409771edd2d43d7110045"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr10.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr10.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "81e3d9c824671167db5b9b7952a6c3e3a457d3ba2834cea008bdb7e3c676c339"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "b4021ce8fb90ff508ff65dd34f371c04c1dae476ec3920ecc5079202493433e4"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr11.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr11.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "5c7770b2b4a803f20b1221a28859ca11e590f9424a6a475e19c853b6a04e4214"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "d37403e64aa0025b286002cd0e5c420d48bc9fb0fb6dcb137f56a35ed017c822"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr12.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr12.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "20b1acd037539ba96213bbb3bd1e01a275257ef6e8a91811d18d3460a6f0e351"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "023aec048b783db5253052ccefb57ef1fdcb206a4d065c9dc72a241ae8fbaab4"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr13.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr13.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "45ecae602cffdd309f598ee76ae3d3f061d9a4d3f44bdaecb67bcced94d7d09b"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "b17d8746610aaa9422245ae1deb70ff44157dd73188fc24575ffdfc32f519e52"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr14.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr14.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "34f984ac72b64b1b0193ed042bb07aebde33881451353256021161f6811c7047"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "37cb5e0a830137cd11a9af235dc1074348a80fed63aa8826b3466ed3d35cfd57"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr15.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr15.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "030383c36969694c710346b5ccac9039dca7b71732b94cb0559245159930b85c"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "4e5ad63052db7677f157fed21b67090541b84ce1a48f9fc9edb2ed2e22610a21"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr16.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr16.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "fd8a10c17bc4dd0f4baeea0293901fa76e001e061fe868b627b12fead1a0c479"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "458682ddb0efd6797f7a1fa415b3071e0a42bcdea334b5e1920f916f8a9aa779"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr17.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr17.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "8e89d2d525c235d2ed8ab65adebf426635f4a83ec5cb317e6e0115964212e47b"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "ae827279747e420439cc5881e23c49d0c5964fe3dcce4bfc429057d1194cdb23"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr18.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr18.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "8330a17a9be8d7eb449a0ad81295f52b1c518b5465cca8b4dfeff50622f8fe16"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "e96ce5b90456ea407e3d0779602a3a35272f5835231cf02ce4e5b4b1c945cd6b"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr19.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr19.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "6f960d2e9d49b8ee5bb212eb4b07c4a074aefd954f2ef8d642ad29dae8f68125"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "a89e789ed1bd27485d6a71594b1e2f90bb8b739993afbddaee2214dc5fa8e3d7"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr20.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr20.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "3bb8b0560dcf541db72562f992c174b3db701081c73170f47b2915e5f95691ad"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "3b92e9a7fb71edfb119eca9af9bb3264ed09e355f5f6416daa8a510f3070f0cb"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr21.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr21.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "a313df6aa4d8680af0247f7091db26a322631d893490c0f6d5ef6f02e45b0430"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "10488a4f9558db20566c08a7db4f63f02221c337df50d10024d68d3039bfac02"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/chr22.txt",
       "source": "inst/scripts/results/panel_validation_fixed250kb/chr22.txt",
-      "source_commit": "7fb1d2a15fd80d851dc9717fabc7573491890793",
-      "sha256": "54af6407536007146965698bd96e027d8ccdc7c7b2929f9a457109bd7aa93471"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "bf5d92a8448a71d77910beeb47bd8d60c7db40b8d6ca8fe4d8392a8445a3b0e8"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_fixed250kb/summary.tsv",
@@ -149,134 +149,134 @@
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr1.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr1.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "f0575b39d4775a7712b55d52880702eabd7a5fa41cc2b2a6cde3a71522f715b6"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "f58e25976150348a3501c206b4652705a260025456aeea26cde5820284ccf6c4"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr2.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr2.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "004788c5c4344ce129fd7e455ba82d46f16904f1ade67fba355ec91f93af8e55"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "ba5161f5fdd56fb8c1d81d4b27ae8219b7178d8623ee104f50cdd4e037d8da9c"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr3.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr3.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "37ff43881f4e8945c56ed38c81f298cb93e9c3bf27edabde060c4fbd6a91ed04"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "0e17d58e8d79f66966893135f76c5b52cd40e3ce40022bba0e7a202f8002f82f"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr4.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr4.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "efc0b49a253c93816f5159e3ace17aa4c72a4f8a8710e0b0c7ec6fcd6cf09c61"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "bf088091263eabd3b0766b52b01b4fcaca4a03ad4720942df1ef7f5da3fffc76"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr5.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr5.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "f55116051a1bbf16e5e8a754f8dda45d2d421e9fdfe30601ef5dddc71ebcaa6b"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "9e19e9375b3f195080c6b4d270059393abb0b615ec7b81bee640d7c8b29a9251"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr6.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr6.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "669cb2fa4c2c435b42324bab172f0b2596537fd8cb11e6ced3a6f1fbf9a9c943"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "3078139ff68a2a350aa86980ffde32e3855503de693279d523ad2ee1c9c00954"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr7.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr7.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "fa6e09137de45de6cd988029d373f85478ae9318ab79ced78f0b0fcdf2c4ac4a"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "81aafb229442f482ca7b80e5b5e9c73fc7f8f2e26365b586336bceb9e251e423"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr8.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr8.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "ac78ab54423cec8ccf567608b1aba45062591169cef4b07cbf07ddfc678db1d0"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "5846c78c6c402551ac013c778bbeafa21ba773c06dca6f37f6ca6ce5b39c1248"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr9.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr9.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "2412af1187d267be5f9a8ea0d504cb0b9030132afd15b32296f273db350ccc26"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "6c7fd84ccbe8c1e234b64c2824961acbf2e6fd409eeb97c457fa6ac523e41bf7"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr10.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr10.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "6a15f493e8cebf9a71e9615c48a8ede65e5f6df571d2d40387a9c67e565f5817"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "cf6fb3219284cfaaf04551e3b6d8b15b4de3cb3a538ac9d6a94da30cfac46a9a"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr11.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr11.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "5df19e8ef1a65079114ad374d1bd89d1dd9a4189a9fe9cdcb04eb89a701fbe97"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "568a9c2c685357906cbcfd3d4c439d0279877dc28cacf72f52b1f2d2b24a1904"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr12.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr12.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "7e3c501bc3f7458bf6a9a911c99585efe1c9e4183fd83e5c088d6bfd41dd50f5"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "4160ede0f506e5090dd9e7374e3903396f277e400995bea90894927ffec01dd6"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr13.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr13.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "98fac302c6ad1459742c88c07814151d1787b7b110619632f176b9826d752d56"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "6de503a43577121cf6e4a4cbc180ac9054a10258c97d704693eb81294ed79ebf"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr14.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr14.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "347fa8825bf4c4d6fd8af00b161bc73a8c6f2ac4f89cc176f5444cffe8af707d"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "c11c3706a7536cd118c66c26123d2d46a2eedb63170bea7ed1f65d1fe0cd2f8d"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr15.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr15.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "0f4ccfe71da2939f786010e9eaa2638ae1b56de1f8fa167c59eac0506887e0c6"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "0d263536c1e6a7e4e3bc574fc7bb077cf2c27f198a60c1f7e6bdb1ece738c194"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr16.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr16.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "64c8dad72af3dce04ee901a14048da0601e252355b8a90a5619465ab5b54fed4"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "9a0bd98f7bca6e0b2befd6e3b80be44c44dcdd2e303fabe94ad3bb2edc5ae6f0"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr17.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr17.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "00067f69e86eb00c437486a4df267a4da11ce9bd08e145c00ccc07439bd7c223"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "649d09a66eda33254faa9ef5e5cbecc44d4fd0bbb60b079271390ce11dde3cae"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr18.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr18.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "a8402298662fd8b0473f9721338b4af91700e2e5b46343953db55bb91f90f921"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "767d04501fbf10c3911ad7bf951755565e7d56c15543782320fda3c61709ad06"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr19.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr19.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "58fb467bd12366f532e7f2f538f719475cf3003a6a7474824a97785f9f36a8da"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "15f04e9b3a1776828d337dda3599ac9ddf613c3e94502eff8b1110185b732fb2"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr20.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr20.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "d2cc60001e590682e1c8689e9d0cb0b3b24e4ac85dbab1e43478796c931543ee"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "8492079be74d2cd8d9bf6101272ce8d6e2863ae3f89cd41c5d67cfbc79166ff5"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr21.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr21.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "c63417c2c75534ae8086675d711205ff93e577f34b73d69fc5ce32748c1bef43"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "3794311f5d2ce7a873ce36f0bc21a4d58ba200e1d17c5714f144f8ce3a82f646"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/chr22.txt",
       "source": "inst/scripts/results/panel_validation_eurcuts/chr22.txt",
-      "source_commit": "4197fa97dc171dd0b183000cf585b4e657c91140",
-      "sha256": "1e434c8b01819d15241587436ae16e4870bd6c32de9b4f24981880d39c8ec805"
+      "source_commit": "5293e89b26b32b12e93056e0fbaf0f77815a3f0f",
+      "sha256": "2f82f6023ef141d0dbed3763bdde33945892b18c4c5c7410a67410c9ec5775ff"
     },
     {
       "path": "paper/panel_validation/inputs/panel_validation_eurcuts/summary.tsv",
@@ -294,11 +294,11 @@
   "outputs": {
     "table_panel_checks.tex": {
       "path": "paper/panel_validation/table_panel_checks.tex",
-      "sha256": "b85c5b5e3758038fe2240770560e82cd42d270c3fc373503bb6227f460725804"
+      "sha256": "22af2bfa3de578b4d4a530d7268409119001a0a838bfba0c9b4cc013892cec8a"
     },
     "table_panel_samples.tex": {
       "path": "paper/panel_validation/table_panel_samples.tex",
-      "sha256": "e7223455b5c510a4c556b1e242e39652592ca5647f4aaf8e69480d5096932483"
+      "sha256": "c7ba0a02aa2495430cf4cd364200c1fbc5c604a84086dd08e027a2936b661529"
     },
     "table_upstream.tex": {
       "path": "paper/panel_validation/table_upstream.tex",
@@ -306,15 +306,15 @@
     },
     "tables.html": {
       "path": "paper/panel_validation/tables.html",
-      "sha256": "39e2ac79e15488d3a4a93d6df57a315d05bc1da70454a33067341390c293ac3c"
+      "sha256": "24323cae10ccfce7454f6187afdfac897bffdd4e474109085ea4701c09ebe0f7"
     },
     "tables.tsv": {
       "path": "paper/panel_validation/tables.tsv",
-      "sha256": "740b5639f2eb30be68c25f5dae7a750e198f7bf548e461c02643d2c3dcd7b1aa"
+      "sha256": "fbc7a8c6403b789e8cb7ba6f08a7a6f50751b7728ea07efffb3c069855ae181d"
     },
     "per_chromosome.tsv": {
       "path": "paper/panel_validation/per_chromosome.tsv",
-      "sha256": "b78b6423f9bd6e189cf59cfe9772a540bb130110463aaf70d9f71545209d5e9c"
+      "sha256": "e4d785686ba0fc303108c23474ff092f2b161a619158d3550e7489f5b99f6c08"
     }
   },
   "settings": {
@@ -323,7 +323,9 @@
     "prscs_reference": {
       "EUR": "EUR",
       "ASN": "EAS",
-      "AFR": "AFR"
+      "AFR": "AFR",
+      "AMR": "AMR",
+      "SAS": "SAS"
     },
     "chromosomes": "1-22",
     "validator": "inst/scripts/validate_prscs_panels.R",
