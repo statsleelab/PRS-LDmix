@@ -10,14 +10,18 @@
 #                             panel minus the seed-rerun overlap, chr22 against
 #                             chr2.
 #   table_chr2_settings.tex   S9c. SNPs, causal SNPs and signal variance per run.
+#   table_chr2_eurcuts.tex    S9d. The chr2 runs at PRS-CS's EUR cut points
+#                             next to 250 kb: PRS-MIX r^2, its differences from
+#                             each single panel and the top-10% change.
 #   tables.html, tables.tsv, inputs/, manifest.json
 #
-# chr2 signal variance is scaled to the SNP count (v_g = 0.01 x chr2 SNPs /
-# chr22 SNPs) so per-SNP effects match chr22. EUR+AFR is also run at chr22's
-# v_g = 0.01: AFR's 205-person discovery sample adds chance correlations that
-# grow with total v_g, so the two chr2 EUR+AFR runs bracket that effect.
-# LaTeX and HTML show 250 kb blocks; tables.tsv also has chr2 at PRS-CS's EUR
-# cut points. Cells are means over replicates with Monte Carlo SEs, paired
+# chr2 signal variance is scaled in proportion to the analysis SNP count
+# (v_g = 0.01 x chr2 SNPs / chr22 SNPs), keeping the nominal signal variance
+# per SNP approximately constant; realised effect sizes still depend on each
+# replicate's LD, through which effects are rescaled. EUR+AFR is also run at
+# chr22's v_g = 0.01, as a sensitivity analysis to total signal variance in
+# the presence of the small (205-person) AFR discovery sample. S9a-S9b show
+# 250 kb blocks; S9d shows chr2 at PRS-CS's EUR cut points. Cells are means over replicates with Monte Carlo SEs, paired
 # within replicate, as in 18_sweep_paper_tables.R.
 #
 # Usage (from the PRS-MIX root):
@@ -147,8 +151,8 @@ fmt <- function(x, d, signed, tex) {
   if (as.numeric(s) == 0) return(s)
   paste0(if (x < 0) tx(tex, "$-$", "&minus;") else if (signed) "+" else "", s)
 }
-cell <- function(table, label, column, target, quantity, d, signed, tex) {
-  r <- cells[cells$table == table & cells$setting == label & cells$column == column & cells$layout == "fixed250kb" &
+cell <- function(table, label, column, target, quantity, d, signed, tex, layout = "fixed250kb") {
+  r <- cells[cells$table == table & cells$setting == label & cells$column == column & cells$layout == layout &
                cells$target == target & cells$quantity == quantity, ]
   if (nrow(r) == 0) return(tx(tex, "--", "&ndash;"))
   unit <- 10^-d
@@ -201,6 +205,20 @@ build <- function(tex) {
                                                             formatC(s$n_causal[i], format = "d", big.mark = ","), format(signif(s$v_g[i], 3))))
   }
   out$chr2_settings <- render(c("Run", "Analysis SNPs", "Causal SNPs", tx(tex, "$v_g$", "<i>v</i><sub>g</sub>")), sg, tex)
+  lay <- c(fixed250kb = "250 kb", eurcuts = "EUR cuts")
+  gd <- list()
+  for (r in runs) for (cn in paste0("chr2_", names(r$chr2))) {
+    gd[[sprintf("%s: %s", r$label, col_label(cn, tex))]] <- unlist(lapply(c(r$A, r$B), function(tg) lapply(names(lay), function(l) c(
+      sprintf("Scored in %s, %s", tg, lay[[l]]),
+      cell("accuracy", r$label, cn, tg, "r2_mix", 3, FALSE, tex, l),
+      cell("accuracy", r$label, cn, tg, "d_A", 3, TRUE, tex, l),
+      cell("accuracy", r$label, cn, tg, "d_B", 3, TRUE, tex, l),
+      cell("overlap", r$label, cn, tg, "gap_A", 1, TRUE, tex, l),
+      cell("overlap", r$label, cn, tg, "gap_B", 1, TRUE, tex, l)))), recursive = FALSE)
+  }
+  out$chr2_eurcuts <- render(c("Scored in, block layout", paste("PRS-MIX", r2(tex)), "minus first panel", "minus second panel",
+                               "Top 10%, vs. first panel (pp)", "Top 10%, vs. second panel (pp)"), gd, tex)
+  if (tex) out$chr2_eurcuts <- gsub("Top 10%", "Top 10\\%", out$chr2_eurcuts, fixed = TRUE)
   out
 }
 tex_tabs <- build(TRUE)
@@ -208,17 +226,23 @@ for (nm in names(tex_tabs)) writeLines(tex_tabs[[nm]], file.path(out_dir, sprint
 html_tabs <- build(FALSE)
 titles <- c(chr2_accuracy = "Table S9a. Accuracy on chromosome 22 and chromosome 2",
             chr2_overlap = "Table S9b. Change in the top 10% beyond rerun randomness, chromosome 22 and chromosome 2",
-            chr2_settings = "Table S9c. Second-chromosome run settings")
+            chr2_settings = "Table S9c. Second-chromosome run settings",
+            chr2_eurcuts = "Table S9d. Chromosome 2 at PRS-CS's EUR cut points and at 250 kb")
 cap_common <- paste("Fixed 250 kb blocks, 100 replicates per run, PRS-CS defaults with <i>&phi;</i> learned. First panel: EUR;",
                     "second panel: ASN or AFR. Means over replicates with Monte Carlo standard errors in parentheses; differences are paired",
-                    "within replicate. Scaled <i>v</i><sub>g</sub>: signal variance scaled to the SNP count so per-SNP effects match chromosome 22.")
+                    "within replicate. Scaled <i>v</i><sub>g</sub>: signal variance scaled in proportion to the analysis SNP count, keeping the",
+                    "nominal signal variance per SNP approximately constant.")
 captions <- c(
   chr2_accuracy = paste("<i>r</i><sup>2</sup> of PRS-MIX with the true genetic value, and PRS-MIX minus each single panel.", cap_common),
   chr2_overlap = paste("PRS-MIX's top-10% overlap with each single panel minus the overlap of that panel's rerun with a new seed,",
                        "in percentage points; more negative means PRS-MIX moves the top 10% more than sampler randomness.", cap_common),
   chr2_settings = paste("Chromosome 22 runs are the sweep settings; chromosome 2 runs use the same individuals. EUR + AFR is also run on",
-                        "chromosome 2 at chromosome 22's <i>v</i><sub>g</sub> = 0.01: chance correlations in the 205-person AFR discovery",
-                        "sample inflate the GWAS signal in proportion to total <i>v</i><sub>g</sub>, so the two chromosome 2 runs bracket that effect."))
+                        "chromosome 2 at chromosome 22's <i>v</i><sub>g</sub> = 0.01, as a sensitivity analysis to total signal variance",
+                        "in the presence of a small (205-person) AFR discovery sample. Changing <i>v</i><sub>g</sub> also changes the",
+                        "genuine signal strength and PRS-CS's shrinkage, so the comparison does not isolate any single mechanism."),
+  chr2_eurcuts = paste("The chromosome 2 runs with PRS-CS's EUR LD-block cut points as the block layout, next to fixed 250 kb blocks:",
+                       "PRS-MIX <i>r</i><sup>2</sup>, PRS-MIX minus each single panel, and PRS-MIX's top-10% overlap with each panel",
+                       "minus that panel's seed-rerun overlap (percentage points). 100 replicates; Monte Carlo SEs in parentheses."))
 sans <- "-apple-system, \"Helvetica Neue\", Helvetica, Arial, sans-serif"
 head_commit <- git("rev-parse", "HEAD")
 html <- c("<!doctype html>", "<html lang=\"en\">", "<head>", "<meta charset=\"utf-8\">",
@@ -240,7 +264,7 @@ html <- c("<!doctype html>", "<html lang=\"en\">", "<head>", "<meta charset=\"ut
           unlist(lapply(names(html_tabs), function(nm) c("<section>", sprintf("<h2>%s</h2>", titles[[nm]]),
                                                          sprintf("<p class=\"cap\">%s</p>", captions[[nm]]),
                                                          "<div class=\"wrap\">", html_tabs[[nm]], "</div>", "</section>"))),
-          sprintf("<p class=\"src\">Generated by %s at PRS-MIX %s%s. tables.tsv also has chromosome 2 at PRS-CS's EUR cut points.</p>",
+          sprintf("<p class=\"src\">Generated by %s at PRS-MIX %s%s.</p>",
                   program, substr(head_commit, 1, 7), if (inputs_dirty || prog_dirty) " with uncommitted program or inputs" else ""),
           "</main>", "</body>", "</html>")
 writeLines(html, file.path(out_dir, "tables.html"))

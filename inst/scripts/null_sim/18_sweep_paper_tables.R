@@ -303,7 +303,7 @@ settings_rows <- list(
   c("Signal variance", sprintf("$v_g$ = %s (in units of residual variance)", format(vg))),
   c("GWAS (discovery) individuals", pops_text(n_disc)),
   c("Scored (target) individuals", pops_text(n_tgt)),
-  c("LD panels", "reference individuals only; no shrinkage of the LD matrices"),
+  c("LD panels", "reference individuals only; no additional convex shrinkage; eigenvalue floor $10^{-8}$ applied for numerical stability"),
   c("Replicates", sprintf("%s per setting", rep_text)),
   c("PRS-MIX blend", "each panel weighted by its ancestry's share of the GWAS"),
   c("PRS-CS", sprintf("$\\phi$ %s, sampler defaults (1,000 iterations, 500 burn-in, thinning 5)", phi_mode)),
@@ -324,6 +324,7 @@ tex2html <- function(s) {
   s <- gsub("\\$\\\\phi\\$", "<i>&phi;</i>", s)
   s <- gsub("\\$N\\$", "<i>N</i>", s)
   s <- gsub("\\$v_g\\$", "<i>v</i><sub>g</sub>", s)
+  s <- gsub("\\$10\\^\\{-8\\}\\$", "10<sup>&minus;8</sup>", s)
   s
 }
 html_table <- function(name) {
