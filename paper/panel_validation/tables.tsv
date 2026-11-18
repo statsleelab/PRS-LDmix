@@ -1,0 +1,141 @@
+table	layout	row	column	value
+checks	fixed250kb	EUR	chromosomes_pass	22
+checks	fixed250kb	EUR	blocks	11195
+checks	fixed250kb	EUR	snps	964384
+checks	fixed250kb	EUR	cor_median	0.992
+checks	fixed250kb	EUR	cor_min	0.99
+checks	fixed250kb	EUR	cor_max	0.994
+checks	fixed250kb	EUR	rmse_median	0.042
+checks	fixed250kb	EUR	rmse_min	0.041
+checks	fixed250kb	EUR	rmse_max	0.043
+checks	fixed250kb	EUR	pairs	47380214
+checks	fixed250kb	ASN	chromosomes_pass	22
+checks	fixed250kb	ASN	blocks	11195
+checks	fixed250kb	ASN	snps	964384
+checks	fixed250kb	ASN	cor_median	0.987
+checks	fixed250kb	ASN	cor_min	0.984
+checks	fixed250kb	ASN	cor_max	0.989
+checks	fixed250kb	ASN	rmse_median	0.055
+checks	fixed250kb	ASN	rmse_min	0.053
+checks	fixed250kb	ASN	rmse_max	0.058
+checks	fixed250kb	ASN	pairs	47524417
+checks	fixed250kb	AFR	chromosomes_pass	22
+checks	fixed250kb	AFR	blocks	11195
+checks	fixed250kb	AFR	snps	964384
+checks	fixed250kb	AFR	cor_median	0.99
+checks	fixed250kb	AFR	cor_min	0.988
+checks	fixed250kb	AFR	cor_max	0.992
+checks	fixed250kb	AFR	rmse_median	0.036
+checks	fixed250kb	AFR	rmse_min	0.034
+checks	fixed250kb	AFR	rmse_max	0.038
+checks	fixed250kb	AFR	pairs	44253012
+checks	fixed250kb	AMR	chromosomes_pass	22
+checks	fixed250kb	AMR	blocks	11195
+checks	fixed250kb	AMR	snps	964384
+checks	fixed250kb	AMR	cor_median	0.995
+checks	fixed250kb	AMR	cor_min	0.993
+checks	fixed250kb	AMR	cor_max	0.995
+checks	fixed250kb	AMR	rmse_median	0.035
+checks	fixed250kb	AMR	rmse_min	0.034
+checks	fixed250kb	AMR	rmse_max	0.036
+checks	fixed250kb	AMR	pairs	45800481
+checks	fixed250kb	SAS	chromosomes_pass	22
+checks	fixed250kb	SAS	blocks	11195
+checks	fixed250kb	SAS	snps	964384
+checks	fixed250kb	SAS	cor_median	0.999
+checks	fixed250kb	SAS	cor_min	0.999
+checks	fixed250kb	SAS	cor_max	0.999
+checks	fixed250kb	SAS	rmse_median	0.013
+checks	fixed250kb	SAS	rmse_min	0.013
+checks	fixed250kb	SAS	rmse_max	0.014
+checks	fixed250kb	SAS	pairs	47792139
+checks	eurcuts	EUR	chromosomes_pass	22
+checks	eurcuts	EUR	blocks	1702
+checks	eurcuts	EUR	snps	964384
+checks	eurcuts	EUR	cor_median	0.964
+checks	eurcuts	EUR	cor_min	0.954
+checks	eurcuts	EUR	cor_max	0.971
+checks	eurcuts	EUR	rmse_median	0.044
+checks	eurcuts	EUR	rmse_min	0.044
+checks	eurcuts	EUR	rmse_max	0.045
+checks	eurcuts	EUR	pairs	319589741
+checks	eurcuts	ASN	chromosomes_pass	22
+checks	eurcuts	ASN	blocks	1702
+checks	eurcuts	ASN	snps	964384
+checks	eurcuts	ASN	cor_median	0.9645
+checks	eurcuts	ASN	cor_min	0.955
+checks	eurcuts	ASN	cor_max	0.97
+checks	eurcuts	ASN	rmse_median	0.05
+checks	eurcuts	ASN	rmse_min	0.048
+checks	eurcuts	ASN	rmse_max	0.054
+checks	eurcuts	ASN	pairs	242586747
+checks	eurcuts	AFR	chromosomes_pass	22
+checks	eurcuts	AFR	blocks	1702
+checks	eurcuts	AFR	snps	964384
+checks	eurcuts	AFR	cor_median	0.978
+checks	eurcuts	AFR	cor_min	0.971
+checks	eurcuts	AFR	cor_max	0.983
+checks	eurcuts	AFR	rmse_median	0.035
+checks	eurcuts	AFR	rmse_min	0.033
+checks	eurcuts	AFR	rmse_max	0.037
+checks	eurcuts	AFR	pairs	158287109
+checks	eurcuts	AMR	chromosomes_pass	22
+checks	eurcuts	AMR	blocks	1702
+checks	eurcuts	AMR	snps	964384
+checks	eurcuts	AMR	cor_median	0.988
+checks	eurcuts	AMR	cor_min	0.986
+checks	eurcuts	AMR	cor_max	0.99
+checks	eurcuts	AMR	rmse_median	0.036
+checks	eurcuts	AMR	rmse_min	0.034
+checks	eurcuts	AMR	rmse_max	0.037
+checks	eurcuts	AMR	pairs	163917337
+checks	eurcuts	SAS	chromosomes_pass	22
+checks	eurcuts	SAS	blocks	1702
+checks	eurcuts	SAS	snps	964384
+checks	eurcuts	SAS	cor_median	0.997
+checks	eurcuts	SAS	cor_min	0.996
+checks	eurcuts	SAS	cor_max	0.998
+checks	eurcuts	SAS	rmse_median	0.013
+checks	eurcuts	SAS	rmse_min	0.013
+checks	eurcuts	SAS	rmse_max	0.014
+checks	eurcuts	SAS	pairs	244023653
+samples	fixed250kb	EUR	n	20281
+samples	fixed250kb	EUR	r2_neighbour	0.419610654054816
+samples	fixed250kb	EUR	maf_median	0.259129993861366
+samples	fixed250kb	EUR	maf_lt05	5.56314227527624
+samples	fixed250kb	ASN	n	10800
+samples	fixed250kb	ASN	r2_neighbour	0.438133259158178
+samples	fixed250kb	ASN	maf_median	0.242853896373229
+samples	fixed250kb	ASN	maf_lt05	9.39340179845373
+samples	fixed250kb	AFR	n	817
+samples	fixed250kb	AFR	r2_neighbour	0.287074755491588
+samples	fixed250kb	AFR	maf_median	0.241634336529847
+samples	fixed250kb	AFR	maf_lt05	8.12761400023227
+samples	fixed250kb	AMR	n	533
+samples	fixed250kb	AMR	r2_neighbour	0.403867964420812
+samples	fixed250kb	AMR	maf_median	0.268520057363042
+samples	fixed250kb	AMR	maf_lt05	2.86673379068919
+samples	fixed250kb	SAS	n	522
+samples	fixed250kb	SAS	r2_neighbour	0.41485973325978
+samples	fixed250kb	SAS	maf_median	0.266561859176428
+samples	fixed250kb	SAS	maf_lt05	3.60888256130338
+upstream		nonnull|1e-04	files	20
+upstream		nonnull|1e-04	identical	20
+upstream		nonnull|1e-04	max_abs_diff	0
+upstream		nonnull|1e-04	snp_mismatches	0
+upstream		nonnull|1e-04	replicates	10
+upstream		nonnull|auto	files	20
+upstream		nonnull|auto	identical	20
+upstream		nonnull|auto	max_abs_diff	0
+upstream		nonnull|auto	snp_mismatches	0
+upstream		nonnull|auto	replicates	10
+upstream		null|1e-04	files	20
+upstream		null|1e-04	identical	20
+upstream		null|1e-04	max_abs_diff	0
+upstream		null|1e-04	snp_mismatches	0
+upstream		null|1e-04	replicates	10
+upstream		null|auto	files	20
+upstream		null|auto	identical	20
+upstream		null|auto	max_abs_diff	0
+upstream		null|auto	snp_mismatches	0
+upstream		null|auto	replicates	10

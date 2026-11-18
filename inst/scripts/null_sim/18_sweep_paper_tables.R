@@ -15,7 +15,12 @@
 #                             and their difference.
 #   table_sweep_cutoffs.tex   Table 3. That difference for the top 5%, 10%
 #                             and 20% of target individuals.
-#   table_sweep_settings.tex  Table 4. Simulation settings.
+#   table_sweep_agreement.tex Table 4. Score correlation (Pearson, and Spearman
+#                             rank correlation) of PRS-MIX with each single
+#                             panel, against the seed-rerun baseline.
+#   table_sweep_settings.tex  Table 5. Simulation settings, with the per-pair
+#                             SNP counts, causal SNPs, signal variance and
+#                             discovery and target sample sizes.
 #   tables.html               The same tables for reading in a browser.
 #   tables.tsv                Every number in the tables, unrounded, with n.
 #   inputs/                   Frozen copies of the metric tables used.
@@ -26,11 +31,15 @@
 # individuals), as in 12_paper_tables.R.
 #
 # Usage (from the PRS-MIX root):
-#   Rscript inst/scripts/null_sim/18_sweep_paper_tables.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no]
+#   Rscript inst/scripts/null_sim/18_sweep_paper_tables.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no] [pairs=all]
 #
 #   <sweep_dir>  e.g. inst/scripts/results/sim250_sweep_100rep, holding
-#                <pair>/w<w>/metrics/nonnull_metrics.tsv for every setting.
+#                <pair>/w<w>/metrics/{nonnull_metrics,nonnull_params}.tsv for every
+#                setting, and <pair>/analysis_snps.tsv and
+#                <pair>/<pop>_target_samples.tsv for every pair.
 #   reps         all, or N to use replicates 1..N of every setting.
+#   pairs        all, or a comma-separated subset of eur_asn,eur_afr,eur_sas,asn_afr
+#                (e.g. the three EUR pairs for the main text).
 #
 # Writing under paper/ requires committed inputs and program, and at least 100
 # replicates in every setting (the manuscript never quotes 20-replicate
@@ -42,12 +51,13 @@
 
 script_dir <- dirname(sub("^--file=", "", grep("^--file=", commandArgs(FALSE), value = TRUE)))
 source(file.path(script_dir, "common.R"))
-args <- ns_args("Rscript 18_sweep_paper_tables.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no]", 2)
+args <- ns_args("Rscript 18_sweep_paper_tables.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no] [pairs=all]", 2)
 sweep_dir <- args[[1]]
 out_dir <- args[[2]]
 reps_arg <- ns_arg(args, 3, "all")
 phi_mode <- ns_arg(args, 4, "auto")
 provisional <- ns_arg(args, 5, "no") == "yes"
+pairs_arg <- ns_arg(args, 6, "all")
 program <- "inst/scripts/null_sim/18_sweep_paper_tables.R"
 dir.create(file.path(out_dir, "inputs"), recursive = TRUE, showWarnings = FALSE)
 to_paper <- grepl("(^|/)paper/", normalizePath(out_dir))
@@ -56,6 +66,11 @@ sha <- function(path) sub("\\s.*$", "", system2("shasum", c("-a", "256", shQuote
 git <- function(...) system2("git", c(...), stdout = TRUE)
 
 pairs <- list(eur_asn = c("EUR", "ASN"), eur_afr = c("EUR", "AFR"), eur_sas = c("EUR", "SAS"), asn_afr = c("ASN", "AFR"))
+if (pairs_arg != "all") {
+  keep <- strsplit(pairs_arg, ",")[[1]]
+  if (!all(keep %in% names(pairs))) stop("pairs must be all or a subset of ", paste(names(pairs), collapse = ","), call. = FALSE)
+  pairs <- pairs[names(pairs) %in% keep]
+}
 ws <- c(0.9, 0.7, 0.5)
 settings <- do.call(rbind, lapply(names(pairs), function(p) data.frame(pair = p, w = ws)))
 settings$A <- vapply(settings$pair, function(p) pairs[[p]][1], "")
@@ -73,7 +88,24 @@ inputs <- lapply(seq_len(nrow(settings)), function(i) {
        source_commit = git("log", "-1", "--format=%H", "--", src),
        source_uncommitted = length(git("status", "--porcelain", "--", src)) > 0)
 })
-inputs_dirty <- any(vapply(inputs, `[[`, TRUE, "source_uncommitted"))
+freeze_extra <- function(src, dst_name) {
+  dst <- file.path(out_dir, "inputs", dst_name)
+  file.copy(src, dst, overwrite = TRUE)
+  stopifnot(sha(src) == sha(dst))
+  list(path = dst, source = src, sha256 = sha(dst),
+       source_commit = c(git("log", "-1", "--format=%H", "--", src), NA_character_)[1],
+       source_uncommitted = length(git("status", "--porcelain", "--", src)) > 0)
+}
+extra <- c(
+  lapply(seq_len(nrow(settings)), function(i) freeze_extra(
+    file.path(sweep_dir, settings$pair[i], sprintf("w%.1f", settings$w[i]), "metrics", "nonnull_params.tsv"),
+    sprintf("%s_w%.1f_nonnull_params.tsv", settings$pair[i], settings$w[i]))),
+  unlist(lapply(names(pairs), function(p) c(
+    list(freeze_extra(file.path(sweep_dir, p, "analysis_snps.tsv"), sprintf("%s_analysis_snps.tsv", p))),
+    lapply(pairs[[p]], function(pop) freeze_extra(file.path(sweep_dir, p, sprintf("%s_target_samples.tsv", tolower(pop))),
+                                                  sprintf("%s_%s_target_samples.tsv", p, tolower(pop)))))), recursive = FALSE))
+all_inputs <- c(inputs, extra)
+inputs_dirty <- any(vapply(all_inputs, `[[`, TRUE, "source_uncommitted"))
 prog_dirty <- length(git("status", "--porcelain", "--", program, "inst/scripts/null_sim/common.R")) > 0
 if (to_paper && (inputs_dirty || prog_dirty)) {
   stop("Writing under paper/ needs committed inputs and program; commit them first.", call. = FALSE)
@@ -131,6 +163,13 @@ for (i in seq_len(nrow(settings))) {
         }
         put("cutoffs", i, tg, sprintf("gap%s_%s", cut, ref), ov - base)
       }
+      for (m in c("cor", "spear")) {
+        col <- sprintf("%s_%s_%s", m, rp, tg)
+        a <- v(mix, col); b <- v(paste0("single_", rp, "_seed2"), col)
+        put("agreement", i, tg, sprintf("%s_%s", m, ref), a)
+        put("agreement", i, tg, sprintf("%sbase_%s", m, ref), b)
+        put("agreement", i, tg, sprintf("%sgap_%s", m, ref), a - b)
+      }
     }
   }
 }
@@ -176,6 +215,11 @@ tables <- list(
                 col("gap05_B", 1, TRUE), col("gap10_B", 1, TRUE), col("gap20_B", 1, TRUE)),
     groups = function(tex) rep(list(list("Overlap difference, PRS-MIX minus rerun (percentage points)", 3)), 2),
     heads = function(tex) rep(tx(tex, c("Top 5\\%", "Top 10\\%", "Top 20\\%"), c("Top 5%", "Top 10%", "Top 20%")), 2),
+    block = function(pa, pb, tex) list(list(paste("Compared with the", pa, "panel"), 3), list(paste("Compared with the", pb, "panel"), 3))),
+  agreement = list(
+    cols = list(col("cor_A", 3), col("corbase_A", 3), col("corgap_A", 3, TRUE), col("cor_B", 3), col("corbase_B", 3), col("corgap_B", 3, TRUE)),
+    groups = function(tex) rep(list(list("Correlation of scores with the panel's", 2), list("Difference", 1)), 2),
+    heads = function(tex) rep(c("PRS-MIX", "Rerun, new seed", "PRS-MIX minus rerun"), 2),
     block = function(pa, pb, tex) list(list(paste("Compared with the", pa, "panel"), 3), list(paste("Compared with the", pb, "panel"), 3)))
 )
 fmt_num <- function(x, d, signed, tex) {
@@ -232,12 +276,34 @@ latex_table <- function(name) {
     if (any(n_reps < 100)) sprintf("\\multicolumn{%d}{l}{\\footnotesize\\textit{Provisional placeholder: %s replicates per setting; not for quoting.}} \\\\", nc + 2, rep_text),
     "\\end{tabular}")
 }
+big <- function(x) formatC(x, format = "d", big.mark = ",")
+rd <- function(f) ns_read_tsv(file.path(out_dir, "inputs", f))
+prm <- lapply(seq_len(nrow(settings)), function(i) { x <- rd(sprintf("%s_w%.1f_nonnull_params.tsv", settings$pair[i], settings$w[i])); stats::setNames(x$value, x$param) })
+for (p in names(pairs)) {  # causal count and v_g are fixed within a pair; discovery n everywhere
+  pp <- prm[settings$pair == p]
+  stopifnot(length(unique(vapply(pp, function(x) as.numeric(x[["n_causal"]]), 0))) == 1, length(unique(vapply(pp, function(x) as.numeric(x[["v_g"]]), 0))) == 1)
+}
+vg <- unique(vapply(prm, function(x) as.numeric(x[["v_g"]]), 0)); stopifnot(length(vg) == 1)
+pops_all <- unique(unlist(pairs))
+n_disc <- vapply(pops_all, function(pop) { v <- unique(unlist(lapply(prm, function(x) x[names(x) == paste0("n_discovery_", pop)]))); stopifnot(length(v) == 1); as.numeric(v) }, 0)
+n_tgt <- vapply(pops_all, function(pop) {
+  v <- unique(vapply(names(pairs)[vapply(pairs, function(x) pop %in% x, TRUE)], function(p) nrow(rd(sprintf("%s_%s_target_samples.tsv", p, tolower(pop)))), 0L))
+  stopifnot(length(v) == 1); v }, 0)
+snp_text <- paste(vapply(names(pairs), function(p) sprintf("%s and %s %s (%s causal)", pairs[[p]][1], pairs[[p]][2],
+                                                           big(nrow(rd(sprintf("%s_analysis_snps.tsv", p)))),
+                                                           prm[[which(settings$pair == p)[1]]][["n_causal"]]), ""), collapse = "; ")
+pops_text <- function(n) paste(sprintf("%s %s", pops_all, big(n)), collapse = ", ")
 settings_rows <- list(
-  c("Ancestry pairs", "EUR and ASN, EUR and AFR, EUR and SAS, ASN and AFR"),
+  c("Ancestry pairs", paste(vapply(names(pairs), function(p) paste(pairs[[p]], collapse = " and "), ""), collapse = ", ")),
   c("GWAS ancestry mixes", "90:10, 70:30 and 50:50 for each pair"),
   c("Chromosome", "22, HapMap3 SNPs"),
   c("LD blocks", "fixed 250 kb, shared by both panels"),
   c("Simulated GWAS", "1\\% causal SNPs with effects shared across ancestries; nominal $N$ = 200,000"),
+  c("Analysis SNPs per pair", snp_text),
+  c("Signal variance", sprintf("$v_g$ = %s (in units of residual variance)", format(vg))),
+  c("GWAS (discovery) individuals", pops_text(n_disc)),
+  c("Scored (target) individuals", pops_text(n_tgt)),
+  c("LD panels", "reference individuals only; no additional convex shrinkage; eigenvalue floor $10^{-8}$ applied for numerical stability"),
   c("Replicates", sprintf("%s per setting", rep_text)),
   c("PRS-MIX blend", "each panel weighted by its ancestry's share of the GWAS"),
   c("PRS-CS", sprintf("$\\phi$ %s, sampler defaults (1,000 iterations, 500 burn-in, thinning 5)", phi_mode)),
@@ -249,6 +315,7 @@ latex_settings <- c("% Generated by inst/scripts/null_sim/18_sweep_paper_tables.
 writeLines(latex_table("accuracy"), file.path(out_dir, "table_sweep_accuracy.tex"))
 writeLines(latex_table("overlap"), file.path(out_dir, "table_sweep_overlap.tex"))
 writeLines(latex_table("cutoffs"), file.path(out_dir, "table_sweep_cutoffs.tex"))
+writeLines(latex_table("agreement"), file.path(out_dir, "table_sweep_agreement.tex"))
 writeLines(latex_settings, file.path(out_dir, "table_sweep_settings.tex"))
 
 # ---- HTML ----------------------------------------------------------------
@@ -256,6 +323,8 @@ tex2html <- function(s) {
   s <- gsub("\\\\%", "%", s)
   s <- gsub("\\$\\\\phi\\$", "<i>&phi;</i>", s)
   s <- gsub("\\$N\\$", "<i>N</i>", s)
+  s <- gsub("\\$v_g\\$", "<i>v</i><sub>g</sub>", s)
+  s <- gsub("\\$10\\^\\{-8\\}\\$", "10<sup>&minus;8</sup>", s)
   s
 }
 html_table <- function(name) {
@@ -309,11 +378,15 @@ captions <- list(
                   "beyond sampler randomness; more negative means a bigger change.", common_caption),
   cutoffs = paste("The difference from Table 2 (PRS-MIX overlap minus rerun overlap, in percentage points) for the top 5%,",
                   "10% and 20% of scores.", common_caption),
+  agreement = paste("For each single panel: the Pearson correlation between PRS-MIX's scores and that panel's scores in the",
+                    "same individuals, next to the same correlation for a rerun of the panel with a new seed, and their difference.",
+                    "Spearman rank correlations are in tables.tsv.", common_caption),
   settings = "Simulation and analysis settings for the sweep.")
 titles <- c(accuracy = "Table 1. Accuracy: how well scores track true genetic value",
             overlap = "Table 2. Who is in the top 10%: PRS-MIX vs. each single panel, against rerun randomness",
             cutoffs = "Table 3. The same comparison at the top 5%, 10% and 20%",
-            settings = "Table 4. Simulation settings")
+            agreement = "Table 4. Correlation of scores: PRS-MIX vs. each single panel, against rerun randomness",
+            settings = "Table 5. Simulation settings")
 section <- function(name, tab) c("<section>", sprintf("<h2>%s</h2>", titles[[name]]),
                                  sprintf("<p class=\"cap\">%s</p>", captions[[name]]), "<div class=\"wrap\">", tab, "</div>", "</section>")
 head_commit <- git("rev-parse", "HEAD")
@@ -356,6 +429,7 @@ html <- c(
   section("accuracy", html_table("accuracy")),
   section("overlap", html_table("overlap")),
   section("cutoffs", html_table("cutoffs")),
+  section("agreement", html_table("agreement")),
   section("settings", html_settings),
   sprintf(paste("<footer>Rendered from <code>%s/inputs/</code> by <code>%s</code> at PRS-MIX %s%s. The <code>.tex</code> files in",
                 "the same folder hold the same values, and <code>tables.tsv</code> holds them unrounded with replicate",
@@ -365,7 +439,8 @@ writeLines(html, file.path(out_dir, "tables.html"))
 
 # ---- Manifest ------------------------------------------------------------
 out_files <- c(table_sweep_accuracy = "table_sweep_accuracy.tex", table_sweep_overlap = "table_sweep_overlap.tex",
-               table_sweep_cutoffs = "table_sweep_cutoffs.tex", table_sweep_settings = "table_sweep_settings.tex",
+               table_sweep_cutoffs = "table_sweep_cutoffs.tex", table_sweep_agreement = "table_sweep_agreement.tex",
+               table_sweep_settings = "table_sweep_settings.tex",
                tables_tsv = "tables.tsv", tables_html = "tables.html")
 outputs <- lapply(out_files, function(f) list(path = file.path(out_dir, f), sha256 = sha(file.path(out_dir, f))))
 manifest <- list(
@@ -373,12 +448,12 @@ manifest <- list(
   command = paste("Rscript", program, paste(shQuote(args), collapse = " ")),
   asset_commit = head_commit, program_uncommitted = prog_dirty, inputs_uncommitted = inputs_dirty,
   provisional = any(n_reps < 100),
-  experiment_commit = unique(vapply(inputs, `[[`, "", "source_commit")),
+  experiment_commit = unique(stats::na.omit(vapply(all_inputs, `[[`, "", "source_commit"))),
   r_version = R.version.string,
-  inputs = unname(lapply(inputs, function(x) x[c("path", "source", "source_commit", "sha256")])),
+  inputs = unname(lapply(all_inputs, function(x) x[c("path", "source", "source_commit", "sha256")])),
   outputs = outputs,
   settings = list(
-    chromosome = 22, block_layout = "fixed 250 kb", pairs = unname(lapply(pairs, as.list)), compositions_A = ws,
+    chromosome = 22, block_layout = "fixed 250 kb", pairs = unname(lapply(pairs, as.list)), pair_filter = pairs_arg, compositions_A = ws,
     replicates_used = as.list(n_reps), replicate_filter = reps_arg, phi_mode = phi_mode,
     prs_mix_weight = "generating composition (share of panel A's ancestry)",
     seed_control = "single-panel arm rerun with sampler seed 2000 + rep (main runs use 1000 + rep)",

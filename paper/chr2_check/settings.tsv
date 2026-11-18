@@ -1,0 +1,6 @@
+setting	run	snps	n_causal	v_g
+EUR + ASN, 70:30	chr22	14233	142	0.01
+EUR + ASN, 70:30	chr2_scaled	81596	816	0.057329
+EUR + AFR, 50:50	chr22	15693	157	0.01
+EUR + AFR, 50:50	chr2_scaled	90338	903	0.057566
+EUR + AFR, 50:50	chr2_vg001	90338	903	0.01

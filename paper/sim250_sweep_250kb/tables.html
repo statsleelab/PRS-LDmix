@@ -196,7 +196,55 @@ code { font-size: 11.5px; }
 </div>
 </section>
 <section>
-<h2>Table 4. Simulation settings</h2>
+<h2>Table 4. Correlation of scores: PRS-MIX vs. each single panel, against rerun randomness</h2>
+<p class="cap">For each single panel: the Pearson correlation between PRS-MIX's scores and that panel's scores in the same individuals, next to the same correlation for a rerun of the panel with a new seed, and their difference. Spearman rank correlations are in tables.tsv. Chromosome 22, fixed 250 kb LD blocks. Means over 100 replicates, standard errors in parentheses; differences are paired within replicate.</p>
+<div class="wrap">
+<table>
+<thead>
+<tr class="top"><th rowspan="2">GWAS ancestry mix</th><th rowspan="2">Scored in</th><th colspan="2" class="grp">Correlation of scores with the panel's</th><th class="grp">Difference</th><th colspan="2" class="grp">Correlation of scores with the panel's</th><th class="grp">Difference</th></tr>
+<tr class="sub"><th>PRS-MIX</th><th>Rerun, new seed</th><th>PRS-MIX minus rerun</th><th>PRS-MIX</th><th>Rerun, new seed</th><th>PRS-MIX minus rerun</th></tr>
+</thead>
+<tbody>
+<tr class="block"><th colspan="2" scope="rowgroup">EUR and ASN</th><th colspan="3">Compared with the EUR panel</th><th colspan="3">Compared with the ASN panel</th></tr>
+<tr class="mixrow first"><td>90% EUR, 10% ASN</td><td>EUR</td><td>0.993 (&lt;0.001)</td><td>0.993 (&lt;0.001)</td><td>0.000 (&lt;0.001)</td><td>0.945 (0.002)</td><td>0.995 (&lt;0.001)</td><td>&minus;0.050 (0.002)</td></tr>
+<tr><td></td><td>ASN</td><td>0.990 (&lt;0.001)</td><td>0.990 (&lt;0.001)</td><td>0.000 (&lt;0.001)</td><td>0.956 (0.001)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.036 (0.001)</td></tr>
+<tr class="mixrow"><td>70% EUR, 30% ASN</td><td>EUR</td><td>0.991 (&lt;0.001)</td><td>0.993 (&lt;0.001)</td><td>&minus;0.001 (&lt;0.001)</td><td>0.970 (0.001)</td><td>0.994 (&lt;0.001)</td><td>&minus;0.024 (0.001)</td></tr>
+<tr><td></td><td>ASN</td><td>0.989 (&lt;0.001)</td><td>0.991 (&lt;0.001)</td><td>&minus;0.002 (&lt;0.001)</td><td>0.976 (0.001)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.016 (0.001)</td></tr>
+<tr class="mixrow"><td>50% EUR, 50% ASN</td><td>EUR</td><td>0.986 (&lt;0.001)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.006 (&lt;0.001)</td><td>0.985 (0.001)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.008 (0.001)</td></tr>
+<tr><td></td><td>ASN</td><td>0.982 (0.001)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.010 (0.001)</td><td>0.986 (&lt;0.001)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.005 (&lt;0.001)</td></tr>
+</tbody>
+<tbody>
+<tr class="block"><th colspan="2" scope="rowgroup">EUR and AFR</th><th colspan="3">Compared with the EUR panel</th><th colspan="3">Compared with the AFR panel</th></tr>
+<tr class="mixrow first"><td>90% EUR, 10% AFR</td><td>EUR</td><td>0.992 (&lt;0.001)</td><td>0.992 (&lt;0.001)</td><td>0.000 (&lt;0.001)</td><td>0.964 (0.001)</td><td>0.996 (&lt;0.001)</td><td>&minus;0.032 (0.001)</td></tr>
+<tr><td></td><td>AFR</td><td>0.986 (0.001)</td><td>0.987 (0.001)</td><td>&minus;0.001 (&lt;0.001)</td><td>0.942 (0.002)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.050 (0.002)</td></tr>
+<tr class="mixrow"><td>70% EUR, 30% AFR</td><td>EUR</td><td>0.985 (0.001)</td><td>0.993 (&lt;0.001)</td><td>&minus;0.008 (0.001)</td><td>0.970 (0.001)</td><td>0.996 (&lt;0.001)</td><td>&minus;0.025 (0.001)</td></tr>
+<tr><td></td><td>AFR</td><td>0.989 (0.001)</td><td>0.995 (0.001)</td><td>&minus;0.006 (&lt;0.001)</td><td>0.974 (0.002)</td><td>0.996 (&lt;0.001)</td><td>&minus;0.022 (0.001)</td></tr>
+<tr class="mixrow"><td>50% EUR, 50% AFR</td><td>EUR</td><td>0.943 (0.002)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.054 (0.002)</td><td>0.973 (0.001)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.024 (0.001)</td></tr>
+<tr><td></td><td>AFR</td><td>0.975 (0.003)</td><td>0.999 (&lt;0.001)</td><td>&minus;0.024 (0.003)</td><td>0.985 (0.001)</td><td>0.998 (&lt;0.001)</td><td>&minus;0.013 (0.001)</td></tr>
+</tbody>
+<tbody>
+<tr class="block"><th colspan="2" scope="rowgroup">EUR and SAS</th><th colspan="3">Compared with the EUR panel</th><th colspan="3">Compared with the SAS panel</th></tr>
+<tr class="mixrow first"><td>90% EUR, 10% SAS</td><td>EUR</td><td>0.992 (&lt;0.001)</td><td>0.992 (&lt;0.001)</td><td>0.000 (&lt;0.001)</td><td>0.983 (&lt;0.001)</td><td>0.994 (&lt;0.001)</td><td>&minus;0.011 (&lt;0.001)</td></tr>
+<tr><td></td><td>SAS</td><td>0.990 (&lt;0.001)</td><td>0.990 (&lt;0.001)</td><td>0.000 (&lt;0.001)</td><td>0.978 (0.001)</td><td>0.991 (&lt;0.001)</td><td>&minus;0.014 (&lt;0.001)</td></tr>
+<tr class="mixrow"><td>70% EUR, 30% SAS</td><td>EUR</td><td>0.992 (&lt;0.001)</td><td>0.994 (&lt;0.001)</td><td>&minus;0.002 (&lt;0.001)</td><td>0.985 (&lt;0.001)</td><td>0.994 (&lt;0.001)</td><td>&minus;0.010 (&lt;0.001)</td></tr>
+<tr><td></td><td>SAS</td><td>0.990 (&lt;0.001)</td><td>0.992 (&lt;0.001)</td><td>&minus;0.003 (&lt;0.001)</td><td>0.982 (&lt;0.001)</td><td>0.993 (&lt;0.001)</td><td>&minus;0.011 (&lt;0.001)</td></tr>
+<tr class="mixrow"><td>50% EUR, 50% SAS</td><td>EUR</td><td>0.986 (&lt;0.001)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.011 (&lt;0.001)</td><td>0.987 (&lt;0.001)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.010 (&lt;0.001)</td></tr>
+<tr><td></td><td>SAS</td><td>0.979 (0.001)</td><td>0.998 (&lt;0.001)</td><td>&minus;0.018 (0.001)</td><td>0.987 (&lt;0.001)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.010 (&lt;0.001)</td></tr>
+</tbody>
+<tbody>
+<tr class="block"><th colspan="2" scope="rowgroup">ASN and AFR</th><th colspan="3">Compared with the ASN panel</th><th colspan="3">Compared with the AFR panel</th></tr>
+<tr class="mixrow first"><td>90% ASN, 10% AFR</td><td>ASN</td><td>0.992 (&lt;0.001)</td><td>0.992 (&lt;0.001)</td><td>0.000 (&lt;0.001)</td><td>0.941 (0.002)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.056 (0.002)</td></tr>
+<tr><td></td><td>AFR</td><td>0.987 (0.001)</td><td>0.987 (0.001)</td><td>0.000 (&lt;0.001)</td><td>0.929 (0.003)</td><td>0.994 (&lt;0.001)</td><td>&minus;0.064 (0.003)</td></tr>
+<tr class="mixrow"><td>70% ASN, 30% AFR</td><td>ASN</td><td>0.983 (0.001)</td><td>0.993 (&lt;0.001)</td><td>&minus;0.010 (0.001)</td><td>0.952 (0.001)</td><td>0.996 (&lt;0.001)</td><td>&minus;0.044 (0.001)</td></tr>
+<tr><td></td><td>AFR</td><td>0.990 (0.001)</td><td>0.996 (&lt;0.001)</td><td>&minus;0.007 (0.001)</td><td>0.973 (0.002)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.023 (0.002)</td></tr>
+<tr class="mixrow"><td>50% ASN, 50% AFR</td><td>ASN</td><td>0.942 (0.002)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.055 (0.002)</td><td>0.962 (0.001)</td><td>0.997 (&lt;0.001)</td><td>&minus;0.034 (0.001)</td></tr>
+<tr><td></td><td>AFR</td><td>0.978 (0.003)</td><td>1.000 (&lt;0.001)</td><td>&minus;0.022 (0.002)</td><td>0.987 (0.001)</td><td>0.999 (&lt;0.001)</td><td>&minus;0.012 (0.001)</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section>
+<h2>Table 5. Simulation settings</h2>
 <p class="cap">Simulation and analysis settings for the sweep.</p>
 <div class="wrap">
 <table class="kv">
@@ -209,6 +257,11 @@ code { font-size: 11.5px; }
 <tr><td>Chromosome</td><td>22, HapMap3 SNPs</td></tr>
 <tr><td>LD blocks</td><td>fixed 250 kb, shared by both panels</td></tr>
 <tr><td>Simulated GWAS</td><td>1% causal SNPs with effects shared across ancestries; nominal <i>N</i> = 200,000</td></tr>
+<tr><td>Analysis SNPs per pair</td><td>EUR and ASN 14,233 (142 causal); EUR and AFR 15,693 (157 causal); EUR and SAS 15,997 (160 causal); ASN and AFR 13,972 (140 causal)</td></tr>
+<tr><td>Signal variance</td><td><i>v</i><sub>g</sub> = 0.01 (in units of residual variance)</td></tr>
+<tr><td>GWAS (discovery) individuals</td><td>EUR 5,070, ASN 2,701, AFR 205, SAS 132</td></tr>
+<tr><td>Scored (target) individuals</td><td>EUR 5,070, ASN 2,699, AFR 204, SAS 129</td></tr>
+<tr><td>LD panels</td><td>reference individuals only; no additional convex shrinkage; eigenvalue floor 10<sup>&minus;8</sup> applied for numerical stability</td></tr>
 <tr><td>Replicates</td><td>100 per setting</td></tr>
 <tr><td>PRS-MIX blend</td><td>each panel weighted by its ancestry's share of the GWAS</td></tr>
 <tr><td>PRS-CS</td><td><i>&phi;</i> auto, sampler defaults (1,000 iterations, 500 burn-in, thinning 5)</td></tr>
@@ -217,7 +270,7 @@ code { font-size: 11.5px; }
 </table>
 </div>
 </section>
-<footer>Rendered from <code>paper/sim250_sweep_250kb/inputs/</code> by <code>inst/scripts/null_sim/18_sweep_paper_tables.R</code> at PRS-MIX b1a4f7e. The <code>.tex</code> files in the same folder hold the same values, and <code>tables.tsv</code> holds them unrounded with replicate counts.</footer>
+<footer>Rendered from <code>paper/sim250_sweep_250kb/inputs/</code> by <code>inst/scripts/null_sim/18_sweep_paper_tables.R</code> at PRS-MIX ae85a52. The <code>.tex</code> files in the same folder hold the same values, and <code>tables.tsv</code> holds them unrounded with replicate counts.</footer>
 </main>
 </body>
 </html>
