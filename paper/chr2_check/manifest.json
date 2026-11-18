@@ -1,0 +1,157 @@
+{
+  "study": "chr2_check",
+  "program": "inst/scripts/null_sim/24_chr2_tables.R",
+  "command": "Rscript inst/scripts/null_sim/24_chr2_tables.R 'inst/scripts/results/chr2_check' 'inst/scripts/results/sim250_sweep_100rep' 'paper/chr2_check'",
+  "asset_commit": "10d0d2fab66116cb05f7f4118ed9d3653e28a6f5",
+  "program_uncommitted": false,
+  "inputs_uncommitted": false,
+  "experiment_commit": ["612fe1f6e86758a28717388060b28a7d8c9b6478", "5bf74ec3ca675a894ed80abd6e9518b720fff7fd", "5c98ae3862fa375206f159bb7cfc001c0ff1219b", "2c38d4275e9dec2358c83f67a54d5142eae62765"],
+  "r_version": "R version 4.6.1 (2026-06-24)",
+  "inputs": [
+    {
+      "path": "paper/chr2_check/inputs/chr22/eur_asn_w0.7_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/sim250_sweep_100rep/eur_asn/w0.7/metrics/nonnull_metrics.tsv",
+      "source_commit": "612fe1f6e86758a28717388060b28a7d8c9b6478",
+      "sha256": "3564226adab71ae2d9573208f1d89d129b47dffe3ffe34be73fdf14ea48fad45"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr22/eur_asn_w0.7_nonnull_params.tsv",
+      "source": "inst/scripts/results/sim250_sweep_100rep/eur_asn/w0.7/metrics/nonnull_params.tsv",
+      "source_commit": "5bf74ec3ca675a894ed80abd6e9518b720fff7fd",
+      "sha256": "0377fa0819e86b296bc30041bc665c50a5ec45c26bc1ae43cb9dac7a6ab96a13"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr22/eur_asn_analysis_snps.tsv",
+      "source": "inst/scripts/results/sim250_sweep_100rep/eur_asn/analysis_snps.tsv",
+      "source_commit": "5bf74ec3ca675a894ed80abd6e9518b720fff7fd",
+      "sha256": "1d9bc7d4b7446b1af8a1e252ac5ddada487007cfe3dd52c3eff0a5e2e8878a20"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_asn_analysis_snps.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_asn/inputs/geno/analysis_snps.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "2dd73f4f593ecd78197c66e46c8a6059706546edaf5fec30a8bec28b16674bd0"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_asn_w0.7_nonnull_params.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_asn_w0.7/nonnull/params.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "0e8c53d667b362675f73a96b7f14d7405da35d5753f4726f454716387bebc69d"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_asn_w0.7_fixed250kb_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_asn_w0.7/fixed250kb/metrics/nonnull_metrics.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "2cb7ca2c396569857741cb259178607b49d9c54b5bbd8802cf7c4a607718a0d3"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_asn_w0.7_eurcuts_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_asn_w0.7/eurcuts/metrics/nonnull_metrics.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "36425969971d970741ed5168d9a974c7bce46e32107eded21d14ae99a9273f90"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr22/eur_afr_w0.5_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/sim250_sweep_100rep/eur_afr/w0.5/metrics/nonnull_metrics.tsv",
+      "source_commit": "2c38d4275e9dec2358c83f67a54d5142eae62765",
+      "sha256": "6d6bc9afec5def16ab49efad3defd8d0f41d047bd8fa316f92ccd4b27f87347b"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr22/eur_afr_w0.5_nonnull_params.tsv",
+      "source": "inst/scripts/results/sim250_sweep_100rep/eur_afr/w0.5/metrics/nonnull_params.tsv",
+      "source_commit": "5bf74ec3ca675a894ed80abd6e9518b720fff7fd",
+      "sha256": "6b29ec94e69660dc8f23d93fdfb4dbaca7d1a919e481e918b95b04580974b4e7"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr22/eur_afr_analysis_snps.tsv",
+      "source": "inst/scripts/results/sim250_sweep_100rep/eur_afr/analysis_snps.tsv",
+      "source_commit": "5bf74ec3ca675a894ed80abd6e9518b720fff7fd",
+      "sha256": "3c7a0a8f8522fc7f8557cbdd8bd023b52f3fb917242eb0e2aee28f24520cc885"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_afr_analysis_snps.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_afr/inputs/geno/analysis_snps.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "1c5fff5268e640aa00658b2a16e81de5d1c0d6ad988099298a2ef150f4613caf"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_afr_w0.5_nonnull_params.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_afr_w0.5/nonnull/params.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "54321b91d37ae83edc9d0e478144ab0e1596c0ace7bd0ea52abbe4d7aa760fbd"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_afr_w0.5_fixed250kb_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_afr_w0.5/fixed250kb/metrics/nonnull_metrics.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "3f73f76ffb8e3c21daf25bf75c0f309de4320def89ed6991d7d672bdaa0a48af"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_afr_w0.5_eurcuts_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_afr_w0.5/eurcuts/metrics/nonnull_metrics.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "37a50d5495cfd45e34cdfc0e80e0f48a1b132f7bf617b10e8f5b8070da8b3759"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_afr_w0.5_vg0.01_nonnull_params.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_afr_w0.5_vg0.01/nonnull/params.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "8e15e5f56f4286ef1653d4909e3a57a98050664e410413e22235325a49737b8a"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_afr_w0.5_vg0.01_fixed250kb_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_afr_w0.5_vg0.01/fixed250kb/metrics/nonnull_metrics.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "6e6b4cfe9987af7ec5b8f2afbba1a89fa0f24e3cad577e2be612f5dc2fbb075b"
+    },
+    {
+      "path": "paper/chr2_check/inputs/chr2/eur_afr_w0.5_vg0.01_eurcuts_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/chr2_check/eur_afr_w0.5_vg0.01/eurcuts/metrics/nonnull_metrics.tsv",
+      "source_commit": "5c98ae3862fa375206f159bb7cfc001c0ff1219b",
+      "sha256": "beb52542de78f863affe841ee7202ed32adf7ee98cd1c381884ee19642715e89"
+    }
+  ],
+  "outputs": {
+    "table_chr2_accuracy.tex": {
+      "path": "paper/chr2_check/table_chr2_accuracy.tex",
+      "sha256": "c21593e4fcdb79d69b45823891f2353531e92016f2f93c64d894dd98b73cfead"
+    },
+    "table_chr2_overlap.tex": {
+      "path": "paper/chr2_check/table_chr2_overlap.tex",
+      "sha256": "74346630b4ef3b50c23bb1e42bb202ccf9526a0579fe6de642152ee0d1a8e51c"
+    },
+    "table_chr2_settings.tex": {
+      "path": "paper/chr2_check/table_chr2_settings.tex",
+      "sha256": "172e361127590c6005b8452cd4293215c0095590816f983718d755c279a9d926"
+    },
+    "tables.html": {
+      "path": "paper/chr2_check/tables.html",
+      "sha256": "5666365e9ad918fab60310fa7c4cd1c62bd43ff56f35e2888d692e351441d802"
+    },
+    "tables.tsv": {
+      "path": "paper/chr2_check/tables.tsv",
+      "sha256": "a0d5795f81d20ba4fe3f3486f25f48e9f799341f94b2e7067dfb223a66f3dd4a"
+    },
+    "settings.tsv": {
+      "path": "paper/chr2_check/settings.tsv",
+      "sha256": "f33b3d8d1db6532bb5f30c4974d62c1c70d65d1d509b8df0ad093514003db99e"
+    }
+  },
+  "settings": {
+    "comparisons": ["EUR + ASN, 70:30", "EUR + AFR, 50:50"],
+    "replicates_used": {
+      "eur_asn_w0.7|chr22|chr22|fixed250kb": 100,
+      "eur_asn_w0.7|chr2|chr2_scaled|fixed250kb": 100,
+      "eur_asn_w0.7|chr2|chr2_scaled|eurcuts": 100,
+      "eur_afr_w0.5|chr22|chr22|fixed250kb": 100,
+      "eur_afr_w0.5|chr2|chr2_scaled|fixed250kb": 100,
+      "eur_afr_w0.5|chr2|chr2_scaled|eurcuts": 100,
+      "eur_afr_w0.5|chr2|chr2_vg001|fixed250kb": 100,
+      "eur_afr_w0.5|chr2|chr2_vg001|eurcuts": 100
+    },
+    "phi_mode": "auto",
+    "chr2_vg": "scaled: 0.01 x chr2 analysis SNPs / chr22 analysis SNPs of the pair; EUR+AFR also at 0.01",
+    "uncertainty": "mean over replicates with Monte Carlo SE; paired differences use the SE of the per-replicate difference"
+  },
+  "notes": "chr2 runs were made on RedHawk with cluster/jobs/chr2_check (not version-controlled), on the chr22 sweep's sample split."
+}
