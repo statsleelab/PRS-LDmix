@@ -1,0 +1,119 @@
+{
+  "study": "layout_pilot",
+  "program": "inst/scripts/null_sim/22_pilot_paper_tables.R",
+  "command": "Rscript inst/scripts/null_sim/22_pilot_paper_tables.R 'inst/scripts/results/layout_pilot' 'inst/scripts/results/chain_check/eur_asn_w0.7' 'paper/layout_pilot'",
+  "asset_commit": "0ec604746a93c7438ae3244a964a5e3fab28aed9",
+  "program_uncommitted": false,
+  "inputs_uncommitted": false,
+  "experiment_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+  "r_version": "R version 4.6.1 (2026-06-24)",
+  "inputs": [
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_afr_w0.5/runs/fixed250kb/metrics/nonnull_metrics.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_afr_w0.5/runs/fixed250kb/metrics/nonnull_metrics.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "ea6c7d16bce3a278385019fe16153c9135d5d08a4fb8586085367e5fa93145c3"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_afr_w0.5/runs/fixed1000kb/metrics/nonnull_metrics.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_afr_w0.5/runs/fixed1000kb/metrics/nonnull_metrics.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "8fb634b99dde02aca078694addd21f378254bbde1e4a0e46d3db3692161a7ade"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_afr_w0.5/runs/eurcuts/metrics/nonnull_metrics.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_afr_w0.5/runs/eurcuts/metrics/nonnull_metrics.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "36ff63060daa751e8adf12915dee2216ca1dd4ca1493afe732134e37f6a35ecf"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_afr_w0.5/diagnostics/boundary.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_afr_w0.5/diagnostics/boundary.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "f9065ce3b509c15ce9f8c11f6650e05f2c05a941416e20877079267aab218a96"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_afr_w0.5/diagnostics/mismatch.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_afr_w0.5/diagnostics/mismatch.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "181c11fb8e988ab0abbfd051d9988ce84a9253cb9bbff889f9dc677887b52dd6"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_asn_w0.5/runs/fixed250kb/metrics/nonnull_metrics.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_asn_w0.5/runs/fixed250kb/metrics/nonnull_metrics.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "00cadf3782e60d0aa8b11c86ef90937db40d299add3f9ffdeba0dd56deae3fa4"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_asn_w0.5/runs/fixed1000kb/metrics/nonnull_metrics.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_asn_w0.5/runs/fixed1000kb/metrics/nonnull_metrics.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "11c63d945398985bb7645e1ecc4bbea053c1908ae36399fa1fbf002c9164bbc7"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_asn_w0.5/runs/eurcuts/metrics/nonnull_metrics.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_asn_w0.5/runs/eurcuts/metrics/nonnull_metrics.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "55471277573b249de2785dc3ddc3fd2628db6c3db8457bf1dd18aea6229f559b"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_asn_w0.5/diagnostics/boundary.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_asn_w0.5/diagnostics/boundary.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "e6b83d54dd38f8fcadfbfdf86aee3090b54f3818b250210f3e41d07212ea9682"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/layout_pilot/eur_asn_w0.5/diagnostics/mismatch.tsv",
+      "source": "inst/scripts/results/layout_pilot/eur_asn_w0.5/diagnostics/mismatch.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "9677cc70b6af7a75fd97631af2dad759f4fd90ff04b511866b01342de5a7082c"
+    },
+    {
+      "path": "paper/layout_pilot/inputs/chain_check_eur_asn_w0.7_nonnull_metrics.tsv",
+      "source": "inst/scripts/results/chain_check/eur_asn_w0.7/metrics/nonnull_metrics.tsv",
+      "source_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
+      "sha256": "ab4e9cf22ec06cb46b4a0228e9c138beab177214bcd3e4f04dfdade6492e6988"
+    }
+  ],
+  "outputs": {
+    "table_chain_pilot.tex": {
+      "path": "paper/layout_pilot/table_chain_pilot.tex",
+      "sha256": "196e430c6f99f92adbe5a0d308404c71553165f2900e533d5a22a1778ff7d007"
+    },
+    "table_chain_check.tex": {
+      "path": "paper/layout_pilot/table_chain_check.tex",
+      "sha256": "04fe759576f378b3cf1e2aede49dab0817acdb104dbe34580322bcb4eaf2709b"
+    },
+    "table_discovery.tex": {
+      "path": "paper/layout_pilot/table_discovery.tex",
+      "sha256": "f89c91a7b0d5761917f61483aa19de0f079592571412e44ee5bab13a2a58b777"
+    },
+    "table_layouts.tex": {
+      "path": "paper/layout_pilot/table_layouts.tex",
+      "sha256": "1a58f9810cd3dc56d2674aa13c7893fdfcbf0775df06df055c4b5223961ac4bb"
+    },
+    "table_diagnostics.tex": {
+      "path": "paper/layout_pilot/table_diagnostics.tex",
+      "sha256": "556c983c4fd1bf5d865bfdb65eb2356b4890605938b9d7f46955ca44db995793"
+    },
+    "tables.html": {
+      "path": "paper/layout_pilot/tables.html",
+      "sha256": "839b5580a410fbdaa36c1579bbfa37b07fc8124c58194646c675cab7f3e3c9c9"
+    },
+    "tables.tsv": {
+      "path": "paper/layout_pilot/tables.tsv",
+      "sha256": "cbc8efd762a0e3968e015f36c16b0b92da31d7ca373caa5f3092005f1c0bbd97"
+    }
+  },
+  "settings": {
+    "design": "inst/scripts/null_sim/LAYOUT_PILOT.md (prespecified 2026-11-05; deviation 2026-11-09: 8,000-iteration chains for EUR+ASN)",
+    "pilot_settings": ["EUR + AFR, 50:50", "EUR + ASN, 50:50"],
+    "pilot_replicates": "1-20; chain arms 1-5",
+    "chain_check": "EUR+ASN 70:30, 250 kb, replicates with every default and 4,000-iteration arm",
+    "chain_check_replicates": 100,
+    "intervals": "95% paired t intervals over replicates, unadjusted",
+    "phi_mode": "auto",
+    "sampler": "defaults 1,000/500/5; long 4,000/2,000/5; xlong 8,000/4,000/5 (iterations/burn-in/thinning)"
+  },
+  "notes": "Pilot and chain-check runs were made on RedHawk (cluster/jobs/layout_pilot, not version-controlled)."
+}
