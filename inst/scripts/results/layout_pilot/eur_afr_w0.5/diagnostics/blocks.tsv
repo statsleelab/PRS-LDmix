@@ -1,0 +1,4 @@
+layout	n_blocks	m	snps_median	snps_max	span_median_bp	span_max_bp
+fixed250kb	139	15693	109	279	244951	249952
+fixed1000kb	36	15693	397	880	994799	999751
+eurcuts	24	15693	674.5	1088	1325092	2440170
