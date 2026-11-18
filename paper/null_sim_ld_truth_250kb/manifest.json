@@ -1,0 +1,71 @@
+{
+  "study": "null_sim_ld_truth_250kb",
+  "program": "inst/scripts/null_sim/25_ld_truth_tables.R",
+  "command": "Rscript inst/scripts/null_sim/25_ld_truth_tables.R 'paper/null_sim_ld_truth_250kb/figures/inputs' 'paper/null_sim_ld_truth_250kb'",
+  "asset_commit": "8d28554bc662e18e7175e394af88c5f51b3486c8",
+  "program_uncommitted": false,
+  "inputs_uncommitted": false,
+  "experiment_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
+  "r_version": "R version 4.6.1 (2026-06-24)",
+  "inputs": [
+    {
+      "path": "paper/null_sim_ld_truth_250kb/inputs/eur_asn_block_scan.tsv",
+      "source": "paper/null_sim_ld_truth_250kb/figures/inputs/eur_asn_block_scan.tsv",
+      "source_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
+      "sha256": "bcc0ec3e6b9ceaac4014fa58005064ded08dc42bf7eedd0eb008ad00a3ecf125"
+    },
+    {
+      "path": "paper/null_sim_ld_truth_250kb/inputs/eur_asn_params.tsv",
+      "source": "paper/null_sim_ld_truth_250kb/figures/inputs/eur_asn_params.tsv",
+      "source_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
+      "sha256": "258c8a2f75dacc59bddcc17e788a1b222f2fb2877095a4bd7da3225b4a53d42a"
+    },
+    {
+      "path": "paper/null_sim_ld_truth_250kb/inputs/eur_afr_block_scan.tsv",
+      "source": "paper/null_sim_ld_truth_250kb/figures/inputs/eur_afr_block_scan.tsv",
+      "source_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
+      "sha256": "30c653716ebd7a7b5b2769deed702b347f3b83baca28ee3b9528152984221388"
+    },
+    {
+      "path": "paper/null_sim_ld_truth_250kb/inputs/eur_afr_params.tsv",
+      "source": "paper/null_sim_ld_truth_250kb/figures/inputs/eur_afr_params.tsv",
+      "source_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
+      "sha256": "22780f6de0987cd5f4c854f16ca60c0c86efe8f4c85bce0d3cbbfabbad3dedef"
+    },
+    {
+      "path": "paper/null_sim_ld_truth_250kb/inputs/eur_sas_block_scan.tsv",
+      "source": "paper/null_sim_ld_truth_250kb/figures/inputs/eur_sas_block_scan.tsv",
+      "source_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
+      "sha256": "2777042d24aaee8adc1c125c55d042caa10f06d308f05ae84e477a6e545ebcc5"
+    },
+    {
+      "path": "paper/null_sim_ld_truth_250kb/inputs/eur_sas_params.tsv",
+      "source": "paper/null_sim_ld_truth_250kb/figures/inputs/eur_sas_params.tsv",
+      "source_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
+      "sha256": "43af97c1ca1b86f08b18c693c04135360e96e6ebdd53dfe20c54601660c24102"
+    }
+  ],
+  "outputs": {
+    "table_ld_chr.tex": {
+      "path": "paper/null_sim_ld_truth_250kb/table_ld_chr.tex",
+      "sha256": "565f742722f87b8e5915c4321f1e3bc3c24520ef4989a64c05ea2a073eff2743"
+    },
+    "tables.html": {
+      "path": "paper/null_sim_ld_truth_250kb/tables.html",
+      "sha256": "5e28c316ae9a1771fcf955d92fc215179ff3e1c445cdeb372e6e7d54827e990f"
+    },
+    "tables.tsv": {
+      "path": "paper/null_sim_ld_truth_250kb/tables.tsv",
+      "sha256": "42bb38307ade442f09f5799dca29dabf1140db8ea2019933a3d53a607659755d"
+    }
+  },
+  "settings": {
+    "chromosome": 22,
+    "block_layout": "fixed 250 kb",
+    "pairs": ["eur_asn", "eur_afr", "eur_sas"],
+    "compositions_A": [0.9, 0.7, 0.5],
+    "blocks": "blocks in <pair>_block_scan.tsv (at least two analysis SNPs)",
+    "summary": "median over blocks of mean |true - candidate| over off-diagonal SNP pairs; count of blocks with mad_prsmix < mad_a_only"
+  },
+  "notes": "Inputs are the frozen per-block scans of paper/null_sim_ld_truth_250kb/figures (RedHawk extracts from 20_ld_truth_extract.R)."
+}
