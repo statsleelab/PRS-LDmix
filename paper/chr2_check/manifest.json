@@ -2,7 +2,7 @@
   "study": "chr2_check",
   "program": "inst/scripts/null_sim/24_chr2_tables.R",
   "command": "Rscript inst/scripts/null_sim/24_chr2_tables.R 'inst/scripts/results/chr2_check' 'inst/scripts/results/sim250_sweep_100rep' 'paper/chr2_check'",
-  "asset_commit": "10d0d2fab66116cb05f7f4118ed9d3653e28a6f5",
+  "asset_commit": "ae85a520d2d6e6270c1f775232d86694acdf261e",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "experiment_commit": ["612fe1f6e86758a28717388060b28a7d8c9b6478", "5bf74ec3ca675a894ed80abd6e9518b720fff7fd", "5c98ae3862fa375206f159bb7cfc001c0ff1219b", "2c38d4275e9dec2358c83f67a54d5142eae62765"],
@@ -124,9 +124,13 @@
       "path": "paper/chr2_check/table_chr2_settings.tex",
       "sha256": "172e361127590c6005b8452cd4293215c0095590816f983718d755c279a9d926"
     },
+    "table_chr2_eurcuts.tex": {
+      "path": "paper/chr2_check/table_chr2_eurcuts.tex",
+      "sha256": "a16b395634d089cd33ab0cc52a4f710113736777affc85cfc639a80c5f9b9605"
+    },
     "tables.html": {
       "path": "paper/chr2_check/tables.html",
-      "sha256": "5666365e9ad918fab60310fa7c4cd1c62bd43ff56f35e2888d692e351441d802"
+      "sha256": "4d8939ba182d7d86d49a7ed2e9a3cfea8da861ad99e90304e2eb39a94ec0103b"
     },
     "tables.tsv": {
       "path": "paper/chr2_check/tables.tsv",

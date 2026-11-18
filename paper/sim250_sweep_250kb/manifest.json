@@ -2,7 +2,7 @@
   "study": "sim250_sweep_250kb",
   "program": "inst/scripts/null_sim/18_sweep_paper_tables.R",
   "command": "Rscript inst/scripts/null_sim/18_sweep_paper_tables.R 'inst/scripts/results/sim250_sweep_100rep' 'paper/sim250_sweep_250kb' 'all' 'auto' 'no' 'all'",
-  "asset_commit": "36c9cdee2f8f3bde10936d412c0bbee8271a5dc1",
+  "asset_commit": "ae85a520d2d6e6270c1f775232d86694acdf261e",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "provisional": false,
@@ -245,7 +245,7 @@
     },
     "table_sweep_settings": {
       "path": "paper/sim250_sweep_250kb/table_sweep_settings.tex",
-      "sha256": "b6d3454812899f1e722016a079a6d2ebcbc49e05c3d406e5bee08de03565bf4e"
+      "sha256": "8f7437c82c47ea43b995a03896c8448d9cedc189811514b41364f877546accee"
     },
     "tables_tsv": {
       "path": "paper/sim250_sweep_250kb/tables.tsv",
@@ -253,7 +253,7 @@
     },
     "tables_html": {
       "path": "paper/sim250_sweep_250kb/tables.html",
-      "sha256": "bedb254c0e6d44af0ec2df7c17a6133675f030090f457d8d2ace1afea7fbc522"
+      "sha256": "7016fba7a9d2f6bc21278dc62412ef41c8791c96b40b1ca67fad3d454282c1af"
     }
   },
   "settings": {
