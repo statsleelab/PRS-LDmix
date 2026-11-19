@@ -89,6 +89,18 @@ def parse_param():
         print('* Please specify the output directory using --out_dir\n')
         sys.exit(2)
 
+    # the mixed LD is a convex combination of the panels: one proportion per panel, each >= 0, summing to 1
+    if len(param_dict['mix_props']) != len(param_dict['ref_dir']):
+        print('* --mix_props needs one proportion per --ref_dir panel (%d given for %d panels)\n'
+              % (len(param_dict['mix_props']), len(param_dict['ref_dir'])))
+        sys.exit(2)
+    elif any(not (w >= 0) for w in param_dict['mix_props']):
+        print('* --mix_props must be non-negative\n')
+        sys.exit(2)
+    elif abs(sum(param_dict['mix_props']) - 1) > 1e-6:
+        print('* --mix_props must sum to 1 (they sum to %g)\n' % sum(param_dict['mix_props']))
+        sys.exit(2)
+
     for key in param_dict:
         print('--%s=%s' % (key, param_dict[key]))
 
