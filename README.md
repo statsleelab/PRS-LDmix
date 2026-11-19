@@ -90,7 +90,7 @@ python inst/prscs-mix/PRScs_mix.py \
 ```
 
 `mix_props` must have one weight per `ref_dir` entry, in the same
-order. See `inst/prscs-mix/README.md` for the SNP-intersection fix
+order; the weights must be non-negative and sum to 1 (the script checks). See `inst/prscs-mix/README.md` for the SNP-intersection fix
 these scripts carry relative to upstream PRS-CS, and PRS-CS's own docs
 for the remaining parameters (`--a`, `--b`, `--phi`, `--n_iter`, etc.).
 
