@@ -68,10 +68,12 @@ Two layouts are supported:
 - **Fixed-width tiles** (the default and the paper’s main layout):
   contiguous, non-overlapping `block_size` tiles (250 kb) covering the
   chromosome’s full SNP range, independent of any one population.
-- **PRS-CS’s own cut points**: pass
-  `blocks = read_prscs_block_boundaries("ldblk_1kg_eur")` to reuse the
-  LD block boundaries of a published PRS-CS panel (e.g. the 1000G EUR
-  panel), instead of `block_size`.
+- **EUR-derived cut points**: pass
+  `blocks = read_prscs_block_boundaries("ldblk_1kg_eur")`, instead of
+  `block_size`, to use the block boundaries inferred from PRS-CS’s
+  published 1000G EUR panel. This keeps PRS-CS’s own block structure;
+  the boundaries follow European LD, so they are not neutral across
+  ancestries the way fixed tiles are.
 
 **HapMap3 filter.** `snp_filter` restricts the panels to a SNP list,
 matched by position and allele pair in either orientation. Pointing it
