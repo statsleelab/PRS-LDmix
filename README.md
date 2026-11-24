@@ -8,16 +8,13 @@
 <!-- badges: end -->
 
 PRS-MIX builds **multi-population, mixed LD reference panels for
-[PRS-CS](https://github.com/getian107/PRScs)** (Ge et al. 2019) and
-runs PRS-CS's posterior SNP effect sampler against a weighted blend of
-those panels (e.g. EUR + ASN) instead of a single population's panel.
-It is a fork of the [GAUSS](https://github.com/statsleelab/gauss)
-package — see [Background: GAUSS](#background-gauss) below — kept as
-the base because the panel generator calls directly into GAUSS’s
-compiled 33KG reference-panel reader.
-
-For the full rationale, file-by-file breakdown, and cluster setup, see
-[CLAUDE.md](CLAUDE.md).
+[PRS-CS](https://github.com/getian107/PRScs)** (Ge et al. 2019) and runs
+PRS-CS’s posterior SNP effect sampler against a weighted blend of those
+panels (e.g. EUR + ASN) instead of a single population’s panel. It is a
+fork of the [GAUSS](https://github.com/statsleelab/gauss) package – see
+[Background: GAUSS](#background-gauss) below – kept as the base because
+the panel generator calls directly into GAUSS’s compiled 33KG
+reference-panel reader.
 
 ## Installation
 
@@ -28,22 +25,22 @@ devtools::install_github("statsleelab/PRS-MIX")
 
 You’ll also need:
 
-- **A GAUSS 33KG reference panel** (index/genotype/population-description
-  files) to build LD panels from.
-- **An unmodified [PRS-CS](https://github.com/getian107/PRScs) checkout**
-  on your `PYTHONPATH` (or in the same directory) — `inst/prscs-mix/PRScs_mix.py`
-  imports PRS-CS's own `mcmc_gtb` and `gigrnd` modules and is not runnable
-  on its own.
+- **A GAUSS 33KG reference panel**
+  (index/genotype/population-description files) to build LD panels from.
+- **An unmodified [PRS-CS](https://github.com/getian107/PRScs)
+  checkout** on your `PYTHONPATH` (or in the same directory) –
+  `inst/prscs-mix/PRScs_mix.py` imports PRS-CS’s own `mcmc_gtb` and
+  `gigrnd` modules and is not runnable on its own.
 
 ## Workflow
 
 ### 1. Generate aligned multi-population LD panels
 
-Use `generate_prscs_ld_panels()` to build LD reference panels for two
-or more superpopulations at once, reconciled so every population's
-panel keeps the *same* SNPs (in the same order) within each block —
-required for PRS-CS's mixing logic to align panels correctly (see the
-function's docs for why unreconciled panels silently corrupt betas).
+Use `generate_prscs_ld_panels()` to build LD reference panels for two or
+more superpopulations at once, reconciled so every population’s panel
+keeps the *same* SNPs (in the same order) within each block – required
+for PRS-CS’s mixing logic to align panels correctly (see the function’s
+docs for why unreconciled panels silently corrupt betas).
 
 ``` r
 panel_dirs <- gauss::generate_prscs_ld_panels(
@@ -54,22 +51,37 @@ panel_dirs <- gauss::generate_prscs_ld_panels(
   output_dir                = "prscs_ref",
   chromosomes               = 1:22,
   block_size                = 250000,
-  shrinkage                 = 0.01
+  snp_filter                = "ldblk_1kg_eur/snpinfo_1kg_hm3",
+  shrinkage                 = 0
 )
 # panel_dirs -> list(EUR = "prscs_ref/ldblk_1kg_eur33kg", ASN = "prscs_ref/ldblk_1kg_asn33kg")
 ```
 
-Covariance normalization correction: `CalWgtCov()` now divides each
-population's centered cross-product by its sample degrees of freedom.
-Previously, each within-population covariance was inflated by the square
-of that population's sample size, distorting superpopulation LD. Regenerate
-panels built with the old estimator and rerun downstream analyses. The
-corrected estimator combines weighted within-population sample covariances
-and covariance of population means; it is not exactly pooled-sample Pearson
-LD. This shared helper also affects other GAUSS analyses that use it.
+`shrinkage = 0` matches the analyses in the paper; a value in `(0, 1)`
+shrinks every block towards the identity, `(1 - s) R + s I`, in every
+panel.
 
-For a single population's panel (no cross-population reconciliation
-needed), use `generate_prscs_ld_panel()` instead — see
+**Block layouts.** Every population’s panel uses the same block
+boundaries, which is what lets `PRScs_mix.py` mix them block by block.
+Two layouts are supported:
+
+- **Fixed-width tiles** (the default and the paper’s main layout):
+  contiguous, non-overlapping `block_size` tiles (250 kb) covering the
+  chromosome’s full SNP range, independent of any one population.
+- **PRS-CS’s own cut points**: pass
+  `blocks = read_prscs_block_boundaries("ldblk_1kg_eur")` to reuse the
+  LD block boundaries of a published PRS-CS panel (e.g. the 1000G EUR
+  panel), instead of `block_size`.
+
+**HapMap3 filter.** `snp_filter` restricts the panels to a SNP list,
+matched by position and allele pair in either orientation. Pointing it
+at PRS-CS’s `snpinfo_1kg_hm3` file (from any published PRS-CS 1000G
+panel) keeps only HapMap3 SNPs, as PRS-CS’s own panels do; this is what
+the paper uses. Leave it `NULL` to keep every SNP passing the MAF
+filter.
+
+For a single population’s panel (no cross-population reconciliation
+needed), use `generate_prscs_ld_panel()` instead – see
 `inst/scripts/generate_prscs_ld_chr_example.R` for a runnable,
 chr22-only example of both.
 
@@ -89,17 +101,18 @@ python inst/prscs-mix/PRScs_mix.py \
   --chrom=22
 ```
 
-`mix_props` must have one weight per `ref_dir` entry, in the same
-order; the weights must be non-negative and sum to 1 (the script checks). See `inst/prscs-mix/README.md` for the SNP-intersection fix
-these scripts carry relative to upstream PRS-CS, and PRS-CS's own docs
-for the remaining parameters (`--a`, `--b`, `--phi`, `--n_iter`, etc.).
+`mix_props` must have one weight per `ref_dir` entry, in the same order;
+the weights must be non-negative and sum to 1 (the script checks). See
+`inst/prscs-mix/README.md` for the SNP-intersection fix these scripts
+carry relative to upstream PRS-CS, and PRS-CS’s own docs for the
+remaining parameters (`--a`, `--b`, `--phi`, `--n_iter`, etc.).
 
-### 3. (Optional) Verify a generated panel against PRS-CS's own reference
+### 3. (Optional) Verify a generated panel against PRS-CS’s own reference
 
 `inst/scripts/verify_panel_vs_prscs_reference.R` compares a panel from
-step 1 against PRS-CS's published 1000G reference panel for the same
-population/chromosome, since the two use different (and
-non-comparable) block partitions:
+step 1 against PRS-CS’s published 1000G reference panel for the same
+population/chromosome, since the two use different (and non-comparable)
+block partitions:
 
 ``` bash
 Rscript inst/scripts/verify_panel_vs_prscs_reference.R \
@@ -111,47 +124,70 @@ example output.
 
 ## Repository layout
 
-- `R/prscs_ld_panel.R` — `generate_prscs_ld_panel()` /
+- `R/prscs_ld_panel.R` – `generate_prscs_ld_panel()` /
   `generate_prscs_ld_panels()` / `finalize_prscs_snpinfo()`.
-- `inst/prscs-mix/` — vendored, patched `PRScs_mix.py` /
+- `inst/prscs-mix/` – vendored, patched `PRScs_mix.py` /
   `v2parse_genet_mix.py`.
-- `inst/scripts/` — runnable examples: panel generation, cross-panel
-  MAF/SNP-overlap comparison, and verification against PRS-CS's own
+- `inst/scripts/` – runnable examples: panel generation, cross-panel
+  MAF/SNP-overlap comparison, and verification against PRS-CS’s own
   reference.
-- `tests/testthat/test-prscs-ld-panel.R` — unit tests for the panel
+- `tests/testthat/test-prscs-ld-panel.R` – unit tests for the panel
   generator.
-- `cluster/redhawk.yml` — RedHawk (Miami University) SLURM job config.
+- `cluster/redhawk.yml` – RedHawk (Miami University) SLURM job config.
 
 ## Background: GAUSS
 
 GAUSS (Genome Analysis Using Summary Statistics) is the R package
-PRS-MIX is forked from. It analyzes multi-ethnic GWAS summary
-statistics using a 32,953-genome, 29-population reference panel (the
-[33KG Panel](https://statsleelab.github.io/gauss/articles/ref_33KG.html):
+PRS-MIX is forked from. It analyzes multi-ethnic GWAS summary statistics
+using a 32,953-genome, 29-population reference panel (the [33KG
+Panel](https://statsleelab.github.io/gauss/articles/ref_33KG.html):
 20,281 Europeans, 10,800 East Asians, 522 South Asians, 817 Africans,
 and 533 Native Americans), offering tools to: i) estimate ancestry
 proportions (`afmix()`, `zmix()`), ii) calculate ancestry-informed LD
 (`computeLD()`), iii) impute Z-scores for unmeasured variants (`dist()`,
-`distmix()`), iv) run transcriptome-wide association studies
-(`jepeg()`, `jepegmix()`), and v) correct for Winner's Curse bias
-(`fiqt()`). PRS-MIX only uses GAUSS's reference-panel reader and LD
-computation (`computeSuperPopLDWindow()`); the rest of GAUSS's toolset
-ships here unmodified as part of the shared package base.
+`distmix()`), iv) run transcriptome-wide association studies (`jepeg()`,
+`jepegmix()`), and v) correct for Winner’s Curse bias (`fiqt()`).
+PRS-MIX only uses GAUSS’s reference-panel reader and LD computation
+(`computeSuperPopLDWindow()`); the rest of GAUSS’s toolset ships here
+unmodified as part of the shared package base.
 
 <img src="man/figures/GAUSS_Flowchart_bioinfo.png" alt="" width="100%" style="display: block; margin: auto;" />
 
-For GAUSS's own suggested workflow and full vignettes, see the
-[upstream GAUSS repository](https://github.com/statsleelab/gauss) and
-[vignettes site](https://statsleelab.github.io/gauss/).
+For GAUSS’s own suggested workflow and full vignettes, see the [upstream
+GAUSS repository](https://github.com/statsleelab/gauss) and [vignettes
+site](https://statsleelab.github.io/gauss/).
 
-## Citing GAUSS
+## Citation
 
-Lee and Bacanu. GAUSS: a summary-statistics-based R package for
-accurate estimation of linkage disequilibrium for variants, Gaussian
-imputation, and TWAS analysis of cosmopolitan cohorts.
+If you use PRS-MIX, please cite:
+
+Koo G, Lee D. PRS-MIX: ancestry-mixed linkage disequilibrium reference
+panels for polygenic risk prediction in diverse and admixed cohorts.
+*bioRxiv* (2026). Link to follow once the preprint is posted.
+<!-- TODO: replace with the bioRxiv DOI link -->
+
+PRS-MIX runs PRS-CS’s sampler, so please also cite PRS-CS:
+
+Ge T, Chen C-Y, Ni Y, Feng Y-CA, Smoller JW. Polygenic prediction via
+Bayesian regression and continuous shrinkage priors. [Nature
+Communications 10, 1776
+(2019)](https://doi.org/10.1038/s41467-019-09718-5).
+
+### Citing GAUSS
+
+Lee and Bacanu. GAUSS: a summary-statistics-based R package for accurate
+estimation of linkage disequilibrium for variants, Gaussian imputation,
+and TWAS analysis of cosmopolitan cohorts.
 [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae203).
+
+## License
+
+PRS-MIX is released under the GNU General Public License, version 2 or
+later; see [LICENSE.md](LICENSE.md). The vendored PRS-CS scripts in
+`inst/prscs-mix/` keep PRS-CS’s MIT license notice
+([LICENSE-PRScs](inst/prscs-mix/LICENSE-PRScs)).
 
 ## Authors
 
-Grace Koo <koogc@miamioh.edu>
-Donghyung Lee <leed13@miamioh.edu>
+- Grace Koo <koogc@miamioh.edu>
+- Donghyung Lee <leed13@miamioh.edu>
