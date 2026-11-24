@@ -6,7 +6,7 @@
 # ancestry of the pair (the one PRS-MIX's weight w refers to), panel B the
 # second. PRS-MIX is run at the generating composition (w = share of A).
 #
-#   table_sweep_accuracy.tex  Table 1. r^2 with true genetic value and MSE for PRS-CS
+#   table_sweep_accuracy.tex  Table 1. r^2 with true genetic value for PRS-CS
 #                             with panel A, PRS-MIX and PRS-CS with panel B,
 #                             and PRS-MIX minus each single panel.
 #   table_sweep_overlap.tex   Table 2. Top-10% overlap of PRS-MIX with each
@@ -147,9 +147,6 @@ for (i in seq_len(nrow(settings))) {
     put("accuracy", i, tg, "r2_B", r2(sb))
     put("accuracy", i, tg, "d_r2_A", r2(mix) - r2(sa))
     put("accuracy", i, tg, "d_r2_B", r2(mix) - r2(sb))
-    lmse <- function(a) log(v(mix, paste0("mse_gv_", tg)) / v(a, paste0("mse_gv_", tg)))
-    put("accuracy", i, tg, "mse_pct_A", lmse(sa), scale = "log_pct")
-    put("accuracy", i, tg, "mse_pct_B", lmse(sb), scale = "log_pct")
     for (ref in c("A", "B")) {
       rp <- s[[ref]]
       for (cut in c("05", "10", "20")) {
@@ -192,16 +189,12 @@ tx <- function(tex, t, h) if (tex) t else h
 minus <- function(tex) tx(tex, "$-$", "&minus;")
 tables <- list(
   accuracy = list(
-    cols = list(col("r2_A", 3), col("r2_mix", 3), col("r2_B", 3), col("d_r2_A", 3, TRUE), col("d_r2_B", 3, TRUE),
-                col("mse_pct_A", 1, TRUE), col("mse_pct_B", 1, TRUE)),
+    cols = list(col("r2_A", 3), col("r2_mix", 3), col("r2_B", 3), col("d_r2_A", 3, TRUE), col("d_r2_B", 3, TRUE)),
     groups = function(tex) list(
       list(tx(tex, "$r^2$ with true genetic value (higher is better)", "<i>r</i><sup>2</sup> with true genetic value (higher is better)"), 3),
-      list(tx(tex, "$r^2$, PRS-MIX minus single panel (positive favours PRS-MIX)", "<i>r</i><sup>2</sup>, PRS-MIX minus single panel (positive favours PRS-MIX)"), 2),
-      list(tx(tex, "MSE, PRS-MIX vs.\\ single panel (\\%; negative favours PRS-MIX)", "MSE, PRS-MIX vs. single panel (%; negative favours PRS-MIX)"), 2)),
+      list(tx(tex, "$r^2$, PRS-MIX minus single panel (positive favours PRS-MIX)", "<i>r</i><sup>2</sup>, PRS-MIX minus single panel (positive favours PRS-MIX)"), 2)),
     heads = NULL,
     block = function(pa, pb, tex) list(list(paste(pa, "panel"), 1), list("PRS-MIX", 1), list(paste(pb, "panel"), 1),
-                                       list(tx(tex, paste0("vs.\\ ", pa, " panel"), paste("vs.", pa, "panel")), 1),
-                                       list(tx(tex, paste0("vs.\\ ", pb, " panel"), paste("vs.", pb, "panel")), 1),
                                        list(tx(tex, paste0("vs.\\ ", pa, " panel"), paste("vs.", pa, "panel")), 1),
                                        list(tx(tex, paste0("vs.\\ ", pb, " panel"), paste("vs.", pb, "panel")), 1))),
   overlap = list(
@@ -358,7 +351,6 @@ glossary <- c(
   "<dt>GWAS ancestry mix</dt><dd>The ancestry make-up of the simulated GWAS. Each pair is tested at three mixes.</dd>",
   "<dt>Scored in</dt><dd>The held-out individuals whose scores are evaluated. They are in neither the GWAS nor the LD panels.</dd>",
   "<dt><i>r</i><sup>2</sup> with true genetic value</dt><dd>Squared correlation between people's scores and their true simulated genetic values. 1 is perfect, 0 is no information.</dd>",
-  "<dt>MSE</dt><dd>Mean squared error between people's scores and their true genetic values. Unlike <i>r</i><sup>2</sup>, it also penalises scores that are on the wrong scale, for example spread far more widely than the true values. The table gives PRS-MIX's MSE as a percentage change from each single panel's: &minus;40% means PRS-MIX's error is 40% smaller.</dd>",
   "<dt>Top-10% overlap</dt><dd>Of the people PRS-MIX ranks in its top 10%, the share that the single panel also ranks in its top 10%.</dd>",
   "<dt>Rerun, new seed</dt><dd>The same single panel run again with a different random seed. Its overlap with the original run shows how much the top 10% changes from sampler randomness alone. It is the yardstick for PRS-MIX.</dd>",
   "<dt>Percentage points</dt><dd>The plain difference between two percentages: 88% minus 91% is &minus;3 percentage points. Negative means PRS-MIX changes who is in the top 10% more than rerunning the same panel does.</dd>",
@@ -369,9 +361,7 @@ common_caption <- sprintf(paste(
   "paired within replicate."), rep_text)
 captions <- list(
   accuracy = paste("How well each method's scores track true genetic value. <i>r</i><sup>2</sup> measures how well scores rank",
-                   "people; MSE also checks that scores are on the right scale. The <i>r</i><sup>2</sup> differences subtract each",
-                   "single panel's <i>r</i><sup>2</sup> from PRS-MIX's. The MSE columns give PRS-MIX's MSE as a percentage change from",
-                   "the single panel's, averaged on the log scale over replicates (geometric mean) with delta-method standard errors.",
+                   "people. The differences subtract each single panel's <i>r</i><sup>2</sup> from PRS-MIX's.",
                    common_caption),
   overlap = paste("For each single panel: how much of PRS-MIX's top 10% that panel also puts in its top 10%, next to the same",
                   "overlap for a rerun of the panel with a new seed. The difference shows how far PRS-MIX moves the top 10%",
@@ -460,7 +450,6 @@ manifest <- list(
     uncertainty = "mean over replicates with Monte Carlo SE (SD / sqrt(n)); paired differences use the SE of the per-replicate difference",
     metric_definitions = list(
       r2 = "squared correlation between target scores and true genetic values, non-null GWAS",
-      mse_pct = "100 * (exp(mean over replicates of log(mse_gv of PRS-MIX / mse_gv of the single panel)) - 1); mse_gv = mean of ((s - mean s) - (g - mean g))^2 (07_metrics_nonnull.R); delta-method SE",
       overlap = "share of target individuals in PRS-MIX's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
       seed_baseline = "the same overlap between the single panel's seed rerun and the single panel",
       difference = "per-replicate PRS-MIX overlap minus seed-rerun overlap, percentage points")),
