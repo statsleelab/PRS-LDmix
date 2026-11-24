@@ -2,7 +2,7 @@
   "study": "sim250_sweep_250kb_eur_pairs",
   "program": "inst/scripts/null_sim/18_sweep_paper_tables.R",
   "command": "Rscript inst/scripts/null_sim/18_sweep_paper_tables.R 'inst/scripts/results/sim250_sweep_100rep' 'paper/sim250_sweep_250kb_eur_pairs' 'all' 'auto' 'no' 'eur_asn,eur_afr,eur_sas'",
-  "asset_commit": "ae85a520d2d6e6270c1f775232d86694acdf261e",
+  "asset_commit": "92487bfa274e8694be0f9f6286b6110845b2af25",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "provisional": false,
@@ -175,7 +175,7 @@
   "outputs": {
     "table_sweep_accuracy": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/table_sweep_accuracy.tex",
-      "sha256": "d31b0d20706a029fd73ef455bf97ca82cf07106a3a50e8911a7c4b16dedbb520"
+      "sha256": "b39e4122b865022041f76b9f2c2881bebec5e51d366b25b38c1d6e89a0b82ed3"
     },
     "table_sweep_overlap": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/table_sweep_overlap.tex",
@@ -195,11 +195,11 @@
     },
     "tables_tsv": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/tables.tsv",
-      "sha256": "8fae607179f55d2ad76739c2d88c99313f7a55b49bd5fa0c5b27bd97574d4bcb"
+      "sha256": "f42eae2ff0abb5ac5b1a9cdd8d03ca2bf83f71a964434a82d5a32c88de72ab05"
     },
     "tables_html": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/tables.html",
-      "sha256": "8ce9b368d1087ae7d68f67ca0d86bdeecdaa4a0ae6f3f65cd7ddbfa351e98aca"
+      "sha256": "914a401af9572d75ad98d98b309e210fd958c5e41f42e40c1245737448c5dd70"
     }
   },
   "settings": {
@@ -239,7 +239,6 @@
     "uncertainty": "mean over replicates with Monte Carlo SE (SD / sqrt(n)); paired differences use the SE of the per-replicate difference",
     "metric_definitions": {
       "r2": "squared correlation between target scores and true genetic values, non-null GWAS",
-      "mse_pct": "100 * (exp(mean over replicates of log(mse_gv of PRS-MIX / mse_gv of the single panel)) - 1); mse_gv = mean of ((s - mean s) - (g - mean g))^2 (07_metrics_nonnull.R); delta-method SE",
       "overlap": "share of target individuals in PRS-MIX's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
       "seed_baseline": "the same overlap between the single panel's seed rerun and the single panel",
       "difference": "per-replicate PRS-MIX overlap minus seed-rerun overlap, percentage points"
