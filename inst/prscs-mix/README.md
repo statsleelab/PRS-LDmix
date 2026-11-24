@@ -9,6 +9,11 @@ To run, place these alongside an unmodified PRS-CS checkout so `mcmc_gtb.py` and
 `gigrnd.py` are importable (`PRScs_mix.py` imports `v2parse_genet_mix`, `mcmc_gtb`,
 `gigrnd`).
 
+**License.** The two scripts are modified from PRS-CS, which is released under
+the MIT License (copyright (c) 2018 Tian Ge); that notice is kept in
+[`LICENSE-PRScs`](LICENSE-PRScs). The rest of PRS-MIX is released under the GNU
+GPL, version 2 or later (see the repository's `LICENSE.md`).
+
 `PRScs_mix.py`'s `main()` intersects every `--ref_dir` panel's SNP universe up front
 before building the SNP list. Earlier versions built the SNP list from only the
 first-listed panel, so a SNP missing from a smaller panel (e.g. ASN, which covers
