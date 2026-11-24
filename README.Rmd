@@ -20,8 +20,6 @@ knitr::opts_chunk$set(
 
 PRS-MIX builds **multi-population, mixed LD reference panels for [PRS-CS](https://github.com/getian107/PRScs)** (Ge et al. 2019) and runs PRS-CS's posterior SNP effect sampler against a weighted blend of those panels (e.g. EUR + ASN) instead of a single population's panel. It is a fork of the [GAUSS](https://github.com/statsleelab/gauss) package -- see [Background: GAUSS](#background-gauss) below -- kept as the base because the panel generator calls directly into GAUSS's compiled 33KG reference-panel reader.
 
-For the full rationale, file-by-file breakdown, and cluster setup, see [CLAUDE.md](CLAUDE.md).
-
 ## Installation
 
 ```r
@@ -49,12 +47,20 @@ panel_dirs <- gauss::generate_prscs_ld_panels(
   output_dir                = "prscs_ref",
   chromosomes               = 1:22,
   block_size                = 250000,
-  shrinkage                 = 0.01
+  snp_filter                = "ldblk_1kg_eur/snpinfo_1kg_hm3",
+  shrinkage                 = 0
 )
 # panel_dirs -> list(EUR = "prscs_ref/ldblk_1kg_eur33kg", ASN = "prscs_ref/ldblk_1kg_asn33kg")
 ```
 
-Covariance normalization correction: `CalWgtCov()` now divides each population's centered cross-product by its sample degrees of freedom. Previously, each within-population covariance was inflated by the square of that population's sample size, distorting superpopulation LD. Regenerate panels built with the old estimator and rerun downstream analyses. The corrected estimator combines weighted within-population sample covariances and covariance of population means; it is not exactly pooled-sample Pearson LD. This shared helper also affects other GAUSS analyses that use it.
+`shrinkage = 0` matches the analyses in the paper; a value in `(0, 1)` shrinks every block towards the identity, `(1 - s) R + s I`, in every panel.
+
+**Block layouts.** Every population's panel uses the same block boundaries, which is what lets `PRScs_mix.py` mix them block by block. Two layouts are supported:
+
+- **Fixed-width tiles** (the default and the paper's main layout): contiguous, non-overlapping `block_size` tiles (250 kb) covering the chromosome's full SNP range, independent of any one population.
+- **PRS-CS's own cut points**: pass `blocks = read_prscs_block_boundaries("ldblk_1kg_eur")` to reuse the LD block boundaries of a published PRS-CS panel (e.g. the 1000G EUR panel), instead of `block_size`.
+
+**HapMap3 filter.** `snp_filter` restricts the panels to a SNP list, matched by position and allele pair in either orientation. Pointing it at PRS-CS's `snpinfo_1kg_hm3` file (from any published PRS-CS 1000G panel) keeps only HapMap3 SNPs, as PRS-CS's own panels do; this is what the paper uses. Leave it `NULL` to keep every SNP passing the MAF filter.
 
 For a single population's panel (no cross-population reconciliation needed), use `generate_prscs_ld_panel()` instead -- see `inst/scripts/generate_prscs_ld_chr_example.R` for a runnable, chr22-only example of both.
 
@@ -104,11 +110,25 @@ knitr::include_graphics('man/figures/GAUSS_Flowchart_bioinfo.png')
 
 For GAUSS's own suggested workflow and full vignettes, see the [upstream GAUSS repository](https://github.com/statsleelab/gauss) and [vignettes site](https://statsleelab.github.io/gauss/).
 
-## Citing GAUSS
+## Citation
+
+If you use PRS-MIX, please cite:
+
+Koo G, Lee D. PRS-MIX: ancestry-mixed linkage disequilibrium reference panels for polygenic risk prediction in diverse and admixed cohorts. *bioRxiv* (2026). Link to follow once the preprint is posted. <!-- TODO: replace with the bioRxiv DOI link -->
+
+PRS-MIX runs PRS-CS's sampler, so please also cite PRS-CS:
+
+Ge T, Chen C-Y, Ni Y, Feng Y-CA, Smoller JW. Polygenic prediction via Bayesian regression and continuous shrinkage priors. [Nature Communications 10, 1776 (2019)](https://doi.org/10.1038/s41467-019-09718-5).
+
+### Citing GAUSS
 
 Lee and Bacanu. GAUSS: a summary-statistics-based R package for accurate estimation of linkage disequilibrium for variants, Gaussian imputation, and TWAS analysis of cosmopolitan cohorts. [Bioinformatics](https://doi.org/10.1093/bioinformatics/btae203).
 
+## License
+
+PRS-MIX is released under the GNU General Public License, version 2 or later; see [LICENSE.md](LICENSE.md). The vendored PRS-CS scripts in `inst/prscs-mix/` keep PRS-CS's MIT license notice ([LICENSE-PRScs](inst/prscs-mix/LICENSE-PRScs)).
+
 ## Authors
 
-Grace Koo <koogc@miamioh.edu>
-Donghyung Lee <leed13@miamioh.edu>
+- Grace Koo <koogc@miamioh.edu>
+- Donghyung Lee <leed13@miamioh.edu>
