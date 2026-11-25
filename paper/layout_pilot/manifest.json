@@ -2,7 +2,7 @@
   "study": "layout_pilot",
   "program": "inst/scripts/null_sim/22_pilot_paper_tables.R",
   "command": "Rscript inst/scripts/null_sim/22_pilot_paper_tables.R 'inst/scripts/results/layout_pilot' 'inst/scripts/results/chain_check/eur_asn_w0.7' 'paper/layout_pilot'",
-  "asset_commit": "0ec604746a93c7438ae3244a964a5e3fab28aed9",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "experiment_commit": "6cf2614d748bdeb1dc461ffd21c7d131c2282158",
@@ -78,19 +78,19 @@
   "outputs": {
     "table_chain_pilot.tex": {
       "path": "paper/layout_pilot/table_chain_pilot.tex",
-      "sha256": "196e430c6f99f92adbe5a0d308404c71553165f2900e533d5a22a1778ff7d007"
+      "sha256": "298719d4afad6c6e226403a14714d462a0e5cf87543499d9a89d707eeeb8f592"
     },
     "table_chain_check.tex": {
       "path": "paper/layout_pilot/table_chain_check.tex",
-      "sha256": "04fe759576f378b3cf1e2aede49dab0817acdb104dbe34580322bcb4eaf2709b"
+      "sha256": "f3e66ef69943fcfc78f5000956e5e46ba51ca1e399647b71d4521daf7c02d636"
     },
     "table_discovery.tex": {
       "path": "paper/layout_pilot/table_discovery.tex",
-      "sha256": "f89c91a7b0d5761917f61483aa19de0f079592571412e44ee5bab13a2a58b777"
+      "sha256": "ee9704b4584b6c9350a1f2a8ec5b44b82c5cbd1b12f6b4294542f4f2fed37a7e"
     },
     "table_layouts.tex": {
       "path": "paper/layout_pilot/table_layouts.tex",
-      "sha256": "1a58f9810cd3dc56d2674aa13c7893fdfcbf0775df06df055c4b5223961ac4bb"
+      "sha256": "9a370fa5f0ba22eafcb59185a416cf9ba1bbc699bc565964bc1f9855558915e2"
     },
     "table_diagnostics.tex": {
       "path": "paper/layout_pilot/table_diagnostics.tex",
@@ -98,11 +98,11 @@
     },
     "tables.html": {
       "path": "paper/layout_pilot/tables.html",
-      "sha256": "839b5580a410fbdaa36c1579bbfa37b07fc8124c58194646c675cab7f3e3c9c9"
+      "sha256": "767aa66bc0a49b3f80d9cf6719a1a000c75b26489fe29680578d13c731f21e0d"
     },
     "tables.tsv": {
       "path": "paper/layout_pilot/tables.tsv",
-      "sha256": "cbc8efd762a0e3968e015f36c16b0b92da31d7ca373caa5f3092005f1c0bbd97"
+      "sha256": "c82fed33871e520ead40d172e2335016be16c917a9a7e580a470dc53a7a6da56"
     }
   },
   "settings": {

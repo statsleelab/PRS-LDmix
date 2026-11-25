@@ -2,7 +2,7 @@
   "study": "null_sim_eur_asn_250kb",
   "program": "inst/scripts/null_sim/12_paper_tables.R",
   "command": "Rscript inst/scripts/null_sim/12_paper_tables.R 'inst/scripts/results/null_sim_250kb_100rep' 'paper/null_sim_eur_asn_250kb'",
-  "asset_commit": "9df5ba8552bacf82c3b68d672a7c83ecd0d6f9d0",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "experiment_commit": ["d5bb1e3e3a90721fc955b95ee69b1e78ddb0b0b7", "7e8a87f364a24d87b6e92966f18574bdd0bdfaad"],
   "r_version": "R version 4.6.1 (2026-06-24)",
@@ -29,15 +29,15 @@
   "outputs": {
     "table_null": {
       "path": "paper/null_sim_eur_asn_250kb/table_null.tex",
-      "sha256": "0449e3175af72024217d4fef92a4d61df4a218581d4a196fc71aaca95b787f30"
+      "sha256": "e15caa67a930fb887542f78ef98ee1021218a7e0e86982c4e4f428a6fcbf7f10"
     },
     "table_nonnull": {
       "path": "paper/null_sim_eur_asn_250kb/table_nonnull.tex",
-      "sha256": "9b6a0906eb151a5fddfd25146b818118afd9851eb58a17cafb45669d91826cc5"
+      "sha256": "955a077f899570db99d8dfba013716cab95fb20b278e783e52890fa48a12d884"
     },
     "table_seed_contrast": {
       "path": "paper/null_sim_eur_asn_250kb/table_seed_contrast.tex",
-      "sha256": "96154e60a74e3ee36cf4172359798c0752c908e9a2be10fcfbfa16ea2e21b173"
+      "sha256": "637b3e855c2e384bad4bae01a0db8698cdd1dfcb642316336e6b0b276aa37362"
     },
     "table_settings": {
       "path": "paper/null_sim_eur_asn_250kb/table_settings.tex",
@@ -49,7 +49,7 @@
     },
     "tables_html": {
       "path": "paper/null_sim_eur_asn_250kb/tables.html",
-      "sha256": "4693eb8b4eb31b27f605a363dfccfa1b7051e02189dd9cc6481217213d2531f2"
+      "sha256": "1587a0de1c589d9732b78d391946759e2e5d461ca3279c7e52573c08183eb321"
     }
   },
   "settings": {

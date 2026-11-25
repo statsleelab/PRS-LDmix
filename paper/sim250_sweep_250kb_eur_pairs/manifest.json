@@ -2,7 +2,7 @@
   "study": "sim250_sweep_250kb_eur_pairs",
   "program": "inst/scripts/null_sim/18_sweep_paper_tables.R",
   "command": "Rscript inst/scripts/null_sim/18_sweep_paper_tables.R 'inst/scripts/results/sim250_sweep_100rep' 'paper/sim250_sweep_250kb_eur_pairs' 'all' 'auto' 'no' 'eur_asn,eur_afr,eur_sas'",
-  "asset_commit": "92487bfa274e8694be0f9f6286b6110845b2af25",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "provisional": false,
@@ -175,23 +175,23 @@
   "outputs": {
     "table_sweep_accuracy": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/table_sweep_accuracy.tex",
-      "sha256": "b39e4122b865022041f76b9f2c2881bebec5e51d366b25b38c1d6e89a0b82ed3"
+      "sha256": "c3ad7a57ef50ff3fcd564ff1552e89355e72953620cf65439a1552fd008d53d0"
     },
     "table_sweep_overlap": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/table_sweep_overlap.tex",
-      "sha256": "3b6aed90cdb427192fef0fae480ace7aa2e3a57aa4d64c3865ccbe02017bc54a"
+      "sha256": "2916836c7db31fb0f1b5daa9cc11e67757f6a7a248dbfb756108028441bd5e8d"
     },
     "table_sweep_cutoffs": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/table_sweep_cutoffs.tex",
-      "sha256": "3a72a867ae54c5d623f7fc5ad7a535e804a2a0fca030170bdbf90f4784c772b0"
+      "sha256": "e278c1f927cfe0765906d2a511f67eac0ee8413ad9d59b5913f334b2cf63bbef"
     },
     "table_sweep_agreement": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/table_sweep_agreement.tex",
-      "sha256": "7fa3830597173747662732b660acf2ecf56639d52dcbbeb86ddc729817786d42"
+      "sha256": "06a9b4655a9eddc3b06894be6001d6b5d341968ed3eb9653e2da383117413045"
     },
     "table_sweep_settings": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/table_sweep_settings.tex",
-      "sha256": "a8e6adf0c0d03cd04a40fc037e73c893f44e4f86f3a48a865b1a7610c4d9f7d5"
+      "sha256": "593a2e3e1021c5c5aca03fb4527ccf9bb781fc283ddeb0b71cd32d167a4daf3e"
     },
     "tables_tsv": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/tables.tsv",
@@ -199,7 +199,7 @@
     },
     "tables_html": {
       "path": "paper/sim250_sweep_250kb_eur_pairs/tables.html",
-      "sha256": "914a401af9572d75ad98d98b309e210fd958c5e41f42e40c1245737448c5dd70"
+      "sha256": "016b3b8bed790f883688456b53efbfbb830af6315857358e93620c8565e6280d"
     }
   },
   "settings": {
@@ -234,14 +234,14 @@
     },
     "replicate_filter": "all",
     "phi_mode": "auto",
-    "prs_mix_weight": "generating composition (share of panel A's ancestry)",
+    "prs_ldmix_weight": "generating composition (share of panel A's ancestry)",
     "seed_control": "single-panel arm rerun with sampler seed 2000 + rep (main runs use 1000 + rep)",
     "uncertainty": "mean over replicates with Monte Carlo SE (SD / sqrt(n)); paired differences use the SE of the per-replicate difference",
     "metric_definitions": {
       "r2": "squared correlation between target scores and true genetic values, non-null GWAS",
-      "overlap": "share of target individuals in PRS-MIX's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
+      "overlap": "share of target individuals in PRS-LDmix's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
       "seed_baseline": "the same overlap between the single panel's seed rerun and the single panel",
-      "difference": "per-replicate PRS-MIX overlap minus seed-rerun overlap, percentage points"
+      "difference": "per-replicate PRS-LDmix overlap minus seed-rerun overlap, percentage points"
     }
   },
   "notes": "Replicates missing any of the five arms used are dropped from that setting; n per cell is in tables.tsv. Experiment runs were made on RedHawk with the null-simulation job scripts (cluster/jobs/null_sim, not version-controlled)."

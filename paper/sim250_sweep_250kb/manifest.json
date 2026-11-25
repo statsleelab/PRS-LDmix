@@ -2,7 +2,7 @@
   "study": "sim250_sweep_250kb",
   "program": "inst/scripts/null_sim/18_sweep_paper_tables.R",
   "command": "Rscript inst/scripts/null_sim/18_sweep_paper_tables.R 'inst/scripts/results/sim250_sweep_100rep' 'paper/sim250_sweep_250kb' 'all' 'auto' 'no' 'all'",
-  "asset_commit": "ae85a520d2d6e6270c1f775232d86694acdf261e",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "provisional": false,
@@ -229,31 +229,31 @@
   "outputs": {
     "table_sweep_accuracy": {
       "path": "paper/sim250_sweep_250kb/table_sweep_accuracy.tex",
-      "sha256": "e14d719fa8397ef62ef3df499814d461bb96d858968b6d4c022baf795e8943a8"
+      "sha256": "abb1d0414d6f95c7d6a0a49affb5aecac30effed87f865ba6cc5722afecad967"
     },
     "table_sweep_overlap": {
       "path": "paper/sim250_sweep_250kb/table_sweep_overlap.tex",
-      "sha256": "0ac555650dfe9c21ac876522443cb80ef0fe1cd7ab71d90c858a91fa51d61a2b"
+      "sha256": "9b47f28e7d3e4c5a12e847593f89fd48b05917017a4c5bd9f260b55c87d14daa"
     },
     "table_sweep_cutoffs": {
       "path": "paper/sim250_sweep_250kb/table_sweep_cutoffs.tex",
-      "sha256": "b78d3b41dc29a6e0a9651e7d9b79825dd23450c0433111a8221d0fb40a753c79"
+      "sha256": "7b2238a138c02671c7738a84617176a3217d94dd4f34397123380fdcde69637c"
     },
     "table_sweep_agreement": {
       "path": "paper/sim250_sweep_250kb/table_sweep_agreement.tex",
-      "sha256": "c080b0b8df5ae7c2d15ca2136ba6d79d158417d340b9f5b39afc83303123c945"
+      "sha256": "87612631d6b1b812909ca6293ffa871ea4a6b70c482c78620467563065bbd472"
     },
     "table_sweep_settings": {
       "path": "paper/sim250_sweep_250kb/table_sweep_settings.tex",
-      "sha256": "8f7437c82c47ea43b995a03896c8448d9cedc189811514b41364f877546accee"
+      "sha256": "27684f1f77a0938f5b2657fde4959dc5b52348309ad1b771225333610d8e90ac"
     },
     "tables_tsv": {
       "path": "paper/sim250_sweep_250kb/tables.tsv",
-      "sha256": "321b501888d05790394256846705c56e1237a9aea9396f3e1ab68a69aff6aef0"
+      "sha256": "884fb2d00169c15a6cd7de73b3f9ee0cf7852154de75db860800433210f21efc"
     },
     "tables_html": {
       "path": "paper/sim250_sweep_250kb/tables.html",
-      "sha256": "7016fba7a9d2f6bc21278dc62412ef41c8791c96b40b1ca67fad3d454282c1af"
+      "sha256": "73e7adad110a31b0af718387617c06c16163f3ebe59a38bff7f5a97a6c76e699"
     }
   },
   "settings": {
@@ -295,15 +295,14 @@
     },
     "replicate_filter": "all",
     "phi_mode": "auto",
-    "prs_mix_weight": "generating composition (share of panel A's ancestry)",
+    "prs_ldmix_weight": "generating composition (share of panel A's ancestry)",
     "seed_control": "single-panel arm rerun with sampler seed 2000 + rep (main runs use 1000 + rep)",
     "uncertainty": "mean over replicates with Monte Carlo SE (SD / sqrt(n)); paired differences use the SE of the per-replicate difference",
     "metric_definitions": {
       "r2": "squared correlation between target scores and true genetic values, non-null GWAS",
-      "mse_pct": "100 * (exp(mean over replicates of log(mse_gv of PRS-MIX / mse_gv of the single panel)) - 1); mse_gv = mean of ((s - mean s) - (g - mean g))^2 (07_metrics_nonnull.R); delta-method SE",
-      "overlap": "share of target individuals in PRS-MIX's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
+      "overlap": "share of target individuals in PRS-LDmix's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
       "seed_baseline": "the same overlap between the single panel's seed rerun and the single panel",
-      "difference": "per-replicate PRS-MIX overlap minus seed-rerun overlap, percentage points"
+      "difference": "per-replicate PRS-LDmix overlap minus seed-rerun overlap, percentage points"
     }
   },
   "notes": "Replicates missing any of the five arms used are dropped from that setting; n per cell is in tables.tsv. Experiment runs were made on RedHawk with the null-simulation job scripts (cluster/jobs/null_sim, not version-controlled)."
