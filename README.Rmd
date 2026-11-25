@@ -27,6 +27,11 @@ PRS-LDmix builds **multi-population, mixed LD reference panels for [PRS-CS](http
 devtools::install_github("statsleelab/PRS-LDmix")
 ```
 
+The package is still named `gauss` (PRS-LDmix is a fork of GAUSS), so it is
+loaded with `library(gauss)` and its functions are called as `gauss::...`.
+Installing it replaces an existing installation of the upstream GAUSS
+package; install it in a separate R library if you also use GAUSS.
+
 You'll also need:
 
 - **A GAUSS 33KG reference panel** (index/genotype/population-description files) to build LD panels from.
@@ -97,8 +102,9 @@ See `inst/scripts/results/chr22_eur_vs_prscs_aligned.png` for a worked example o
 - `R/prscs_ld_panel.R` -- `generate_prscs_ld_panel()` / `generate_prscs_ld_panels()` / `finalize_prscs_snpinfo()`.
 - `inst/prscs-mix/` -- vendored, patched `PRScs_mix.py` / `v2parse_genet_mix.py`.
 - `inst/scripts/` -- runnable examples: panel generation, cross-panel MAF/SNP-overlap comparison, and verification against PRS-CS's own reference.
+- `inst/scripts/null_sim/` -- the simulation pipeline behind the paper: splitting the 33KG samples, building panels, simulating GWAS summary statistics, computing metrics, and writing the paper's tables and figures. PRS-CS itself was run on these inputs with `inst/prscs-mix/PRScs_mix.py` (settings in the paper's Methods).
+- `paper/` -- the frozen, curated results the manuscript's tables, figures and numbers are imported from (see `paper/README.md`).
 - `tests/testthat/test-prscs-ld-panel.R` -- unit tests for the panel generator.
-- `cluster/redhawk.yml` -- RedHawk (Miami University) SLURM job config.
 
 ## Background: GAUSS
 

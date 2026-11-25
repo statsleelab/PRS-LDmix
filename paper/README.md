@@ -1,7 +1,7 @@
 # Curated paper evidence
 
-Results selected for the PRS-LDmix manuscript
-([statsleelab/PRS-LDmix_manuscript](https://github.com/statsleelab/PRS-LDmix_manuscript)).
+Results selected for the PRS-LDmix manuscript (in a separate, private
+manuscript repository).
 Everything here is frozen and committed. The manuscript imports from this
 folder only, through its explicit import step. It never reads working outputs
 (`inst/scripts/results/`), scratch directories or cluster outputs.
