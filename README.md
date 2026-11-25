@@ -23,6 +23,12 @@ reference-panel reader.
 devtools::install_github("statsleelab/PRS-LDmix")
 ```
 
+The package is still named `gauss` (PRS-LDmix is a fork of GAUSS), so it
+is loaded with `library(gauss)` and its functions are called as
+`gauss::...`. Installing it replaces an existing installation of the
+upstream GAUSS package; install it in a separate R library if you also
+use GAUSS.
+
 You’ll also need:
 
 - **A GAUSS 33KG reference panel**
@@ -133,15 +139,22 @@ example output.
 - `inst/scripts/` – runnable examples: panel generation, cross-panel
   MAF/SNP-overlap comparison, and verification against PRS-CS’s own
   reference.
+- `inst/scripts/null_sim/` – the simulation pipeline behind the paper:
+  splitting the 33KG samples, building panels, simulating GWAS summary
+  statistics, computing metrics, and writing the paper’s tables and
+  figures. PRS-CS itself was run on these inputs with
+  `inst/prscs-mix/PRScs_mix.py` (settings in the paper’s Methods).
+- `paper/` – the frozen, curated results the manuscript’s tables,
+  figures and numbers are imported from (see `paper/README.md`).
 - `tests/testthat/test-prscs-ld-panel.R` – unit tests for the panel
   generator.
-- `cluster/redhawk.yml` – RedHawk (Miami University) SLURM job config.
 
 ## Background: GAUSS
 
 GAUSS (Genome Analysis Using Summary Statistics) is the R package
-PRS-LDmix is forked from. It analyzes multi-ethnic GWAS summary statistics
-using a 32,953-genome, 29-population reference panel (the [33KG
+PRS-LDmix is forked from. It analyzes multi-ethnic GWAS summary
+statistics using a 32,953-genome, 29-population reference panel (the
+[33KG
 Panel](https://statsleelab.github.io/gauss/articles/ref_33KG.html):
 20,281 Europeans, 10,800 East Asians, 522 South Asians, 817 Africans,
 and 533 Native Americans), offering tools to: i) estimate ancestry
