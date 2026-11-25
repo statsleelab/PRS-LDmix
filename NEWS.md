@@ -1,3 +1,3 @@
-# PRS-MIX (development version)
+# PRS-LDmix (development version)
 
 * Covariance normalization correction: `CalWgtCov()` now divides each population's centered cross-product by its sample degrees of freedom. Previously, each within-population covariance was inflated by the square of that population's sample size, distorting superpopulation LD. Regenerate panels built with the old estimator and rerun downstream analyses. The corrected estimator combines weighted within-population sample covariances and covariance of population means; it is not exactly pooled-sample Pearson LD. This shared helper also affects other GAUSS analyses that use it.

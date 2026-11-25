@@ -2,11 +2,11 @@
 # Internal results page (tables only) for the null and non-null simulations,
 # from the metric tables of 06/07 and the contrasts of 08_summarize.R.
 #
-#   1. Run settings and checks (replicates, identity of PRS-MIX endpoints with
+#   1. Run settings and checks (replicates, identity of PRS-LDmix endpoints with
 #      vanilla PRS-CS).
-#   2. Each metric for EUR-only, PRS-MIX at the generating weight and ASN-only
+#   2. Each metric for EUR-only, PRS-LDmix at the generating weight and ASN-only
 #      (mean over replicates, 95% bootstrap CI).
-#   3. Paired contrasts of PRS-MIX against each single-population arm.
+#   3. Paired contrasts of PRS-LDmix against each single-population arm.
 #   4. Every metric across the weight sweep (means).
 #
 # Usage:
@@ -50,7 +50,7 @@ fmt_ci <- function(v, digits) {
 }
 
 # --- 2. Arm values ------------------------------------------------------------
-arm_defs <- c("EUR-only" = "single_EUR", "PRS-MIX (w = 0.7)" = mix0, "ASN-only" = "single_ASN")
+arm_defs <- c("EUR-only" = "single_EUR", "PRS-LDmix (w = 0.7)" = mix0, "ASN-only" = "single_ASN")
 arm_defs <- stats::setNames(arm_defs, sub("0.7", format(w0), names(arm_defs), fixed = TRUE))
 metric_defs <- list(
   list("LD-fit score (δ = %g), lower = better", "fit", "L", 1, 3),
@@ -104,7 +104,7 @@ contrast_table <- function(phi_mode) {
     Family = x$family,
     Metric = ifelse(is.na(lab), x$metric, lab),
     `Compared with` = sub("^single_", "", paste0(x$vs, "-only")),
-    `PRS-MIX minus single panel` = mapply(est, x$mean, x$ci_lo, x$ci_hi, x$scale),
+    `PRS-LDmix minus single panel` = mapply(est, x$mean, x$ci_lo, x$ci_hi, x$scale),
     p = p_fmt(x$p),
     `Holm p` = p_fmt(x$p_holm),
     check.names = FALSE)
@@ -132,7 +132,7 @@ phi_label <- function(p) if (p == "auto") "PRS-CS auto φ" else paste0("PRS-CS �
 
 checks <- data.frame(
   Check = c("Null replicates", "Non-null replicates", "PRS-CS runs (null + non-null)",
-            "Max |β| difference, PRS-MIX endpoints vs vanilla PRS-CS"),
+            "Max |β| difference, PRS-LDmix endpoints vs vanilla PRS-CS"),
   Result = c(n_null, n_nonnull, nrow(null) + nrow(nonnull),
              sprintf("%g (%d comparisons)", max(ident$max_abs_diff), nrow(ident))))
 
@@ -150,13 +150,13 @@ for (pm in phi_modes) {
     "<p>The LD-fit score does not involve PRS-CS, so it is the same under every φ setting.</p>",
     html_table(arm_table(pm)),
     sprintf("<h2>3. Paired contrasts &mdash; %s</h2>", phi_label(pm)),
-    paste0("<p>Within-replicate differences of PRS-MIX at w = ", w0, " minus the single-population arm: % change for variances ",
+    paste0("<p>Within-replicate differences of PRS-LDmix at w = ", w0, " minus the single-population arm: % change for variances ",
            "and errors (log ratio), plain difference otherwise. Holm correction across the primary contrasts within this φ setting. ",
            "With δ = 0 the single-population panels' near-singular blocks make their LD-fit scores very large, ",
            "so those differences reflect conditioning more than fit.</p>"),
     html_table(contrast_table(pm), "contrasts"),
     sprintf("<h2>4. Weight sweep (means) &mdash; %s</h2>", phi_label(pm)),
-    "<p>w = EUR weight given to PRS-MIX; w = 1 and w = 0 equal EUR-only and ASN-only.</p>",
+    "<p>w = EUR weight given to PRS-LDmix; w = 1 and w = 0 equal EUR-only and ASN-only.</p>",
     html_table(sweep_table(pm), "sweep"))
 }
 

@@ -4,8 +4,8 @@
 # repository.
 #
 # Methods (rows): EUR-only PRS-CS (reference), the same run with another sampler
-# seed (run-to-run control), PRS-MIX at w = 0.9, ..., 0.1 (weight on pops[1]),
-# and ASN-only PRS-CS. PRS-MIX at w = 1.0 and 0.0 is identical to the
+# seed (run-to-run control), PRS-LDmix at w = 0.9, ..., 0.1 (weight on pops[1]),
+# and ASN-only PRS-CS. PRS-LDmix at w = 1.0 and 0.0 is identical to the
 # single-panel runs, so those weights are not repeated.
 #
 #   table_null.tex           Table 1. Null GWAS: excess LD-fit loss over the
@@ -30,7 +30,7 @@
 # itself would bias it upward (two equally variable runs would average > 0).
 # The reference row reads 0 (ref.), 100 (ref.) or 1 (ref.): its value by definition.
 #
-# Usage (from the PRS-MIX root, with the inputs committed):
+# Usage (from the PRS-LDmix root, with the inputs committed):
 #   Rscript inst/scripts/null_sim/12_paper_tables.R <metrics_dir> <out_dir> \
 #     [phi_mode=auto] [w0=0.7] [pops=EUR,ASN]
 
@@ -196,7 +196,7 @@ tables <- list(
 )
 method_label <- function(arm, tex) {
   star <- function(w) if (abs(w - w0) < 1e-9) (if (tex) "$^{*}$" else "<sup>*</sup>") else ""
-  wl <- function(w) if (tex) sprintf("PRS-MIX, $w = %.1f$%s", w, star(w)) else sprintf("PRS-MIX, <i>w</i> = %.1f%s", w, star(w))
+  wl <- function(w) if (tex) sprintf("PRS-LDmix, $w = %.1f$%s", w, star(w)) else sprintf("PRS-LDmix, <i>w</i> = %.1f%s", w, star(w))
   if (arm == ref) return(sprintf("PRS-CS, %s panel", pa))
   if (arm == seed_arm) return(sprintf("PRS-CS, %s panel, new seed", pa))
   if (grepl("^single_", arm)) return(sprintf("PRS-CS, %s panel", sub("^single_", "", arm)))
@@ -305,7 +305,7 @@ n_nonnull <- length(unique(nn$rep))
 common_caption <- sprintf(paste(
   "Chromosome 22, fixed 250 kb LD blocks; the GWAS combines %s and %s discovery samples at %.0f:%.0f.",
   "PRS-CS with automatic &phi;. Means over replicates with Monte Carlo standard errors in parentheses; within a replicate",
-  "every method analyses the same simulated GWAS and scores the same target individuals. PRS-MIX at <i>w</i> = 1.0 and",
+  "every method analyses the same simulated GWAS and scores the same target individuals. PRS-LDmix at <i>w</i> = 1.0 and",
   "0.0 is identical to %s-only and %s-only PRS-CS. The seed rerun repeats %s-only PRS-CS with a different sampler seed",
   "and measures run-to-run variation. <sup>*</sup>Generating weight."), pa, pb, 100 * w0, 100 * (1 - w0), pa, pb, pa)
 captions <- list(
@@ -357,7 +357,7 @@ html <- c(
   section("nonnull", html_table("nonnull")),
   section("seed_contrast", html_table("seed_contrast")),
   section("settings", html_settings),
-  sprintf(paste("<footer>Rendered from <code>%s/inputs/</code> by <code>%s</code> at PRS-MIX %s. The <code>.tex</code> files in",
+  sprintf(paste("<footer>Rendered from <code>%s/inputs/</code> by <code>%s</code> at PRS-LDmix %s. The <code>.tex</code> files in",
                 "the same folder hold the same values, and <code>tables.tsv</code> holds them unrounded with replicate",
                 "counts.</footer>"), out_dir, program, substr(head_commit, 1, 7)),
   "</main>", "</body>", "</html>")
@@ -394,5 +394,5 @@ manifest <- list(
   notes = paste("Replicates missing an arm are dropped from that arm's paired comparisons; n per cell is in tables.tsv.",
                 "Experiment runs were made on RedHawk with the null-simulation job scripts (cluster/jobs/null_sim, not version-controlled)."))
 jsonlite::write_json(manifest, file.path(out_dir, "manifest.json"), auto_unbox = TRUE, pretty = TRUE, digits = NA)
-message(sprintf("Wrote %s (%d cells) at PRS-MIX %s%s", out_dir, nrow(cells), substr(head_commit, 1, 7),
+message(sprintf("Wrote %s (%d cells) at PRS-LDmix %s%s", out_dir, nrow(cells), substr(head_commit, 1, 7),
                 if (prog_dirty) " with uncommitted program changes" else ""))

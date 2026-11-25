@@ -23,12 +23,12 @@ table.sweep td, table.sweep th { text-align: right; } table.sweep td:first-child
 <tr><td>Null replicates</td><td>20</td></tr>
 <tr><td>Non-null replicates</td><td>20</td></tr>
 <tr><td>PRS-CS runs (null + non-null)</td><td>1040</td></tr>
-<tr><td>Max |β| difference, PRS-MIX endpoints vs vanilla PRS-CS</td><td>0 (160 comparisons)</td></tr>
+<tr><td>Max |β| difference, PRS-LDmix endpoints vs vanilla PRS-CS</td><td>0 (160 comparisons)</td></tr>
 </table>
 <h2>2. Metric values by arm &mdash; PRS-CS auto φ</h2>
 <p>The LD-fit score does not involve PRS-CS, so it is the same under every φ setting.</p>
 <table class="">
-<tr><th>Metric</th><th>EUR-only</th><th>PRS-MIX (w = 0.7)</th><th>ASN-only</th></tr>
+<tr><th>Metric</th><th>EUR-only</th><th>PRS-LDmix (w = 0.7)</th><th>ASN-only</th></tr>
 <tr><td>LD-fit score (δ = 0.001), lower = better</td><td>-0.318 <span class="ci">[-0.366, -0.270]</span></td><td>-1.836 <span class="ci">[-1.844, -1.828]</span></td><td>1.889 <span class="ci">[1.774, 2.022]</span></td></tr>
 <tr><td>Null: score variance, EUR patients (×10⁻⁴), lower = better</td><td>1.046 <span class="ci">[0.972, 1.133]</span></td><td>1.071 <span class="ci">[0.984, 1.178]</span></td><td>1.233 <span class="ci">[1.118, 1.366]</span></td></tr>
 <tr><td>Null: score variance, ASN patients (×10⁻⁴), lower = better</td><td>1.025 <span class="ci">[0.950, 1.108]</span></td><td>0.998 <span class="ci">[0.918, 1.086]</span></td><td>1.028 <span class="ci">[0.945, 1.125]</span></td></tr>
@@ -40,9 +40,9 @@ table.sweep td, table.sweep th { text-align: right; } table.sweep td:first-child
 <tr><td>Non-null: estimated φ (×10⁻⁴)</td><td>3.131 <span class="ci">[2.982, 3.276]</span></td><td>3.013 <span class="ci">[2.866, 3.168]</span></td><td>4.943 <span class="ci">[4.540, 5.431]</span></td></tr>
 </table>
 <h2>3. Paired contrasts &mdash; PRS-CS auto φ</h2>
-<p>Within-replicate differences of PRS-MIX at w = 0.7 minus the single-population arm: % change for variances and errors (log ratio), plain difference otherwise. Holm correction across the primary contrasts within this φ setting. With δ = 0 the single-population panels' near-singular blocks make their LD-fit scores very large, so those differences reflect conditioning more than fit.</p>
+<p>Within-replicate differences of PRS-LDmix at w = 0.7 minus the single-population arm: % change for variances and errors (log ratio), plain difference otherwise. Holm correction across the primary contrasts within this φ setting. With δ = 0 the single-population panels' near-singular blocks make their LD-fit scores very large, so those differences reflect conditioning more than fit.</p>
 <table class="contrasts">
-<tr><th>Family</th><th>Metric</th><th>Compared with</th><th>PRS-MIX minus single panel</th><th>p</th><th>Holm p</th></tr>
+<tr><th>Family</th><th>Metric</th><th>Compared with</th><th>PRS-LDmix minus single panel</th><th>p</th><th>Holm p</th></tr>
 <tr><td>primary</td><td>LD-fit score (δ = 0.001)</td><td>ASN-only</td><td>-3.7248 <span class="ci">[-3.8573, -3.6095]</span></td><td>8.1e-23</td><td>7.3e-22</td></tr>
 <tr><td>primary</td><td>LD-fit score (δ = 0.001)</td><td>EUR-only</td><td>-1.5181 <span class="ci">[-1.5633, -1.4753]</span></td><td>6.1e-24</td><td>6.1e-23</td></tr>
 <tr><td>primary</td><td>Non-null r² with genetic value, ASN patients</td><td>ASN-only</td><td>+0.0691 <span class="ci">[+0.0589, +0.0814]</span></td><td>3.4e-10</td><td>2.7e-09</td></tr>
@@ -75,7 +75,7 @@ table.sweep td, table.sweep th { text-align: right; } table.sweep td:first-child
 <tr><td>secondary</td><td>Null sum of β²</td><td>EUR-only</td><td>-0.9% <span class="ci">[-6.0, +4.1]</span></td><td>0.75</td><td>&ndash;</td></tr>
 </table>
 <h2>4. Weight sweep (means) &mdash; PRS-CS auto φ</h2>
-<p>w = EUR weight given to PRS-MIX; w = 1 and w = 0 equal EUR-only and ASN-only.</p>
+<p>w = EUR weight given to PRS-LDmix; w = 1 and w = 0 equal EUR-only and ASN-only.</p>
 <table class="sweep">
 <tr><th>Metric</th><th>w=1</th><th>w=0.9</th><th>w=0.8</th><th>w=0.7</th><th>w=0.6</th><th>w=0.5</th><th>w=0.4</th><th>w=0.3</th><th>w=0.2</th><th>w=0.1</th><th>w=0</th></tr>
 <tr><td>LD-fit score (δ = 0.001)</td><td>-0.318</td><td>-1.743</td><td>-1.825</td><td>-1.836</td><td>-1.824</td><td>-1.798</td><td>-1.759</td><td>-1.700</td><td>-1.596</td><td>-1.352</td><td>1.889</td></tr>
@@ -88,7 +88,7 @@ table.sweep td, table.sweep th { text-align: right; } table.sweep td:first-child
 <h2>2. Metric values by arm &mdash; PRS-CS φ = 1e-04</h2>
 <p>The LD-fit score does not involve PRS-CS, so it is the same under every φ setting.</p>
 <table class="">
-<tr><th>Metric</th><th>EUR-only</th><th>PRS-MIX (w = 0.7)</th><th>ASN-only</th></tr>
+<tr><th>Metric</th><th>EUR-only</th><th>PRS-LDmix (w = 0.7)</th><th>ASN-only</th></tr>
 <tr><td>LD-fit score (δ = 0.001), lower = better</td><td>-0.318 <span class="ci">[-0.366, -0.270]</span></td><td>-1.836 <span class="ci">[-1.844, -1.828]</span></td><td>1.889 <span class="ci">[1.777, 2.021]</span></td></tr>
 <tr><td>Null: score variance, EUR patients (×10⁻⁴), lower = better</td><td>1.075 <span class="ci">[1.009, 1.158]</span></td><td>1.101 <span class="ci">[1.040, 1.168]</span></td><td>1.246 <span class="ci">[1.157, 1.355]</span></td></tr>
 <tr><td>Null: score variance, ASN patients (×10⁻⁴), lower = better</td><td>1.048 <span class="ci">[0.985, 1.115]</span></td><td>1.026 <span class="ci">[0.966, 1.083]</span></td><td>1.031 <span class="ci">[0.964, 1.108]</span></td></tr>
@@ -98,9 +98,9 @@ table.sweep td, table.sweep th { text-align: right; } table.sweep td:first-child
 <tr><td>Non-null: sign agreement at causal SNPs, higher = better</td><td>0.836 <span class="ci">[0.825, 0.845]</span></td><td>0.832 <span class="ci">[0.823, 0.841]</span></td><td>0.831 <span class="ci">[0.821, 0.842]</span></td></tr>
 </table>
 <h2>3. Paired contrasts &mdash; PRS-CS φ = 1e-04</h2>
-<p>Within-replicate differences of PRS-MIX at w = 0.7 minus the single-population arm: % change for variances and errors (log ratio), plain difference otherwise. Holm correction across the primary contrasts within this φ setting. With δ = 0 the single-population panels' near-singular blocks make their LD-fit scores very large, so those differences reflect conditioning more than fit.</p>
+<p>Within-replicate differences of PRS-LDmix at w = 0.7 minus the single-population arm: % change for variances and errors (log ratio), plain difference otherwise. Holm correction across the primary contrasts within this φ setting. With δ = 0 the single-population panels' near-singular blocks make their LD-fit scores very large, so those differences reflect conditioning more than fit.</p>
 <table class="contrasts">
-<tr><th>Family</th><th>Metric</th><th>Compared with</th><th>PRS-MIX minus single panel</th><th>p</th><th>Holm p</th></tr>
+<tr><th>Family</th><th>Metric</th><th>Compared with</th><th>PRS-LDmix minus single panel</th><th>p</th><th>Holm p</th></tr>
 <tr><td>primary</td><td>LD-fit score (δ = 0.001)</td><td>ASN-only</td><td>-3.7248 <span class="ci">[-3.8584, -3.6127]</span></td><td>8.1e-23</td><td>7.3e-22</td></tr>
 <tr><td>primary</td><td>LD-fit score (δ = 0.001)</td><td>EUR-only</td><td>-1.5181 <span class="ci">[-1.5627, -1.4755]</span></td><td>6.1e-24</td><td>6.1e-23</td></tr>
 <tr><td>primary</td><td>Non-null r² with genetic value, ASN patients</td><td>ASN-only</td><td>+0.0526 <span class="ci">[+0.0385, +0.0702]</span></td><td>4.2e-06</td><td>2.9e-05</td></tr>
@@ -129,7 +129,7 @@ table.sweep td, table.sweep th { text-align: right; } table.sweep td:first-child
 <tr><td>secondary</td><td>Null sum of β²</td><td>EUR-only</td><td>-0.0% <span class="ci">[-5.6, +3.8]</span></td><td>  1</td><td>&ndash;</td></tr>
 </table>
 <h2>4. Weight sweep (means) &mdash; PRS-CS φ = 1e-04</h2>
-<p>w = EUR weight given to PRS-MIX; w = 1 and w = 0 equal EUR-only and ASN-only.</p>
+<p>w = EUR weight given to PRS-LDmix; w = 1 and w = 0 equal EUR-only and ASN-only.</p>
 <table class="sweep">
 <tr><th>Metric</th><th>w=1</th><th>w=0.9</th><th>w=0.8</th><th>w=0.7</th><th>w=0.6</th><th>w=0.5</th><th>w=0.4</th><th>w=0.3</th><th>w=0.2</th><th>w=0.1</th><th>w=0</th></tr>
 <tr><td>LD-fit score (δ = 0.001)</td><td>-0.318</td><td>-1.743</td><td>-1.825</td><td>-1.836</td><td>-1.824</td><td>-1.798</td><td>-1.759</td><td>-1.700</td><td>-1.596</td><td>-1.352</td><td>1.889</td></tr>

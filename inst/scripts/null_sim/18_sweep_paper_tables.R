@@ -3,20 +3,20 @@
 # (4 pairs x 3 compositions), in the paper/<study>/ layout of paper/README.md.
 #
 # Rows are setting (pair, composition) x target ancestry. Panel A is the first
-# ancestry of the pair (the one PRS-MIX's weight w refers to), panel B the
-# second. PRS-MIX is run at the generating composition (w = share of A).
+# ancestry of the pair (the one PRS-LDmix's weight w refers to), panel B the
+# second. PRS-LDmix is run at the generating composition (w = share of A).
 #
 #   table_sweep_accuracy.tex  Table 1. r^2 with true genetic value for PRS-CS
-#                             with panel A, PRS-MIX and PRS-CS with panel B,
-#                             and PRS-MIX minus each single panel.
-#   table_sweep_overlap.tex   Table 2. Top-10% overlap of PRS-MIX with each
+#                             with panel A, PRS-LDmix and PRS-CS with panel B,
+#                             and PRS-LDmix minus each single panel.
+#   table_sweep_overlap.tex   Table 2. Top-10% overlap of PRS-LDmix with each
 #                             single panel, the seed-rerun baseline (the same
 #                             single panel rerun with another sampler seed),
 #                             and their difference.
 #   table_sweep_cutoffs.tex   Table 3. That difference for the top 5%, 10%
 #                             and 20% of target individuals.
 #   table_sweep_agreement.tex Table 4. Score correlation (Pearson, and Spearman
-#                             rank correlation) of PRS-MIX with each single
+#                             rank correlation) of PRS-LDmix with each single
 #                             panel, against the seed-rerun baseline.
 #   table_sweep_settings.tex  Table 5. Simulation settings, with the per-pair
 #                             SNP counts, causal SNPs, signal variance and
@@ -30,7 +30,7 @@
 # differences are paired within replicate (same simulated GWAS and target
 # individuals), as in 12_paper_tables.R.
 #
-# Usage (from the PRS-MIX root):
+# Usage (from the PRS-LDmix root):
 #   Rscript inst/scripts/null_sim/18_sweep_paper_tables.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no] [pairs=all]
 #
 #   <sweep_dir>  e.g. inst/scripts/results/sim250_sweep_100rep, holding
@@ -192,27 +192,27 @@ tables <- list(
     cols = list(col("r2_A", 3), col("r2_mix", 3), col("r2_B", 3), col("d_r2_A", 3, TRUE), col("d_r2_B", 3, TRUE)),
     groups = function(tex) list(
       list(tx(tex, "$r^2$ with true genetic value (higher is better)", "<i>r</i><sup>2</sup> with true genetic value (higher is better)"), 3),
-      list(tx(tex, "$r^2$, PRS-MIX minus single panel (positive favours PRS-MIX)", "<i>r</i><sup>2</sup>, PRS-MIX minus single panel (positive favours PRS-MIX)"), 2)),
+      list(tx(tex, "$r^2$, PRS-LDmix minus single panel (positive favours PRS-LDmix)", "<i>r</i><sup>2</sup>, PRS-LDmix minus single panel (positive favours PRS-LDmix)"), 2)),
     heads = NULL,
-    block = function(pa, pb, tex) list(list(paste(pa, "panel"), 1), list("PRS-MIX", 1), list(paste(pb, "panel"), 1),
+    block = function(pa, pb, tex) list(list(paste(pa, "panel"), 1), list("PRS-LDmix", 1), list(paste(pb, "panel"), 1),
                                        list(tx(tex, paste0("vs.\\ ", pa, " panel"), paste("vs.", pa, "panel")), 1),
                                        list(tx(tex, paste0("vs.\\ ", pb, " panel"), paste("vs.", pb, "panel")), 1))),
   overlap = list(
     cols = list(col("ov_A", 1), col("base_A", 1), col("gap_A", 1, TRUE), col("ov_B", 1), col("base_B", 1), col("gap_B", 1, TRUE)),
     groups = function(tex) rep(list(list(tx(tex, "Top-10\\% overlap with the panel (\\%)", "Top-10% overlap with the panel (%)"), 2),
                                     list("Difference", 1)), 2),
-    heads = function(tex) rep(c("PRS-MIX", "Rerun, new seed", "Percentage points"), 2),
+    heads = function(tex) rep(c("PRS-LDmix", "Rerun, new seed", "Percentage points"), 2),
     block = function(pa, pb, tex) list(list(paste("Compared with the", pa, "panel"), 3), list(paste("Compared with the", pb, "panel"), 3))),
   cutoffs = list(
     cols = list(col("gap05_A", 1, TRUE), col("gap10_A", 1, TRUE), col("gap20_A", 1, TRUE),
                 col("gap05_B", 1, TRUE), col("gap10_B", 1, TRUE), col("gap20_B", 1, TRUE)),
-    groups = function(tex) rep(list(list("Overlap difference, PRS-MIX minus rerun (percentage points)", 3)), 2),
+    groups = function(tex) rep(list(list("Overlap difference, PRS-LDmix minus rerun (percentage points)", 3)), 2),
     heads = function(tex) rep(tx(tex, c("Top 5\\%", "Top 10\\%", "Top 20\\%"), c("Top 5%", "Top 10%", "Top 20%")), 2),
     block = function(pa, pb, tex) list(list(paste("Compared with the", pa, "panel"), 3), list(paste("Compared with the", pb, "panel"), 3))),
   agreement = list(
     cols = list(col("cor_A", 3), col("corbase_A", 3), col("corgap_A", 3, TRUE), col("cor_B", 3), col("corbase_B", 3), col("corgap_B", 3, TRUE)),
     groups = function(tex) rep(list(list("Correlation of scores with the panel's", 2), list("Difference", 1)), 2),
-    heads = function(tex) rep(c("PRS-MIX", "Rerun, new seed", "PRS-MIX minus rerun"), 2),
+    heads = function(tex) rep(c("PRS-LDmix", "Rerun, new seed", "PRS-LDmix minus rerun"), 2),
     block = function(pa, pb, tex) list(list(paste("Compared with the", pa, "panel"), 3), list(paste("Compared with the", pb, "panel"), 3)))
 )
 fmt_num <- function(x, d, signed, tex) {
@@ -298,7 +298,7 @@ settings_rows <- list(
   c("Scored (target) individuals", pops_text(n_tgt)),
   c("LD panels", "reference individuals only; no additional convex shrinkage; eigenvalue floor $10^{-8}$ applied for numerical stability"),
   c("Replicates", sprintf("%s per setting", rep_text)),
-  c("PRS-MIX blend", "each panel weighted by its ancestry's share of the GWAS"),
+  c("PRS-LDmix blend", "each panel weighted by its ancestry's share of the GWAS"),
   c("PRS-CS", sprintf("$\\phi$ %s, sampler defaults (1,000 iterations, 500 burn-in, thinning 5)", phi_mode)),
   c("Sampler seeds", "1000 + replicate; rerun 2000 + replicate"))
 latex_settings <- c("% Generated by inst/scripts/null_sim/18_sweep_paper_tables.R; do not edit.",
@@ -347,13 +347,13 @@ html_settings <- c("<table class=\"kv\">", "<thead>", "<tr class=\"top\"><th>Ite
 glossary <- c(
   "<section class=\"howto\">", "<h2>How to read these tables</h2>", "<dl>",
   "<dt>EUR panel, ASN panel, &hellip;</dt><dd>Standard PRS-CS run with one ancestry's LD reference panel.</dd>",
-  "<dt>PRS-MIX</dt><dd>PRS-CS run with an LD panel blended from the pair's two panels, each weighted by its ancestry's share of the GWAS (for example 70% EUR panel and 30% ASN panel for a 70% EUR, 30% ASN GWAS).</dd>",
+  "<dt>PRS-LDmix</dt><dd>PRS-CS run with an LD panel blended from the pair's two panels, each weighted by its ancestry's share of the GWAS (for example 70% EUR panel and 30% ASN panel for a 70% EUR, 30% ASN GWAS).</dd>",
   "<dt>GWAS ancestry mix</dt><dd>The ancestry make-up of the simulated GWAS. Each pair is tested at three mixes.</dd>",
   "<dt>Scored in</dt><dd>The held-out individuals whose scores are evaluated. They are in neither the GWAS nor the LD panels.</dd>",
   "<dt><i>r</i><sup>2</sup> with true genetic value</dt><dd>Squared correlation between people's scores and their true simulated genetic values. 1 is perfect, 0 is no information.</dd>",
-  "<dt>Top-10% overlap</dt><dd>Of the people PRS-MIX ranks in its top 10%, the share that the single panel also ranks in its top 10%.</dd>",
-  "<dt>Rerun, new seed</dt><dd>The same single panel run again with a different random seed. Its overlap with the original run shows how much the top 10% changes from sampler randomness alone. It is the yardstick for PRS-MIX.</dd>",
-  "<dt>Percentage points</dt><dd>The plain difference between two percentages: 88% minus 91% is &minus;3 percentage points. Negative means PRS-MIX changes who is in the top 10% more than rerunning the same panel does.</dd>",
+  "<dt>Top-10% overlap</dt><dd>Of the people PRS-LDmix ranks in its top 10%, the share that the single panel also ranks in its top 10%.</dd>",
+  "<dt>Rerun, new seed</dt><dd>The same single panel run again with a different random seed. Its overlap with the original run shows how much the top 10% changes from sampler randomness alone. It is the yardstick for PRS-LDmix.</dd>",
+  "<dt>Percentage points</dt><dd>The plain difference between two percentages: 88% minus 91% is &minus;3 percentage points. Negative means PRS-LDmix changes who is in the top 10% more than rerunning the same panel does.</dd>",
   "<dt>Numbers in parentheses</dt><dd>Standard errors over the simulation replicates. Differences are paired: within a replicate, every method analyses the same GWAS and scores the same people.</dd>",
   "</dl>", "</section>")
 common_caption <- sprintf(paste(
@@ -361,21 +361,21 @@ common_caption <- sprintf(paste(
   "paired within replicate."), rep_text)
 captions <- list(
   accuracy = paste("How well each method's scores track true genetic value. <i>r</i><sup>2</sup> measures how well scores rank",
-                   "people. The differences subtract each single panel's <i>r</i><sup>2</sup> from PRS-MIX's.",
+                   "people. The differences subtract each single panel's <i>r</i><sup>2</sup> from PRS-LDmix's.",
                    common_caption),
-  overlap = paste("For each single panel: how much of PRS-MIX's top 10% that panel also puts in its top 10%, next to the same",
-                  "overlap for a rerun of the panel with a new seed. The difference shows how far PRS-MIX moves the top 10%",
+  overlap = paste("For each single panel: how much of PRS-LDmix's top 10% that panel also puts in its top 10%, next to the same",
+                  "overlap for a rerun of the panel with a new seed. The difference shows how far PRS-LDmix moves the top 10%",
                   "beyond sampler randomness; more negative means a bigger change.", common_caption),
-  cutoffs = paste("The difference from Table 2 (PRS-MIX overlap minus rerun overlap, in percentage points) for the top 5%,",
+  cutoffs = paste("The difference from Table 2 (PRS-LDmix overlap minus rerun overlap, in percentage points) for the top 5%,",
                   "10% and 20% of scores.", common_caption),
-  agreement = paste("For each single panel: the Pearson correlation between PRS-MIX's scores and that panel's scores in the",
+  agreement = paste("For each single panel: the Pearson correlation between PRS-LDmix's scores and that panel's scores in the",
                     "same individuals, next to the same correlation for a rerun of the panel with a new seed, and their difference.",
                     "Spearman rank correlations are in tables.tsv.", common_caption),
   settings = "Simulation and analysis settings for the sweep.")
 titles <- c(accuracy = "Table 1. Accuracy: how well scores track true genetic value",
-            overlap = "Table 2. Who is in the top 10%: PRS-MIX vs. each single panel, against rerun randomness",
+            overlap = "Table 2. Who is in the top 10%: PRS-LDmix vs. each single panel, against rerun randomness",
             cutoffs = "Table 3. The same comparison at the top 5%, 10% and 20%",
-            agreement = "Table 4. Correlation of scores: PRS-MIX vs. each single panel, against rerun randomness",
+            agreement = "Table 4. Correlation of scores: PRS-LDmix vs. each single panel, against rerun randomness",
             settings = "Table 5. Simulation settings")
 section <- function(name, tab) c("<section>", sprintf("<h2>%s</h2>", titles[[name]]),
                                  sprintf("<p class=\"cap\">%s</p>", captions[[name]]), "<div class=\"wrap\">", tab, "</div>", "</section>")
@@ -421,7 +421,7 @@ html <- c(
   section("cutoffs", html_table("cutoffs")),
   section("agreement", html_table("agreement")),
   section("settings", html_settings),
-  sprintf(paste("<footer>Rendered from <code>%s/inputs/</code> by <code>%s</code> at PRS-MIX %s%s. The <code>.tex</code> files in",
+  sprintf(paste("<footer>Rendered from <code>%s/inputs/</code> by <code>%s</code> at PRS-LDmix %s%s. The <code>.tex</code> files in",
                 "the same folder hold the same values, and <code>tables.tsv</code> holds them unrounded with replicate",
                 "counts.</footer>"), out_dir, program, substr(head_commit, 1, 7), status),
   "</main>", "</body>", "</html>")
@@ -445,15 +445,15 @@ manifest <- list(
   settings = list(
     chromosome = 22, block_layout = "fixed 250 kb", pairs = unname(lapply(pairs, as.list)), pair_filter = pairs_arg, compositions_A = ws,
     replicates_used = as.list(n_reps), replicate_filter = reps_arg, phi_mode = phi_mode,
-    prs_mix_weight = "generating composition (share of panel A's ancestry)",
+    prs_ldmix_weight = "generating composition (share of panel A's ancestry)",
     seed_control = "single-panel arm rerun with sampler seed 2000 + rep (main runs use 1000 + rep)",
     uncertainty = "mean over replicates with Monte Carlo SE (SD / sqrt(n)); paired differences use the SE of the per-replicate difference",
     metric_definitions = list(
       r2 = "squared correlation between target scores and true genetic values, non-null GWAS",
-      overlap = "share of target individuals in PRS-MIX's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
+      overlap = "share of target individuals in PRS-LDmix's top score fraction also in the single panel's top fraction (top05/top10/top20 columns of 07_metrics_nonnull.R)",
       seed_baseline = "the same overlap between the single panel's seed rerun and the single panel",
-      difference = "per-replicate PRS-MIX overlap minus seed-rerun overlap, percentage points")),
+      difference = "per-replicate PRS-LDmix overlap minus seed-rerun overlap, percentage points")),
   notes = paste("Replicates missing any of the five arms used are dropped from that setting; n per cell is in tables.tsv.",
                 "Experiment runs were made on RedHawk with the null-simulation job scripts (cluster/jobs/null_sim, not version-controlled)."))
 jsonlite::write_json(manifest, file.path(out_dir, "manifest.json"), auto_unbox = TRUE, pretty = TRUE, digits = NA)
-message(sprintf("Wrote %s (%d cells, %s replicates) at PRS-MIX %s%s", out_dir, nrow(cells), rep_text, substr(head_commit, 1, 7), status))
+message(sprintf("Wrote %s (%d cells, %s replicates) at PRS-LDmix %s%s", out_dir, nrow(cells), rep_text, substr(head_commit, 1, 7), status))

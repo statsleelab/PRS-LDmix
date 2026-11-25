@@ -6,9 +6,9 @@
 #   fig_ld_truth_<pair>_block<b>.{png,pdf}
 #     Rows: GWAS compositions 90:10, 70:30, 50:50 (A : B). Columns:
 #       true GWAS LD      w R_A,disc + (1 - w) R_B,disc (Cov(z) of the null z-scores)
-#       PRS-MIX LD        w R_A,panel + (1 - w) R_B,panel
+#       PRS-LDmix LD        w R_A,panel + (1 - w) R_B,panel
 #       A panel LD        R_A,panel (standard PRS-CS with the majority-ancestry panel)
-#       true - PRS-MIX, true - A panel
+#       true - PRS-LDmix, true - A panel
 #     One signed colour scale (-1 to 1) for every heatmap; lower triangle only.
 #   figure_data.tsv.gz    every plotted value (pair, w, column, i, j, value), gzipped
 #   block_summary.tsv     per pair and w: mean |true - candidate| over the drawn
@@ -17,7 +17,7 @@
 #   inputs/               frozen copies of the 20_ld_truth_extract.R outputs used
 #   manifest.json         program, command, commits, input and output sha256
 #
-# Usage (from the PRS-MIX root):
+# Usage (from the PRS-LDmix root):
 #   Rscript inst/scripts/null_sim/21_ld_truth_figures.R <extract_dir> <out_dir> <block> [pairs=eur_asn,eur_afr,eur_sas] [footnote=yes]
 #
 #   <extract_dir> may be <out_dir>/inputs itself (then the files are not copied).
@@ -79,7 +79,7 @@ for (p in pairs) {
   ra <- full(d, "r_panel_a", n); rb <- full(d, "r_panel_b", n)
   scan <- inp(sprintf("%s_block_scan.tsv", p))
   prm <- inp(sprintf("%s_params.tsv", p))
-  cols <- c("True GWAS LD", "PRS-MIX LD", sprintf("%s panel LD", pops[1]), "True - PRS-MIX", sprintf("True - %s panel", pops[1]))
+  cols <- c("True GWAS LD", "PRS-LDmix LD", sprintf("%s panel LD", pops[1]), "True - PRS-LDmix", sprintf("True - %s panel", pops[1]))
   for (w in ws) {
     truth <- w * da + (1 - w) * db
     mix <- w * ra + (1 - w) * rb
@@ -89,7 +89,7 @@ for (p in pairs) {
     summ[[length(summ) + 1]] <- data.frame(
       pair = paste(pops, collapse = "+"), w = w, block = block, n_snps = n,
       bp_start = min(d$bp_i), bp_end = max(d$bp_j),
-      mad_prsmix = off(truth - mix), mad_a_only = off(truth - ra), mad_b_only = off(truth - rb),
+      mad_prsldmix = off(truth - mix), mad_a_only = off(truth - ra), mad_b_only = off(truth - rb),
       rank_a_only = rank(-s$mad_a_only)[s$block == block], n_blocks = nrow(s))
   }
   meta[[p]] <- list(pops = pops, cols = cols, n = n,
@@ -121,11 +121,11 @@ for (p in pairs) {
     labs(title = sprintf("%s + %s", A, B), caption = if (footnote) paste0(
       sprintf("Null simulation, chr22, 250 kb blocks: block %d (%.2f-%.2f Mb, %d SNPs). True GWAS LD: w x %s + (1 - w) x %s from the discovery cohorts\n",
               block, s$bp_start[1] / 1e6, s$bp_end[1] / 1e6, mt$n, A, B),
-      sprintf("(n %d / %d), the LD the null z-scores were simulated with. PRS-MIX LD: the same blend of the reference panels; %s panel LD: standard PRS-CS.\n",
+      sprintf("(n %d / %d), the LD the null z-scores were simulated with. PRS-LDmix LD: the same blend of the reference panels; %s panel LD: standard PRS-CS.\n",
               mt$n_disc[[A]], mt$n_disc[[B]], A),
       "Mean |difference| from the true LD, off the diagonal:\n",
-      paste0(sprintf("    %.0f:%.0f   PRS-MIX %.3f;  %s panel alone %.3f;  %s panel alone %.3f   (block rank by %s-panel misfit: %d of %d)",
-                     100 * s$w, 100 * (1 - s$w), s$mad_prsmix, A, s$mad_a_only, B, s$mad_b_only, A, s$rank_a_only, s$n_blocks),
+      paste0(sprintf("    %.0f:%.0f   PRS-LDmix %.3f;  %s panel alone %.3f;  %s panel alone %.3f   (block rank by %s-panel misfit: %d of %d)",
+                     100 * s$w, 100 * (1 - s$w), s$mad_prsldmix, A, s$mad_a_only, B, s$mad_b_only, A, s$rank_a_only, s$n_blocks),
              collapse = "\n"))) +
     theme_void(base_size = 9, base_family = "Helvetica") +
     theme(plot.title = element_text(face = "bold", colour = ink, size = 10, margin = margin(b = 6)),
@@ -159,10 +159,10 @@ manifest <- list(
   settings = list(
     chromosome = 22, block_layout = "fixed 250 kb", block = block, pairs = pairs, compositions_A = ws, footnote = footnote,
     true_ld = "w R_A,disc + (1 - w) R_B,disc, R_k,disc = Z_k'Z_k / n_k on the discovery individuals (04_simulate_null.R)",
-    prs_mix = "w R_A,panel + (1 - w) R_B,panel from the reference-set panels",
+    prs_ldmix = "w R_A,panel + (1 - w) R_B,panel from the reference-set panels",
     summary = "mean |true - candidate| over off-diagonal SNP pairs of the block"),
   notes = paste("Inputs were written on RedHawk by 20_ld_truth_extract.R from the sim250 null-simulation directories",
                 "(<pair>/w0.7: split, panels and discovery genotypes shared by every composition of the pair)."))
 jsonlite::write_json(manifest, file.path(out_dir, "manifest.json"), auto_unbox = TRUE, pretty = TRUE, digits = NA)
-message(sprintf("Wrote %s (block %d, %s) at PRS-MIX %s%s", out_dir, block, paste(pairs, collapse = ", "), substr(head_commit, 1, 7),
+message(sprintf("Wrote %s (block %d, %s) at PRS-LDmix %s%s", out_dir, block, paste(pairs, collapse = ", "), substr(head_commit, 1, 7),
                 if (inputs_dirty || prog_dirty) " with uncommitted programs or inputs" else ""))

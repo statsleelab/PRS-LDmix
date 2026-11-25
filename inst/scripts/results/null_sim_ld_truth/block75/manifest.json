@@ -105,7 +105,7 @@
     "pairs": ["eur_asn", "eur_afr", "eur_sas"],
     "compositions_A": [0.9, 0.7, 0.5],
     "true_ld": "w R_A,disc + (1 - w) R_B,disc, R_k,disc = Z_k'Z_k / n_k on the discovery individuals (04_simulate_null.R)",
-    "prs_mix": "w R_A,panel + (1 - w) R_B,panel from the reference-set panels",
+    "prs_ldmix": "w R_A,panel + (1 - w) R_B,panel from the reference-set panels",
     "summary": "mean |true - candidate| over off-diagonal SNP pairs of the block"
   },
   "notes": "Inputs were written on RedHawk by 20_ld_truth_extract.R from the sim250 null-simulation directories (<pair>/w0.7: split, panels and discovery genotypes shared by every composition of the pair)."

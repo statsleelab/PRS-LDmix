@@ -11,7 +11,7 @@ To run, place these alongside an unmodified PRS-CS checkout so `mcmc_gtb.py` and
 
 **License.** The two scripts are modified from PRS-CS, which is released under
 the MIT License (copyright (c) 2018 Tian Ge); that notice is kept in
-[`LICENSE-PRScs`](LICENSE-PRScs). The rest of PRS-MIX is released under the GNU
+[`LICENSE-PRScs`](LICENSE-PRScs). The rest of PRS-LDmix is released under the GNU
 GPL, version 2 or later (see the repository's `LICENSE.md`).
 
 `PRScs_mix.py`'s `main()` intersects every `--ref_dir` panel's SNP universe up front

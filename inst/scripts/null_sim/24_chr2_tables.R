@@ -4,14 +4,14 @@
 # paper/<study> layout (LaTeX bodies, HTML preview, tables.tsv, frozen inputs,
 # manifest).
 #
-#   table_chr2_accuracy.tex   S9a. r^2 of PRS-MIX and its paired difference
+#   table_chr2_accuracy.tex   S9a. r^2 of PRS-LDmix and its paired difference
 #                             from each single panel, chr22 against chr2.
-#   table_chr2_overlap.tex    S9b. Top-10% overlap of PRS-MIX with each single
+#   table_chr2_overlap.tex    S9b. Top-10% overlap of PRS-LDmix with each single
 #                             panel minus the seed-rerun overlap, chr22 against
 #                             chr2.
 #   table_chr2_settings.tex   S9c. SNPs, causal SNPs and signal variance per run.
 #   table_chr2_eurcuts.tex    S9d. The chr2 runs at PRS-CS's EUR cut points
-#                             next to 250 kb: PRS-MIX r^2, its differences from
+#                             next to 250 kb: PRS-LDmix r^2, its differences from
 #                             each single panel and the top-10% change.
 #   tables.html, tables.tsv, inputs/, manifest.json
 #
@@ -24,7 +24,7 @@
 # 250 kb blocks; S9d shows chr2 at PRS-CS's EUR cut points. Cells are means over replicates with Monte Carlo SEs, paired
 # within replicate, as in 18_sweep_paper_tables.R.
 #
-# Usage (from the PRS-MIX root):
+# Usage (from the PRS-LDmix root):
 #   Rscript inst/scripts/null_sim/24_chr2_tables.R <chr2_dir> <sweep_dir> <out_dir>
 #
 #   <chr2_dir>   e.g. inst/scripts/results/chr2_check, holding
@@ -196,7 +196,7 @@ build <- function(tex) {
       cell("overlap", r$label, cn, tg, "gap_A", 1, TRUE, tex),
       cell("overlap", r$label, cn, tg, "gap_B", 1, TRUE, tex)))), recursive = FALSE)
   }
-  out$chr2_accuracy <- render(c("Chromosome, scored in", paste("PRS-MIX", r2(tex)), "PRS-MIX minus first panel", "PRS-MIX minus second panel"), groups, tex)
+  out$chr2_accuracy <- render(c("Chromosome, scored in", paste("PRS-LDmix", r2(tex)), "PRS-LDmix minus first panel", "PRS-LDmix minus second panel"), groups, tex)
   out$chr2_overlap <- render(c("Chromosome, scored in", "Compared with the first panel", "Compared with the second panel"), groups2, tex)
   sg <- list()
   for (r in runs) {
@@ -216,7 +216,7 @@ build <- function(tex) {
       cell("overlap", r$label, cn, tg, "gap_A", 1, TRUE, tex, l),
       cell("overlap", r$label, cn, tg, "gap_B", 1, TRUE, tex, l)))), recursive = FALSE)
   }
-  out$chr2_eurcuts <- render(c("Scored in, block layout", paste("PRS-MIX", r2(tex)), "minus first panel", "minus second panel",
+  out$chr2_eurcuts <- render(c("Scored in, block layout", paste("PRS-LDmix", r2(tex)), "minus first panel", "minus second panel",
                                "Top 10%, vs. first panel (pp)", "Top 10%, vs. second panel (pp)"), gd, tex)
   if (tex) out$chr2_eurcuts <- gsub("Top 10%", "Top 10\\%", out$chr2_eurcuts, fixed = TRUE)
   out
@@ -233,15 +233,15 @@ cap_common <- paste("Fixed 250 kb blocks, 100 replicates per run, PRS-CS default
                     "within replicate. Scaled <i>v</i><sub>g</sub>: signal variance scaled in proportion to the analysis SNP count, keeping the",
                     "nominal signal variance per SNP approximately constant.")
 captions <- c(
-  chr2_accuracy = paste("<i>r</i><sup>2</sup> of PRS-MIX with the true genetic value, and PRS-MIX minus each single panel.", cap_common),
-  chr2_overlap = paste("PRS-MIX's top-10% overlap with each single panel minus the overlap of that panel's rerun with a new seed,",
-                       "in percentage points; more negative means PRS-MIX moves the top 10% more than sampler randomness.", cap_common),
+  chr2_accuracy = paste("<i>r</i><sup>2</sup> of PRS-LDmix with the true genetic value, and PRS-LDmix minus each single panel.", cap_common),
+  chr2_overlap = paste("PRS-LDmix's top-10% overlap with each single panel minus the overlap of that panel's rerun with a new seed,",
+                       "in percentage points; more negative means PRS-LDmix moves the top 10% more than sampler randomness.", cap_common),
   chr2_settings = paste("Chromosome 22 runs are the sweep settings; chromosome 2 runs use the same individuals. EUR + AFR is also run on",
                         "chromosome 2 at chromosome 22's <i>v</i><sub>g</sub> = 0.01, as a sensitivity analysis to total signal variance",
                         "in the presence of a small (205-person) AFR discovery sample. Changing <i>v</i><sub>g</sub> also changes the",
                         "genuine signal strength and PRS-CS's shrinkage, so the comparison does not isolate any single mechanism."),
   chr2_eurcuts = paste("The chromosome 2 runs with PRS-CS's EUR LD-block cut points as the block layout, next to fixed 250 kb blocks:",
-                       "PRS-MIX <i>r</i><sup>2</sup>, PRS-MIX minus each single panel, and PRS-MIX's top-10% overlap with each panel",
+                       "PRS-LDmix <i>r</i><sup>2</sup>, PRS-LDmix minus each single panel, and PRS-LDmix's top-10% overlap with each panel",
                        "minus that panel's seed-rerun overlap (percentage points). 100 replicates; Monte Carlo SEs in parentheses."))
 sans <- "-apple-system, \"Helvetica Neue\", Helvetica, Arial, sans-serif"
 head_commit <- git("rev-parse", "HEAD")
@@ -264,7 +264,7 @@ html <- c("<!doctype html>", "<html lang=\"en\">", "<head>", "<meta charset=\"ut
           unlist(lapply(names(html_tabs), function(nm) c("<section>", sprintf("<h2>%s</h2>", titles[[nm]]),
                                                          sprintf("<p class=\"cap\">%s</p>", captions[[nm]]),
                                                          "<div class=\"wrap\">", html_tabs[[nm]], "</div>", "</section>"))),
-          sprintf("<p class=\"src\">Generated by %s at PRS-MIX %s%s.</p>",
+          sprintf("<p class=\"src\">Generated by %s at PRS-LDmix %s%s.</p>",
                   program, substr(head_commit, 1, 7), if (inputs_dirty || prog_dirty) " with uncommitted program or inputs" else ""),
           "</main>", "</body>", "</html>")
 writeLines(html, file.path(out_dir, "tables.html"))
@@ -283,5 +283,5 @@ manifest <- list(
                   uncertainty = "mean over replicates with Monte Carlo SE; paired differences use the SE of the per-replicate difference"),
   notes = "chr2 runs were made on RedHawk with cluster/jobs/chr2_check (not version-controlled), on the chr22 sweep's sample split.")
 jsonlite::write_json(manifest, file.path(out_dir, "manifest.json"), auto_unbox = TRUE, pretty = TRUE, digits = NA)
-message(sprintf("Wrote %s (%d cells) at PRS-MIX %s%s", out_dir, nrow(cells), substr(head_commit, 1, 7),
+message(sprintf("Wrote %s (%d cells) at PRS-LDmix %s%s", out_dir, nrow(cells), substr(head_commit, 1, 7),
                 if (inputs_dirty || prog_dirty) " with uncommitted program or inputs" else ""))

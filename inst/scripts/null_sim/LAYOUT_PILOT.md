@@ -28,15 +28,15 @@ generating mixture. There are two competing explanations, and both may hold:
   SNPs, and every arm runs on one shared SNP set, so the layouts differ only in
   their blocks.
 - **Panel sources, per layout.**
-  - *Reference* panels, as in the sweep. Arms: both single panels, and PRS-MIX
+  - *Reference* panels, as in the sweep. Arms: both single panels, and PRS-LDmix
     at w = 0.1–0.9.
   - *Discovery* panels, built from the GWAS's own discovery individuals, which
     differ from the generating covariance only by the panel estimator. Arms:
-    both single panels, and PRS-MIX at w₀. This is a diagnostic, not a usable
+    both single panels, and PRS-LDmix at w₀. This is a diagnostic, not a usable
     method.
-- **Seed controls.** PRS-MIX at w₀ and first-ancestry PRS-CS rerun with seed
+- **Seed controls.** PRS-LDmix at w₀ and first-ancestry PRS-CS rerun with seed
   2000 + rep.
-- **Longer-chain check.** Replicates 1–5, both single panels and PRS-MIX at w₀,
+- **Longer-chain check.** Replicates 1–5, both single panels and PRS-LDmix at w₀,
   with 4,000 iterations, 2,000 burn-in and thinning 5. The defaults are 1,000,
   500 and 5.
 - **Sampler settings.** Passed explicitly to every arm: a = 1, b = 0.5, φ
@@ -80,7 +80,7 @@ differences were within ±0.005, against a seed SD of 0.0025, and φ was
 unchanged.
 
 Added, without changing any other arm: replicates 1–5 of EUR+ASN, both single
-panels and PRS-MIX at w₀, at 8,000 iterations, 4,000 burn-in, thinning 5 and
+panels and PRS-LDmix at w₀, at 8,000 iterations, 4,000 burn-in, thinning 5 and
 seed 1000 + rep (`MODE=xlong`, arms `xlong_*`). If 4,000 and 8,000 agree within
 the seed spread, 4,000 is taken as converged. The default-vs-4,000 shift in the
 paired differences then decides whether the EUR+ASN comparisons need rerunning

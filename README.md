@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# PRS-MIX
+# PRS-LDmix
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-PRS-MIX builds **multi-population, mixed LD reference panels for
+PRS-LDmix builds **multi-population, mixed LD reference panels for
 [PRS-CS](https://github.com/getian107/PRScs)** (Ge et al. 2019) and runs
 PRS-CS’s posterior SNP effect sampler against a weighted blend of those
 panels (e.g. EUR + ASN) instead of a single population’s panel. It is a
@@ -20,7 +20,7 @@ reference-panel reader.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("statsleelab/PRS-MIX")
+devtools::install_github("statsleelab/PRS-LDmix")
 ```
 
 You’ll also need:
@@ -140,7 +140,7 @@ example output.
 ## Background: GAUSS
 
 GAUSS (Genome Analysis Using Summary Statistics) is the R package
-PRS-MIX is forked from. It analyzes multi-ethnic GWAS summary statistics
+PRS-LDmix is forked from. It analyzes multi-ethnic GWAS summary statistics
 using a 32,953-genome, 29-population reference panel (the [33KG
 Panel](https://statsleelab.github.io/gauss/articles/ref_33KG.html):
 20,281 Europeans, 10,800 East Asians, 522 South Asians, 817 Africans,
@@ -149,7 +149,7 @@ proportions (`afmix()`, `zmix()`), ii) calculate ancestry-informed LD
 (`computeLD()`), iii) impute Z-scores for unmeasured variants (`dist()`,
 `distmix()`), iv) run transcriptome-wide association studies (`jepeg()`,
 `jepegmix()`), and v) correct for Winner’s Curse bias (`fiqt()`).
-PRS-MIX only uses GAUSS’s reference-panel reader and LD computation
+PRS-LDmix only uses GAUSS’s reference-panel reader and LD computation
 (`computeSuperPopLDWindow()`); the rest of GAUSS’s toolset ships here
 unmodified as part of the shared package base.
 
@@ -161,14 +161,14 @@ site](https://statsleelab.github.io/gauss/).
 
 ## Citation
 
-If you use PRS-MIX, please cite:
+If you use PRS-LDmix, please cite:
 
-Koo G, Lee D. PRS-MIX: ancestry-mixed linkage disequilibrium reference
+Koo G, Lee D. PRS-LDmix: ancestry-mixed linkage disequilibrium reference
 panels for polygenic risk prediction in diverse and admixed cohorts.
 *bioRxiv* (2026). Link to follow once the preprint is posted.
 <!-- TODO: replace with the bioRxiv DOI link -->
 
-PRS-MIX runs PRS-CS’s sampler, so please also cite PRS-CS:
+PRS-LDmix runs PRS-CS’s sampler, so please also cite PRS-CS:
 
 Ge T, Chen C-Y, Ni Y, Feng Y-CA, Smoller JW. Polygenic prediction via
 Bayesian regression and continuous shrinkage priors. [Nature
@@ -184,7 +184,7 @@ and TWAS analysis of cosmopolitan cohorts.
 
 ## License
 
-PRS-MIX is released under the GNU General Public License, version 2 or
+PRS-LDmix is released under the GNU General Public License, version 2 or
 later; see [LICENSE.md](LICENSE.md). The vendored PRS-CS scripts in
 `inst/prscs-mix/` keep PRS-CS’s MIT license notice
 ([LICENSE-PRScs](inst/prscs-mix/LICENSE-PRScs)).
