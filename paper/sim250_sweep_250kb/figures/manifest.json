@@ -2,7 +2,7 @@
   "study": "figures",
   "program": "inst/scripts/null_sim/19_sweep_paper_figures.R",
   "command": "Rscript inst/scripts/null_sim/19_sweep_paper_figures.R 'inst/scripts/results/sim250_sweep_100rep' 'paper/sim250_sweep_250kb/figures' 'all' 'auto' 'no' 'no'",
-  "asset_commit": "121f38cb0d8b44b0e816100bf76e2dfda2d3e9a2",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "provisional": false,
@@ -68,15 +68,15 @@
   "outputs": {
     "fig_png": {
       "path": "paper/sim250_sweep_250kb/figures/fig_top10_overlap_eur.png",
-      "sha256": "9f891c374de38ba61416076c9f5758cb9141ac36becdb9760ce96eea0d57ebfb"
+      "sha256": "c62c67bec11102accf850768da4f1fa24f0b5a8d411ee29bee3880eecdd8ee40"
     },
     "fig_pdf": {
       "path": "paper/sim250_sweep_250kb/figures/fig_top10_overlap_eur.pdf",
-      "sha256": "1f0e1bac14829d842e15873be1df6b2f79c7ffcfe151d1f377af3ff921297168"
+      "sha256": "fd71c3f45185e92e9dbec8aacfa048b52ed753b4aaf8f718e51752123e6c7432"
     },
     "figure_data": {
       "path": "paper/sim250_sweep_250kb/figures/figure_data.tsv",
-      "sha256": "4d8170a6123a3b3b816c85ebbd3f60d19959a05f2c673db247507d0c0c7f8171"
+      "sha256": "7b8adadc766c4f4160625d5e33f14cf1c381737195ee335aa7339751872971d7"
     }
   },
   "settings": {
@@ -113,7 +113,7 @@
     "footnote": false,
     "overlap": "top10_EUR_<target> of 07_metrics_nonnull.R: share of a run's top 10% of target scores also in the EUR panel run's top 10%",
     "rerun": "single_EUR_seed2: the EUR panel with sampler seed 2000 + rep (all other arms use 1000 + rep)",
-    "prs_mix": "mix_w<w> at the generating composition w"
+    "prs_ldmix": "mix_w<w> at the generating composition w"
   },
   "notes": "Experiment runs were made on RedHawk with the null-simulation job scripts (cluster/jobs/null_sim, not version-controlled)."
 }

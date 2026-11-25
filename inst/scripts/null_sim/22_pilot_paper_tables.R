@@ -9,12 +9,12 @@
 #                              spread and the learned phi, per arm and target.
 #   table_chain_check.tex      S6b. Chain check at 100 replicates (EUR+ASN 70:30):
 #                              r^2 change at 4,000 iterations per arm, and the
-#                              PRS-MIX vs single-panel contrasts at both lengths.
-#   table_discovery.tex        S7.  PRS-MIX minus each single panel with reference
+#                              PRS-LDmix vs single-panel contrasts at both lengths.
+#   table_discovery.tex        S7.  PRS-LDmix minus each single panel with reference
 #                              panels and with discovery-built panels (panels
 #                              from the GWAS's own individuals).
 #   table_layouts.tex          S8a. r^2 by block layout (250 kb, 1 Mb, EUR cut
-#                              points) and the PRS-MIX contrasts at each layout.
+#                              points) and the PRS-LDmix contrasts at each layout.
 #   table_diagnostics.tex      S8b. Sampler-free diagnostics: share of the
 #                              generating LD that falls between blocks, and the
 #                              within-block error of each panel.
@@ -24,7 +24,7 @@
 # LAYOUT_PILOT.md), not adjusted for multiplicity. LaTeX and HTML show the 250 kb
 # layout where a table is per layout; tables.tsv has every layout.
 #
-# Usage (from the PRS-MIX root):
+# Usage (from the PRS-LDmix root):
 #   Rscript inst/scripts/null_sim/22_pilot_paper_tables.R <pilot_root> <chain_dir> <out_dir>
 #
 #   <pilot_root>  e.g. inst/scripts/results/layout_pilot, holding
@@ -85,7 +85,7 @@ put <- function(table, group, row, target, column, x, layout = "fixed250kb") {
 }
 # Per-replicate value of metric col for arm, at replicates reps.
 val <- function(x, arm, col, reps) { y <- x[x$arm == arm, ]; y[[col]][match(reps, y$rep)] }
-arm_rows <- function(s) c(single_A = paste(s$A, "panel"), single_B = paste(s$B, "panel"), mix = "PRS-MIX")
+arm_rows <- function(s) c(single_A = paste(s$A, "panel"), single_B = paste(s$B, "panel"), mix = "PRS-LDmix")
 arm_name <- function(key, s, prefix = "") switch(key, single_A = paste0(prefix, "single_", s$A),
                                                  single_B = paste0(prefix, "single_", s$B),
                                                  mix = sprintf("%smix_w%.1f", prefix, s$w))
@@ -134,7 +134,7 @@ for (k in names(arm_rows(s_cc))) for (tg in c("EUR", "ASN")) {
 }
 for (k in c("single_A", "single_B")) for (tg in c("EUR", "ASN")) {
   cn <- paste0("r2_", tg)
-  row <- sprintf("PRS-MIX minus %s", arm_rows(s_cc)[[k]])
+  row <- sprintf("PRS-LDmix minus %s", arm_rows(s_cc)[[k]])
   d0 <- val(cc, "mix_w0.7", cn, reps_cc) - val(cc, arm_name(k, s_cc), cn, reps_cc)
   d1 <- val(cc, "long_mix_w0.7", cn, reps_cc) - val(cc, arm_name(k, s_cc, "long_"), cn, reps_cc)
   put("chain_contrast", s_cc$label, row, tg, "contrast_default", d0)
@@ -151,7 +151,7 @@ for (s_id in names(pilot)) for (l in names(layouts)) {
   for (tg in c(s$A, s$B)) {
     cn <- paste0("r2_", tg)
     for (src in c("", "disc_")) for (k in c("single_A", "single_B")) {
-      put("discovery", s$label, sprintf("PRS-MIX minus %s", arm_rows(s)[[k]]), tg, paste0(if (src == "") "reference" else "discovery"),
+      put("discovery", s$label, sprintf("PRS-LDmix minus %s", arm_rows(s)[[k]]), tg, paste0(if (src == "") "reference" else "discovery"),
           val(x, arm_name("mix", s, src), cn, reps) - val(x, arm_name(k, s, src), cn, reps), l)
     }
     for (k in names(arm_rows(s))) {
@@ -258,7 +258,7 @@ build <- function(tex) {
       cell("chain_check", s_cc$label, a, tg, "r2_long", 3, FALSE, FALSE, tex), cell("chain_check", s_cc$label, a, tg, "d_long", 4, tex = tex))
   })), recursive = FALSE)
   crow <- unlist(lapply(c("single_A", "single_B"), function(k) lapply(c("EUR", "ASN"), function(tg) {
-    a <- sprintf("PRS-MIX minus %s", arm_rows(s_cc)[[k]])
+    a <- sprintf("PRS-LDmix minus %s", arm_rows(s_cc)[[k]])
     c(sprintf("%s, scored in %s", a, tg), cell("chain_contrast", s_cc$label, a, tg, "contrast_default", 4, tex = tex),
       cell("chain_contrast", s_cc$label, a, tg, "contrast_long", 4, tex = tex), cell("chain_contrast", s_cc$label, a, tg, "contrast_change", 4, tex = tex))
   })), recursive = FALSE)
@@ -270,7 +270,7 @@ build <- function(tex) {
     s <- pilot[[s_id]]
     groups[[s$label]] <- c(
       unlist(lapply(c("single_A", "single_B"), function(k) lapply(c(s$A, s$B), function(tg) {
-        a <- sprintf("PRS-MIX minus %s", arm_rows(s)[[k]])
+        a <- sprintf("PRS-LDmix minus %s", arm_rows(s)[[k]])
         c(sprintf("%s, %s", a, tg), cell("discovery", s$label, a, tg, "reference", 3, tex = tex), cell("discovery", s$label, a, tg, "discovery", 3, tex = tex))
       })), recursive = FALSE),
       unlist(lapply(names(arm_rows(s)), function(k) lapply(c(s$A, s$B), function(tg) {
@@ -359,7 +359,7 @@ html <- c("<!doctype html>", "<html lang=\"en\">", "<head>", "<meta charset=\"ut
           unlist(lapply(names(html_tabs), function(nm) c("<section>", sprintf("<h2>%s</h2>", titles[[nm]]),
                                                          sprintf("<p class=\"cap\">%s</p>", captions[[nm]]),
                                                          "<div class=\"wrap\">", html_tabs[[nm]], "</div>", "</section>"))),
-          sprintf("<p class=\"src\">Generated by %s at PRS-MIX %s%s.</p>", program, substr(head_commit, 1, 7),
+          sprintf("<p class=\"src\">Generated by %s at PRS-LDmix %s%s.</p>", program, substr(head_commit, 1, 7),
                   if (inputs_dirty || prog_dirty) " with uncommitted program or inputs" else ""),
           "</main>", "</body>", "</html>")
 writeLines(html, file.path(out_dir, "tables.html"))
@@ -383,5 +383,5 @@ manifest <- list(
     sampler = "defaults 1,000/500/5; long 4,000/2,000/5; xlong 8,000/4,000/5 (iterations/burn-in/thinning)"),
   notes = "Pilot and chain-check runs were made on RedHawk (cluster/jobs/layout_pilot, not version-controlled).")
 jsonlite::write_json(manifest, file.path(out_dir, "manifest.json"), auto_unbox = TRUE, pretty = TRUE, digits = NA)
-message(sprintf("Wrote %s (%d cells) at PRS-MIX %s%s", out_dir, nrow(cells), substr(head_commit, 1, 7),
+message(sprintf("Wrote %s (%d cells) at PRS-LDmix %s%s", out_dir, nrow(cells), substr(head_commit, 1, 7),
                 if (inputs_dirty || prog_dirty) " with uncommitted program or inputs" else ""))

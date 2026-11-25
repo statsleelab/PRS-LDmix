@@ -4,16 +4,16 @@
 #
 # For each setting the generating weight w0 is the weight on the first-listed
 # ancestry A; B is the second. Methods: A-only PRS-CS (reference), its seed
-# rerun, PRS-MIX at w0, and B-only PRS-CS. Every quantity is computed per
+# rerun, PRS-LDmix at w0, and B-only PRS-CS. Every quantity is computed per
 # replicate and paired within replicate (same simulated GWAS and target
 # individuals), then summarised as mean (Monte Carlo SE) over replicates.
 # Score-variance ratios use the log scale (geometric mean percentage change).
 #
-#   sweep_tables.html   Table 1 null GWAS, Table 2 non-null GWAS, Table 3 PRS-MIX
+#   sweep_tables.html   Table 1 null GWAS, Table 2 non-null GWAS, Table 3 PRS-LDmix
 #                       against the seed rerun and the single panels.
 #   sweep_tables.tsv    Every number in the tables, unrounded, with n.
-#   sweep_violins.pdf/.png  Per-replicate distributions: (a) PRS-MIX minus seed
-#                       rerun in top-10% overlap with A-only PRS-CS; (b) PRS-MIX
+#   sweep_violins.pdf/.png  Per-replicate distributions: (a) PRS-LDmix minus seed
+#                       rerun in top-10% overlap with A-only PRS-CS; (b) PRS-LDmix
 #                       minus A-only PRS-CS in r^2 with the true genetic value.
 #
 # Usage:
@@ -146,8 +146,8 @@ panel <- function(metric, ylab, title) {
           plot.title = element_text(face = "bold", size = 9, colour = ink), legend.position = "bottom",
           panel.spacing.x = grid::unit(10, "pt"))
 }
-pa <- panel("d_top", "PRS-MIX minus seed rerun\n(top-10% overlap, pp)", "a")
-pb <- panel("d_r2", "PRS-MIX minus first-ancestry PRS-CS\n(r² with true genetic value)", "b")
+pa <- panel("d_top", "PRS-LDmix minus seed rerun\n(top-10% overlap, pp)", "a")
+pb <- panel("d_r2", "PRS-LDmix minus first-ancestry PRS-CS\n(r² with true genetic value)", "b")
 fig <- patchwork::wrap_plots(pa, pb, ncol = 1, guides = "collect") & theme(legend.position = "bottom")
 ggsave(file.path(out_dir, "sweep_violins.pdf"), fig, width = 18, height = 13, units = "cm", device = grDevices::pdf)
 ggsave(file.path(out_dir, "sweep_violins.png"), fig, width = 18, height = 13, units = "cm", dpi = 300, bg = "white")
@@ -197,22 +197,22 @@ t_null_ld <- html_table(list(list("LD-fit loss above the generating weight", 2))
                         c("First-ancestry panel", "Second-ancestry panel"),
                         function(s, tg) c(cell("null", s, "", "ld_A", 3), cell("null", s, "", "ld_B", 3)), per_target = FALSE)
 t_null <- html_table(list(list("Null score variance vs. first-ancestry PRS-CS (%)", 3)),
-                     c("Seed rerun", "PRS-MIX", "Second-ancestry PRS-CS"),
+                     c("Seed rerun", "PRS-LDmix", "Second-ancestry PRS-CS"),
                      function(s, tg) c(cell("null", s, tg, "var_seed", 1, TRUE), cell("null", s, tg, "var_mix", 1, TRUE),
                                        cell("null", s, tg, "var_B", 1, TRUE)))
 t_nonnull <- html_table(list(list("Top-10% overlap with first-ancestry PRS-CS (%)", 3), list("<i>r</i><sup>2</sup> with true genetic value", 3)),
-                        c("Seed rerun", "PRS-MIX", "Second-ancestry PRS-CS", "First-ancestry PRS-CS", "PRS-MIX", "Second-ancestry PRS-CS"),
+                        c("Seed rerun", "PRS-LDmix", "Second-ancestry PRS-CS", "First-ancestry PRS-CS", "PRS-LDmix", "Second-ancestry PRS-CS"),
                         function(s, tg) c(cell("nonnull", s, tg, "top_seed", 1), cell("nonnull", s, tg, "top_mix", 1),
                                           cell("nonnull", s, tg, "top_B", 1), cell("nonnull", s, tg, "r2_A", 3),
                                           cell("nonnull", s, tg, "r2_mix", 3), cell("nonnull", s, tg, "r2_B", 3)))
-t_contrast <- html_table(list(list("PRS-MIX vs. seed rerun", 3), list("PRS-MIX minus single-panel PRS-CS (<i>r</i><sup>2</sup>)", 2)),
+t_contrast <- html_table(list(list("PRS-LDmix vs. seed rerun", 3), list("PRS-LDmix minus single-panel PRS-CS (<i>r</i><sup>2</sup>)", 2)),
                          c("Top-10% overlap (pp)", "Correlation &times;10<sup>3</sup>", "Null score variance (%)",
                            "First ancestry", "Second ancestry"),
                          function(s, tg) c(cell("contrast", s, tg, "d_top_seed", 2, TRUE), cell("contrast", s, tg, "d_cor_seed", 2, TRUE),
                                            cell("contrast", s, tg, "var_vs_seed", 1, TRUE), cell("contrast", s, tg, "d_r2_A", 4, TRUE),
                                            cell("contrast", s, tg, "d_r2_B", 4, TRUE)))
 common <- paste("Chromosome 22, fixed 250 kb LD blocks. Each setting is a GWAS combining two ancestries' discovery samples at the",
-                "stated composition; PRS-MIX uses the matching weight. PRS-CS with automatic &phi;. Means over replicates with Monte",
+                "stated composition; PRS-LDmix uses the matching weight. PRS-CS with automatic &phi;. Means over replicates with Monte",
                 "Carlo standard errors in parentheses; within a replicate every method analyses the same simulated GWAS and scores",
                 "the same target individuals. The seed rerun repeats first-ancestry PRS-CS with a different sampler seed and measures",
                 "run-to-run variation.")
@@ -240,12 +240,12 @@ html <- c(
   sec("Table 1. Null GWAS simulation: LD fit", paste("Excess Gaussian LD-fit loss (ridge 0.001) of each single panel over the mixed panel at the generating weight, per SNP; lower is better, and the mixed panel is 0 by definition.", common), t_null_ld),
   sec("Table 2. Null GWAS simulation: score variance", paste("Variance of target-sample scores in a GWAS with no true effects, relative to first-ancestry PRS-CS for the same GWAS, as a geometric-mean percentage change; negative values mean less spread in scores that carry no true signal.", common), t_null),
   sec("Table 3. Non-null GWAS simulation", paste("Sparse causal effects shared across ancestries. Top-10% overlap is the share of target individuals in a method's top score decile who are also in first-ancestry PRS-CS's top decile; <i>r</i><sup>2</sup> is the squared correlation between scores and true genetic values.", common), t_nonnull),
-  sec("Table 4. PRS-MIX against the seed rerun and the single panels", paste("Replicate-paired comparisons at the generating weight. Overlap and correlation are differences from the seed rerun (both first measured against first-ancestry PRS-CS); negative values mean PRS-MIX changes scores more than a new sampler seed alone. Null score variance is PRS-MIX relative to the seed rerun (geometric-mean percentage change). The last two columns are PRS-MIX's <i>r</i><sup>2</sup> minus single-panel PRS-CS's; positive values favour PRS-MIX. pp, percentage points.", common), t_contrast),
+  sec("Table 4. PRS-LDmix against the seed rerun and the single panels", paste("Replicate-paired comparisons at the generating weight. Overlap and correlation are differences from the seed rerun (both first measured against first-ancestry PRS-CS); negative values mean PRS-LDmix changes scores more than a new sampler seed alone. Null score variance is PRS-LDmix relative to the seed rerun (geometric-mean percentage change). The last two columns are PRS-LDmix's <i>r</i><sup>2</sup> minus single-panel PRS-CS's; positive values favour PRS-LDmix. pp, percentage points.", common), t_contrast),
   "<section>", "<h2>Figure. Per-replicate differences across the sweep</h2>",
-  sprintf("<p class=\"cap\">Each point is one replicate (simulated GWAS), with a violin for the distribution and a box for the median and quartiles; dashed line at zero. <b>a</b>, PRS-MIX minus the seed rerun in top-10%% overlap with first-ancestry PRS-CS (negative: PRS-MIX changes the top decile more than a new sampler seed). <b>b</b>, PRS-MIX minus first-ancestry PRS-CS in <i>r</i><sup>2</sup> with the true genetic value (positive: PRS-MIX more accurate). At most %d replicates per setting (see the tables for each count).</p>", max_rep),
+  sprintf("<p class=\"cap\">Each point is one replicate (simulated GWAS), with a violin for the distribution and a box for the median and quartiles; dashed line at zero. <b>a</b>, PRS-LDmix minus the seed rerun in top-10%% overlap with first-ancestry PRS-CS (negative: PRS-LDmix changes the top decile more than a new sampler seed). <b>b</b>, PRS-LDmix minus first-ancestry PRS-CS in <i>r</i><sup>2</sup> with the true genetic value (positive: PRS-LDmix more accurate). At most %d replicates per setting (see the tables for each count).</p>", max_rep),
   sprintf("<figure><img alt=\"Violin plots of per-replicate differences across the sweep\" src=\"data:image/png;base64,%s\"></figure>", fig_b64),
   "</section>",
-  sprintf("<footer>Generated from <code>%s</code> by <code>inst/scripts/null_sim/13_sweep_summary.R</code> (at most %d replicates per setting; the Replicates column gives each setting's count) at PRS-MIX %s. Every number is in <code>sweep_tables.tsv</code>.</footer>",
+  sprintf("<footer>Generated from <code>%s</code> by <code>inst/scripts/null_sim/13_sweep_summary.R</code> (at most %d replicates per setting; the Replicates column gives each setting's count) at PRS-LDmix %s. Every number is in <code>sweep_tables.tsv</code>.</footer>",
           root, max_rep, substr(system2("git", c("rev-parse", "HEAD"), stdout = TRUE), 1, 7)),
   "</main>", "</body>", "</html>")
 writeLines(html, file.path(out_dir, "sweep_tables.html"))

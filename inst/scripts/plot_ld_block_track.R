@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# Figure panel for the PRS-MIX workflow figure: a chromosome track showing
+# Figure panel for the PRS-LDmix workflow figure: a chromosome track showing
 # that two jointly built PRS-CS panels share the same LD blocks, with the
 # block and SNP window drawn by plot_ld_mix_heatmaps.R highlighted, so the
 # track can lead into the heatmaps.

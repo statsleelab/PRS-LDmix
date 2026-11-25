@@ -8,7 +8,7 @@
 # gives Cov(z) = w R_A,disc + (1 - w) R_B,disc, with R_k,disc = Z_k'Z_k / n_k
 # from the discovery individuals (the "true GWAS LD"). The candidates are built
 # from the separate reference individuals' panels:
-#   PRS-MIX   w R_A,panel + (1 - w) R_B,panel
+#   PRS-LDmix   w R_A,panel + (1 - w) R_B,panel
 #   A alone   R_A,panel  (standard PRS-CS with the majority-ancestry panel)
 #   B alone   R_B,panel
 # Neither R_k,disc nor the panels depend on w, so one extraction serves every
@@ -22,7 +22,7 @@
 #   <pair>_block<b>_ld.tsv  for each requested block, every SNP pair (i <= j):
 #                           discovery LD and panel LD of A and B.
 #
-# Usage (from the PRS-MIX root, or with the path to this script):
+# Usage (from the PRS-LDmix root, or with the path to this script):
 #   Rscript inst/scripts/null_sim/20_ld_truth_extract.R <sim_dir> <out_dir> <pops e.g. EUR,ASN> <blocks e.g. 75> [layout=fixed250kb] [chr=22]
 #
 #   <sim_dir>  a null-simulation directory with panels/<layout>/ and geno/
@@ -71,12 +71,12 @@ for (i in seq_along(pa)) {
   ut <- upper.tri(b$ra)
   for (w in ws) {
     tr <- w * b$da + (1 - w) * b$db
-    e <- list(prsmix = (tr - (w * b$ra + (1 - w) * b$rb))[ut], a_only = (tr - b$ra)[ut], b_only = (tr - b$rb)[ut])
+    e <- list(prsldmix = (tr - (w * b$ra + (1 - w) * b$rb))[ut], a_only = (tr - b$ra)[ut], b_only = (tr - b$rb)[ut])
     scan[[length(scan) + 1]] <- data.frame(
       pair = paste(pops, collapse = "+"), w = w, block = i, n_snps = length(b$snps),
       bp_start = min(b$bp), bp_end = max(b$bp), mean_abs_panel_diff = mean(abs((b$ra - b$rb)[ut])),
-      mad_prsmix = mean(abs(e$prsmix)), mad_a_only = mean(abs(e$a_only)), mad_b_only = mean(abs(e$b_only)),
-      rms_prsmix = sqrt(mean(e$prsmix^2)), rms_a_only = sqrt(mean(e$a_only^2)), rms_b_only = sqrt(mean(e$b_only^2)))
+      mad_prsldmix = mean(abs(e$prsldmix)), mad_a_only = mean(abs(e$a_only)), mad_b_only = mean(abs(e$b_only)),
+      rms_prsldmix = sqrt(mean(e$prsldmix^2)), rms_a_only = sqrt(mean(e$a_only^2)), rms_b_only = sqrt(mean(e$b_only^2)))
   }
   if (i %in% blocks) {
     n <- length(b$snps)

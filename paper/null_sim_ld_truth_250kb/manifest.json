@@ -2,7 +2,7 @@
   "study": "null_sim_ld_truth_250kb",
   "program": "inst/scripts/null_sim/25_ld_truth_tables.R",
   "command": "Rscript inst/scripts/null_sim/25_ld_truth_tables.R 'paper/null_sim_ld_truth_250kb/figures/inputs' 'paper/null_sim_ld_truth_250kb'",
-  "asset_commit": "8d28554bc662e18e7175e394af88c5f51b3486c8",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "experiment_commit": "5dfc94395bcdc737f0473421ccfd5f7fa7a1abe7",
@@ -48,15 +48,15 @@
   "outputs": {
     "table_ld_chr.tex": {
       "path": "paper/null_sim_ld_truth_250kb/table_ld_chr.tex",
-      "sha256": "565f742722f87b8e5915c4321f1e3bc3c24520ef4989a64c05ea2a073eff2743"
+      "sha256": "3d5bf8c8a609e2191158e1c7ffe6e1a65554881a81715c270d9e0c730d8fe6c5"
     },
     "tables.html": {
       "path": "paper/null_sim_ld_truth_250kb/tables.html",
-      "sha256": "5e28c316ae9a1771fcf955d92fc215179ff3e1c445cdeb372e6e7d54827e990f"
+      "sha256": "8ba102e805bfbd9e628e41c59a22a43c1934eb408eb48b65076f123794d552b1"
     },
     "tables.tsv": {
       "path": "paper/null_sim_ld_truth_250kb/tables.tsv",
-      "sha256": "42bb38307ade442f09f5799dca29dabf1140db8ea2019933a3d53a607659755d"
+      "sha256": "4c8af6de0d37fa741044f58a68fb915f6822eb05bb9d4e78aac8b26f83e51914"
     }
   },
   "settings": {
@@ -65,7 +65,7 @@
     "pairs": ["eur_asn", "eur_afr", "eur_sas"],
     "compositions_A": [0.9, 0.7, 0.5],
     "blocks": "blocks in <pair>_block_scan.tsv (at least two analysis SNPs)",
-    "summary": "median over blocks of mean |true - candidate| over off-diagonal SNP pairs; count of blocks with mad_prsmix < mad_a_only"
+    "summary": "median over blocks of mean |true - candidate| over off-diagonal SNP pairs; count of blocks with mad_prsldmix < mad_a_only"
   },
   "notes": "Inputs are the frozen per-block scans of paper/null_sim_ld_truth_250kb/figures (RedHawk extracts from 20_ld_truth_extract.R)."
 }

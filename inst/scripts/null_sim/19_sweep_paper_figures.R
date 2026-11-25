@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # Paper figure for the 250 kb ancestry-pair x GWAS-composition sweep: who is in
-# the top 10%, PRS-MIX against the EUR panel's own rerun.
+# the top 10%, PRS-LDmix against the EUR panel's own rerun.
 #
 #   fig_top10_overlap_eur.{png,pdf}
 #     For the three EUR pairs (EUR+ASN, EUR+AFR, EUR+SAS), scored in EUR
@@ -8,7 +8,7 @@
 #     with the EUR panel's top 10% for
 #       grey  the EUR panel rerun with a new sampler seed (2000 + rep), the
 #             agreement expected from sampler randomness alone;
-#       blue  PRS-MIX at the generating composition (seed 1000 + rep, like
+#       blue  PRS-LDmix at the generating composition (seed 1000 + rep, like
 #             the EUR panel run it is compared with).
 #     Boxes over replicates with every replicate drawn as a point.
 #   figure_data.tsv   every plotted value (one row per replicate x box)
@@ -18,7 +18,7 @@
 # ASN+AFR is left out so that every panel has the same reference (the EUR
 # panel); its top-10% results are in 18_sweep_paper_tables.R's Table 2.
 #
-# Usage (from the PRS-MIX root):
+# Usage (from the PRS-LDmix root):
 #   Rscript inst/scripts/null_sim/19_sweep_paper_figures.R <sweep_dir> <out_dir> [reps=all] [phi_mode=auto] [provisional=no] [footnote=yes]
 #
 #   <sweep_dir>  e.g. inst/scripts/results/sim250_sweep_100rep, holding
@@ -73,7 +73,7 @@ if (to_paper && (inputs_dirty || prog_dirty)) {
 
 # ---- Figure data -----------------------------------------------------------
 m_rerun <- "EUR panel alone, rerun with a new seed"
-m_mix <- "PRS-MIX (blended panel)"
+m_mix <- "PRS-LDmix (blended panel)"
 rows <- list()
 n_reps <- integer(0)
 for (i in seq_len(nrow(settings))) {
@@ -127,7 +127,7 @@ fig <- ggplot(fd, aes(mix, overlap_pct, fill = method)) +
        caption = paste(c(if (footnote) c(
          sprintf("Overlap: share of a run's top 10%% that is also in the EUR panel's original top 10%%. Each point is one replicate (%s per box).", rep_text),
          "Grey: the EUR panel rerun with a new seed, the agreement expected from sampler randomness alone.",
-         "Blue below grey: PRS-MIX changes the top 10% more than randomness does."), prov_note), collapse = "\n")) +
+         "Blue below grey: PRS-LDmix changes the top 10% more than randomness does."), prov_note), collapse = "\n")) +
   theme_classic(base_size = 9, base_family = "Helvetica") +
   theme(axis.line = element_line(linewidth = 0.3, colour = ink), axis.ticks = element_line(linewidth = 0.3, colour = ink),
         axis.text = element_text(colour = ink), axis.title = element_text(colour = ink),
@@ -158,8 +158,8 @@ manifest <- list(
     replicates_used = as.list(n_reps), replicate_filter = reps_arg, phi_mode = phi_mode, footnote = footnote,
     overlap = "top10_EUR_<target> of 07_metrics_nonnull.R: share of a run's top 10% of target scores also in the EUR panel run's top 10%",
     rerun = "single_EUR_seed2: the EUR panel with sampler seed 2000 + rep (all other arms use 1000 + rep)",
-    prs_mix = "mix_w<w> at the generating composition w"),
+    prs_ldmix = "mix_w<w> at the generating composition w"),
   notes = "Experiment runs were made on RedHawk with the null-simulation job scripts (cluster/jobs/null_sim, not version-controlled).")
 jsonlite::write_json(manifest, file.path(out_dir, "manifest.json"), auto_unbox = TRUE, pretty = TRUE, digits = NA)
-message(sprintf("Wrote %s (%d plotted values, %s replicates) at PRS-MIX %s%s", out_dir, nrow(fd), rep_text, substr(head_commit, 1, 7),
+message(sprintf("Wrote %s (%d plotted values, %s replicates) at PRS-LDmix %s%s", out_dir, nrow(fd), rep_text, substr(head_commit, 1, 7),
                 if (inputs_dirty || prog_dirty) " with uncommitted program or inputs" else ""))

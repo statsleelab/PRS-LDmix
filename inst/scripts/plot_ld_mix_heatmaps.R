@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# Figure panels for the PRS-MIX workflow figure: signed LD heatmaps for one
+# Figure panels for the PRS-LDmix workflow figure: signed LD heatmaps for one
 # window of one block in two aligned ancestry panels, and their weighted mix,
 #   w * D_EUR + (1 - w) * D_ASN = D_mix
 # drawn from PRS-CS-format panels written by generate_prscs_ld_panels(). The

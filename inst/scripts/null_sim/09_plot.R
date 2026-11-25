@@ -4,9 +4,9 @@
 #   fig_weight_sweep.png  A: LD fit relative to the generating weight (null);
 #                         B: null score variance and C: non-null r^2 in target
 #                         individuals by ancestry, against the EUR weight given
-#                         to PRS-MIX. The sweep ends are the single-population
+#                         to PRS-LDmix. The sweep ends are the single-population
 #                         arms (identical to vanilla PRS-CS, checked per run).
-#   fig_contrasts.png     Primary contrasts of PRS-MIX at the generating weight
+#   fig_contrasts.png     Primary contrasts of PRS-LDmix at the generating weight
 #                         against each single-population arm, with 95% CIs.
 #
 # Usage:
@@ -43,7 +43,7 @@ x_scale <- scale_x_continuous(
   breaks = c(0, 0.25, 0.5, w0, 1),
   labels = c("0\nASN only", "0.25", "0.5", sprintf("%g\ntrue mix", w0), "1\nEUR only"),
   expand = expansion(mult = c(0.05, 0.05)))
-x_lab <- "EUR weight given to PRS-MIX"
+x_lab <- "EUR weight given to PRS-LDmix"
 truth_line <- geom_vline(xintercept = w0, linetype = "22", colour = muted, linewidth = 0.5)
 
 # Single series (LD fit: no target ancestry), on a pseudo-log axis so both the
@@ -84,7 +84,7 @@ pC <- sweep_panel_anc(anc_curve("nonnull", "r2_"), "C  Non-null: recovery of gen
 
 fig1 <- (pA | pB | pC) + plot_layout(guides = "collect") +
   plot_annotation(
-    title = "PRS-MIX weight sweep, chr22",
+    title = "PRS-LDmix weight sweep, chr22",
     subtitle = sprintf(paste0("GWAS simulated at a true %g:%g EUR:ASN meta-analysis, N = 200,000; PRS-CS %s; ",
                               "LD fit with δ = %g. Points: mean over %d replicates; bands: 95%% bootstrap CI."),
                        100 * w0, 100 * (1 - w0), if (phi0 == "auto") "auto φ" else paste("φ =", phi0), delta0, n_rep),
@@ -122,8 +122,8 @@ fig2 <- ggplot(prim, aes(est, row, colour = anc, shape = phi_lab)) +
   scale_colour_manual(values = c(anc_cols, "All SNPs" = ink2), breaks = names(anc_cols), name = NULL) +
   scale_shape_manual(values = c(16, 21), name = NULL) +
   scale_alpha_manual(values = c("Holm p < 0.05" = 1, "not significant" = 0.45), guide = "none") +
-  labs(x = sprintf("PRS-MIX at w = %g minus single-population PRS-CS (95%% bootstrap CI)", w0), y = NULL,
-       title = sprintf("PRS-MIX at the true weight vs single-population LD, chr22, %d replicates", n_rep),
+  labs(x = sprintf("PRS-LDmix at w = %g minus single-population PRS-CS (95%% bootstrap CI)", w0), y = NULL,
+       title = sprintf("PRS-LDmix at the true weight vs single-population LD, chr22, %d replicates", n_rep),
        subtitle = paste("Within-replicate paired differences. Faded: not significant after Holm correction.",
                         "LD fit (grey) does not involve PRS-CS.", sep = "\n")) +
   base_theme +

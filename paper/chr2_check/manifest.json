@@ -2,7 +2,7 @@
   "study": "chr2_check",
   "program": "inst/scripts/null_sim/24_chr2_tables.R",
   "command": "Rscript inst/scripts/null_sim/24_chr2_tables.R 'inst/scripts/results/chr2_check' 'inst/scripts/results/sim250_sweep_100rep' 'paper/chr2_check'",
-  "asset_commit": "ae85a520d2d6e6270c1f775232d86694acdf261e",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "experiment_commit": ["612fe1f6e86758a28717388060b28a7d8c9b6478", "5bf74ec3ca675a894ed80abd6e9518b720fff7fd", "5c98ae3862fa375206f159bb7cfc001c0ff1219b", "2c38d4275e9dec2358c83f67a54d5142eae62765"],
@@ -114,7 +114,7 @@
   "outputs": {
     "table_chr2_accuracy.tex": {
       "path": "paper/chr2_check/table_chr2_accuracy.tex",
-      "sha256": "c21593e4fcdb79d69b45823891f2353531e92016f2f93c64d894dd98b73cfead"
+      "sha256": "a9458c0b7986dbc9ef22d1fcbba699f94c7c30144010891a606481a4ac31b536"
     },
     "table_chr2_overlap.tex": {
       "path": "paper/chr2_check/table_chr2_overlap.tex",
@@ -126,11 +126,11 @@
     },
     "table_chr2_eurcuts.tex": {
       "path": "paper/chr2_check/table_chr2_eurcuts.tex",
-      "sha256": "a16b395634d089cd33ab0cc52a4f710113736777affc85cfc639a80c5f9b9605"
+      "sha256": "d46e827d8e8723b56b4dcbe74b58e710c3073d46f2ed490a565692adf9137ae7"
     },
     "tables.html": {
       "path": "paper/chr2_check/tables.html",
-      "sha256": "4d8939ba182d7d86d49a7ed2e9a3cfea8da861ad99e90304e2eb39a94ec0103b"
+      "sha256": "6f71634bc80ff35350f46775d9e1f9bd04875d6a09063301f7f4c0790c846f0b"
     },
     "tables.tsv": {
       "path": "paper/chr2_check/tables.tsv",

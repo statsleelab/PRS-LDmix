@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # Summarizes the null and non-null metrics (plan section 7): paired contrasts of
-# PRS-MIX at the generating weight against each single-population arm, with
+# PRS-LDmix at the generating weight against each single-population arm, with
 # the simulated GWAS replicate as the unit, plus weight-sweep curves.
 #
 # Each contrast is computed within replicate (same simulated GWAS and target

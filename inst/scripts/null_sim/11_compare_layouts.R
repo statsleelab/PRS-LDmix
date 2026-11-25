@@ -5,7 +5,7 @@
 # so each replicate is the same GWAS under both layouts and differences are
 # paired by replicate.
 #
-# For each phi setting and arm (EUR-only, PRS-MIX at w0, ASN-only), reports the
+# For each phi setting and arm (EUR-only, PRS-LDmix at w0, ASN-only), reports the
 # mean of each metric under both layouts and the paired difference (b - a) with
 # a normal-approximation 95% CI over replicates.
 #

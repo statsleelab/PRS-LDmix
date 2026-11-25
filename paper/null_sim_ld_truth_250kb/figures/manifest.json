@@ -2,7 +2,7 @@
   "study": "figures",
   "program": "inst/scripts/null_sim/21_ld_truth_figures.R",
   "command": "Rscript inst/scripts/null_sim/21_ld_truth_figures.R 'inst/scripts/results/null_sim_ld_truth/block75/inputs' 'paper/null_sim_ld_truth_250kb/figures' '75' 'eur_asn,eur_afr,eur_sas' 'no'",
-  "asset_commit": "1365ba94f7d2a1aeaaef34d4d5096ead21dd3f73",
+  "asset_commit": "04f50d58b8b1bf458d7976ba6e9d650958ded22f",
   "program_uncommitted": false,
   "inputs_uncommitted": false,
   "experiment_commit": "306d596b1a84474b7a55cd04017e19ebd5a89638",
@@ -67,35 +67,35 @@
   "outputs": {
     "figure_data": {
       "path": "paper/null_sim_ld_truth_250kb/figures/figure_data.tsv.gz",
-      "sha256": "40f2efd0048300dfd5eb15402f6e443d70cac177a3ecd31cc102f008b05610ac"
+      "sha256": "36e0372a328665125bd8b85b7f14acf4d60fb9f86de670b85b7f72c56eec4ced"
     },
     "block_summary": {
       "path": "paper/null_sim_ld_truth_250kb/figures/block_summary.tsv",
-      "sha256": "d60c67984b2268ec760f7435e8c3b204caf3574ffd2de2edf4ee603f60d1bedc"
+      "sha256": "92f79c22b42a56088ba644b8ab4a7c23ded2348f4d04437fb4cae92bfbcc8e82"
     },
     "eur_asn_png": {
       "path": "paper/null_sim_ld_truth_250kb/figures/fig_ld_truth_eur_asn_block75.png",
-      "sha256": "f24ae808c0da921dc85fc38c69e2442a3fbeb6291f66b7a8d215ac3e8a955fa3"
+      "sha256": "562996cafc00254e2445721803f407cfe1ac50d70fa4dc4c65b8f27d80092df4"
     },
     "eur_asn_pdf": {
       "path": "paper/null_sim_ld_truth_250kb/figures/fig_ld_truth_eur_asn_block75.pdf",
-      "sha256": "d5ef0d3255ad4a6bd85603d921e92ab386b1d39ff5fdaec8ed928c77d2562a1f"
+      "sha256": "aef9a48644771589cb3ff5e4f39fec5fdde0eb54f377efa1e2f62ed915aeceb0"
     },
     "eur_afr_png": {
       "path": "paper/null_sim_ld_truth_250kb/figures/fig_ld_truth_eur_afr_block75.png",
-      "sha256": "43da91ae6cd4a03bf71242ce9a7463c6282bd28c5d8aec5a842d7cf21684eba5"
+      "sha256": "b50542922003a2879f6d7b7862e2f249257acd7160ec730ebe34afb353a0dc5c"
     },
     "eur_afr_pdf": {
       "path": "paper/null_sim_ld_truth_250kb/figures/fig_ld_truth_eur_afr_block75.pdf",
-      "sha256": "6072f6cfce6cd40c0140a4f9e00ed71eb0e54e514cd0a5284afaa4d121b59d03"
+      "sha256": "c91a9cb5a0b18b7a12bd3207b2d2b75bb47b9d0ef456dd3cb9375a65c9677674"
     },
     "eur_sas_png": {
       "path": "paper/null_sim_ld_truth_250kb/figures/fig_ld_truth_eur_sas_block75.png",
-      "sha256": "147f7f71714819020464502e3000019bbdf98dc00a2b0251d5c35b2776de1e64"
+      "sha256": "da196ff307cb135064e54e6f3c53d61c9592a47458e8bddc891d960e1a6fef1e"
     },
     "eur_sas_pdf": {
       "path": "paper/null_sim_ld_truth_250kb/figures/fig_ld_truth_eur_sas_block75.pdf",
-      "sha256": "81ca356e6933ce1bfc002250d1d7b919ecacb7812d588589cf2bb0f3c0004085"
+      "sha256": "c34e2d22163d80651dae845bea2b52c8c2cd628de3a989ffd4531e252b065c53"
     }
   },
   "settings": {
@@ -106,7 +106,7 @@
     "compositions_A": [0.9, 0.7, 0.5],
     "footnote": false,
     "true_ld": "w R_A,disc + (1 - w) R_B,disc, R_k,disc = Z_k'Z_k / n_k on the discovery individuals (04_simulate_null.R)",
-    "prs_mix": "w R_A,panel + (1 - w) R_B,panel from the reference-set panels",
+    "prs_ldmix": "w R_A,panel + (1 - w) R_B,panel from the reference-set panels",
     "summary": "mean |true - candidate| over off-diagonal SNP pairs of the block"
   },
   "notes": "Inputs were written on RedHawk by 20_ld_truth_extract.R from the sim250 null-simulation directories (<pair>/w0.7: split, panels and discovery genotypes shared by every composition of the pair)."
